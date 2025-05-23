@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository.database;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -62,12 +63,14 @@ public class ComentarioRepositoryImpl implements ComentarioRepository{
     }
 
     @Override
-    public Comentario findById(int id) {
+    public ComentarioDTO findById(int id) {
         var query = """
-                SELECT * FROM comentario
-                WHERE id = :id;
+                SELECT c.id as id, c.texto as texto, c.sentimento as sentimento, p.nome as Produto, u.nome as Usuario FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                INNER JOIN usuario u ON u.id = c.id_usuario
+                WHERE c.id = :id;
                 """;
-        return (Comentario) entityManager.createNativeQuery(query, Comentario.class)
+        return (ComentarioDTO) entityManager.createNativeQuery(query, ComentarioDTO.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
@@ -75,9 +78,11 @@ public class ComentarioRepositoryImpl implements ComentarioRepository{
     @Override
     public List<Comentario> fetch() {
         var query = """
-                SELECT * FROM comentario;
+                SELECT c.id as id, c.texto as texto, c.sentimento as sentimento, p.nome as Produto, u.nome as Usuario FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                INNER JOIN usuario u ON u.id = c.id_usuario;
                 """;
-        return entityManager.createNativeQuery(query, Comentario.class)
+        return entityManager.createNativeQuery(query, ComentarioDTO.class)
                 .getResultList();
     }
 }

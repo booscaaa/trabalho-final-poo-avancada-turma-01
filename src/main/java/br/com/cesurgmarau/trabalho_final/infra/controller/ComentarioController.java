@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/comentario/{id}")
-    public Comentario findById(@PathVariable int id){
+    public ComentarioDTO findById(@PathVariable int id){
         return comentarioUseCase.findById(id);
     }
 
