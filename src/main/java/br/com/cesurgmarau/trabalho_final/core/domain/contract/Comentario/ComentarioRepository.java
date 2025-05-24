@@ -11,4 +11,7 @@ public interface ComentarioRepository {
     public void delete(int id);
     public ComentarioDTO findById(int id);
     public List<Comentario> fetch();
+    public List<ComentarioDTO> findByProdutoId(int produtoId);
+    public List<ComentarioDTO> findByUsuarioId(int usuarioId);
+    public List<ComentarioDTO> findByFeeling(String feeling);
 }

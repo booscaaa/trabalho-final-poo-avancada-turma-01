@@ -37,4 +37,19 @@ public class ComentarioController {
     public List<Comentario> fetch(){
         return comentarioUseCase.fetch();
     }
+
+    @GetMapping("/comentario/produto")
+    public List<ComentarioDTO> findByProdutoId(@RequestParam int produtoId){
+        return comentarioUseCase.findByProdutoId(produtoId);
+    }
+
+    @GetMapping("/comentario/usuario")
+    public List<ComentarioDTO> findByUsuarioId(@RequestParam int usuarioId){
+        return comentarioUseCase.findByUsuarioId(usuarioId);
+    }
+
+    @GetMapping("/comentario/sentimento")
+    public List<ComentarioDTO> findByFeeling(@RequestParam String feeling) {
+        return comentarioUseCase.findByFeeling(feeling);
+    }
 }

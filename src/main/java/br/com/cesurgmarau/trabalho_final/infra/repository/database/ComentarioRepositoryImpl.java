@@ -85,4 +85,43 @@ public class ComentarioRepositoryImpl implements ComentarioRepository{
         return entityManager.createNativeQuery(query, ComentarioDTO.class)
                 .getResultList();
     }
+
+    @Override
+    public List<ComentarioDTO> findByProdutoId(int produtoId) {
+        var query = """
+                SELECT c.id as id, c.texto as texto, c.sentimento as sentimento, u.nome as Usuario, p.nome as Produto FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                INNER JOIN usuario u ON u.id = c.id_usuario
+                WHERE c.id_produto = :id_produto;
+                """;
+        return entityManager.createNativeQuery(query, ComentarioDTO.class)
+                .setParameter("id_produto", produtoId)
+                .getResultList();
+    }
+
+    @Override
+    public List<ComentarioDTO> findByUsuarioId(int usuarioId) {
+        var query = """
+                SELECT c.id as id, c.texto as texto, c.sentimento as sentimento, u.nome as Usuario, p.nome as Produto FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                INNER JOIN usuario u ON u.id = c.id_usuario
+                WHERE c.id_usuario = :id_usuario;
+                """;
+        return entityManager.createNativeQuery(query, ComentarioDTO.class)
+                .setParameter("id_usuario", usuarioId)
+                .getResultList();
+    }
+
+    @Override
+    public List<ComentarioDTO> findByFeeling(String feeling) {
+        var query = """
+                SELECT c.id as id, c.texto as texto, c.sentimento as sentimento, u.nome as Usuario, p.nome as Produto FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                INNER JOIN usuario u ON u.id = c.id_usuario
+                WHERE c.sentimento = :sentimento;
+                """;
+        return entityManager.createNativeQuery(query, ComentarioDTO.class)
+                .setParameter("sentimento", feeling)
+                .getResultList();
+    }
 }

@@ -39,4 +39,19 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     public List<Comentario> fetch() {
         return comentarioRepository.fetch();
     }
+
+    @Override
+    public List<ComentarioDTO> findByProdutoId(int produtoId) {
+        return comentarioRepository.findByProdutoId(produtoId);
+    }
+
+    @Override
+    public List<ComentarioDTO> findByUsuarioId(int usuarioId) {
+        return comentarioRepository.findByUsuarioId(usuarioId);
+    }
+
+    @Override
+    public List<ComentarioDTO> findByFeeling(String feeling) {
+        return comentarioRepository.findByFeeling(feeling);
+    }
 }

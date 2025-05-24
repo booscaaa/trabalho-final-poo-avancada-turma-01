@@ -4,14 +4,14 @@ public record ComentarioDTO(
         int id,
         String texto,
         String sentimento,
-        String usuarioNome,
-        String usuarioProduto
+        String nome,
+        String produto
 ) {
-    public ComentarioDTO(int id, String texto, String sentimento, String usuarioNome, String usuarioProduto) {
+    public ComentarioDTO(int id, String texto, String sentimento, String nome, String produto) {
         this.id = id;
         this.texto = texto;
         this.sentimento = sentimento;
-        this.usuarioNome = usuarioNome;
-        this.usuarioProduto = usuarioProduto;
+        this.nome = nome;
+        this.produto = produto;
     }
 }
