@@ -1,0 +1,63 @@
+package br.com.cesurgmarau.trabalho_final.core.domain.entity;
+
+import jakarta.persistence.*;
+
+@Entity(name = "review")
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "account_id")
+    private int accountID;
+
+    @Column(name = "product_id")
+    private int productID;
+
+    @Column(name = "classification_id")
+    private int classificationID;
+
+    @Column(name = "comment")
+    private String comment;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
+    }
+
+    public int getClassificationID() {
+        return classificationID;
+    }
+
+    public void setClassificationID(int classificationID) {
+        this.classificationID = classificationID;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+}
