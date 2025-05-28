@@ -7,7 +7,7 @@ public class Comentario {
     private int usuarioId;
     private int livroId;
     private String conteudo;
-    private Sentimento sentimento;
+    private String sentimento;
     private LocalDateTime data;
 
     public int getId() {
@@ -42,11 +42,11 @@ public class Comentario {
         this.conteudo = conteudo;
     }
 
-    public Sentimento getSentimento() {
+    public String getSentimento() {
         return sentimento;
     }
 
-    public void setSentimento(Sentimento sentimento) {
+    public void setSentimento(String sentimento) {
         this.sentimento = sentimento;
     }
 
