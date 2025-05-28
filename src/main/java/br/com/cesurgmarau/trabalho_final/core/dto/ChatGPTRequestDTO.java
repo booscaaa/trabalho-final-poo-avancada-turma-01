@@ -1,40 +1,85 @@
 package br.com.cesurgmarau.trabalho_final.core.dto;
 
-public class ComentarioRequestDTO {
-    public int usuarioId;
-    public int livroId;
-    public String conteudo;
-    public String sentimento;
+import java.util.List;
 
-    public int getUsuarioId() {
-        return usuarioId;
+public class ChatGPTRequestDTO {
+
+    private String model;
+    private List<Message> messages;
+    private Integer max_tokens;
+    private Double temperature;
+
+    public ChatGPTRequestDTO() {
     }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
+    public ChatGPTRequestDTO(String model, List<Message> messages, Integer max_tokens, Double temperature) {
+        this.model = model;
+        this.messages = messages;
+        this.max_tokens = max_tokens;
+        this.temperature = temperature;
     }
 
-    public int getLivroId() {
-        return livroId;
+    // Getters e Setters
+
+    public String getModel() {
+        return model;
     }
 
-    public void setLivroId(int livroId) {
-        this.livroId = livroId;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public String getSentimento() {
-        return sentimento;
+    public Integer getMax_tokens() {
+        return max_tokens;
     }
 
-    public void setSentimento(String sentimento) {
-        this.sentimento = sentimento;
+    public void setMax_tokens(Integer max_tokens) {
+        this.max_tokens = max_tokens;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public static class Message {
+        private String role; // ex: "system", "user"
+        private String content;
+
+        public Message() {
+        }
+
+        public Message(String role, String content) {
+            this.role = role;
+            this.content = content;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 }
+
