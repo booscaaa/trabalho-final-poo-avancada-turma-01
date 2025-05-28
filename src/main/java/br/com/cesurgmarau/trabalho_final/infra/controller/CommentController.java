@@ -13,27 +13,27 @@ public class CommentController {
     private CommentUseCase commentUseCase;
 
 
-    @GetMapping("/product")
+    @GetMapping("/comment")
     public List<Comment> listAllComments() {
         return commentUseCase.listAllComments();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/comment/{id}")
     public Comment listByID (@PathVariable int id) {
         return commentUseCase.listByID(id);
     }
 
-    @PostMapping("/product")
+    @PostMapping("/comment")
     public void createComment (@RequestBody Comment comment) {
         commentUseCase.createComment(comment);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/comment/{id}")
     public String deleteComment (@PathVariable int id) {
         return commentUseCase.deleteComment(id);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/comment/{id}")
     public String updateComment (@PathVariable int id, @RequestBody Comment comment) {
         return commentUseCase.updateComment(id, comment);
     }

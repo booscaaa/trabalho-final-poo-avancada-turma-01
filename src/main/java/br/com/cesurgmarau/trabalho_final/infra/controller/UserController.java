@@ -13,27 +13,27 @@ public class UserController {
     private UserUseCase userUseCase;
 
 
-    @GetMapping("/product")
+    @GetMapping("/user")
     public List<User> listAllUsers() {
         return userUseCase.listAllUsers();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/user/{id}")
     public User listByID (@PathVariable int id) {
         return userUseCase.listByID(id);
     }
 
-    @PostMapping("/product")
+    @PostMapping("/user")
     public void createUser(@RequestBody User user) {
         userUseCase.createUser(user);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/user/{id}")
     public String deleteUser (@PathVariable int id) {
         return userUseCase.deleteUser(id);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/user/{id}")
     public String updateUser (@PathVariable int id, @RequestBody User user) {
         return userUseCase.updateUser(id, user);
     }
