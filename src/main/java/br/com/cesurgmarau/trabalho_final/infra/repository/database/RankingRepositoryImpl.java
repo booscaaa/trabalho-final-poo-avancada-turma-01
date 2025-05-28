@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository.database;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Ranking.RankingRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RankingProdutosDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.RankingUsuariosDTO;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,20 @@ public class RankingRepositoryImpl implements RankingRepository {
                 ORDER BY positivos DESC
                """;
         return entityManager.createNativeQuery(query, RankingUsuariosDTO.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<RankingProdutosDTO> rankingProdutos() {
+        var query = """
+                SELECT p.nome as produto, COUNT(*) as positivos
+                FROM comentario c
+                INNER JOIN produto p ON p.id = c.id_produto
+                WHERE c.sentimento = 'Positivo' or c.sentimento = 'Muito Positivo'
+                GROUP BY produto
+                ORDER BY positivos DESC
+                """;
+        return entityManager.createNativeQuery(query, RankingProdutosDTO.class)
                 .getResultList();
     }
 }

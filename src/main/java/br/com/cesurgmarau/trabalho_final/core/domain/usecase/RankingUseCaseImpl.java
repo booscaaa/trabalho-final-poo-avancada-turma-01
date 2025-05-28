@@ -2,6 +2,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Ranking.RankingRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Ranking.RankingUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RankingProdutosDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.RankingUsuariosDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class RankingUseCaseImpl implements RankingUseCase {
     @Override
     public List<RankingUsuariosDTO> rankingUsuarios() {
         return rankingRepository.rankingUsuarios();
+    }
+
+    @Override
+    public List<RankingProdutosDTO> rankingProdutos() {
+        return rankingRepository.rankingProdutos();
     }
 }
