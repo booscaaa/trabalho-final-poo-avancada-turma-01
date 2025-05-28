@@ -16,26 +16,26 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
     @Override
     public void adicionarUsuario(Usuario usuario) {
-
+        usuarioRepository.adicionarUsuario(usuario);
     }
 
     @Override
     public Usuario listarUsuarioPorId(int id) {
-        return null;
+        return usuarioRepository.listarUsuarioPorId(id);
     }
 
     @Override
     public List<Usuario> listarUsuarios() {
-        return List.of();
+        return usuarioRepository.listarUsuarios();
     }
 
     @Override
     public void deletarUsuario(int id) {
-
+        usuarioRepository.deletarUsuario(id);
     }
 
     @Override
     public void atualizarUsuario(int id, Usuario usuario) {
-
+        usuarioRepository.atualizarUsuario(id, usuario);
     }
 }

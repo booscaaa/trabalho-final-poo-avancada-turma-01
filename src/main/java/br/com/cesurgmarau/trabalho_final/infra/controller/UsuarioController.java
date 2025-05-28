@@ -16,6 +16,7 @@ public class UsuarioController {
     @PostMapping("/usuario")
     public void criarUsuario(@RequestBody Usuario usuario){
         usuarioUseCase.adicionarUsuario(usuario);
+
     }
 
     @GetMapping("/usuario/{id}")

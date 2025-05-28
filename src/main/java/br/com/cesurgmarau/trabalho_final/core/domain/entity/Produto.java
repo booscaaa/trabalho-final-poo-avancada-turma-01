@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.CategoriaUseCase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,6 +14,8 @@ public class Produto {
     private String nome;
     @Column(name = "pontuacao")
     private int pontuacao;
+    @Column(name= "categoria_id")
+    private int CategoriaId;
 
     public int getId() {
         return id;
@@ -36,5 +39,13 @@ public class Produto {
 
     public void setPontuacao(int pontuacao) {
         this.pontuacao = pontuacao;
+    }
+
+    public int getCategoriaId() {
+        return CategoriaId;
+    }
+
+    public void setCategoriaId(int categoriaId) {
+        CategoriaId = categoriaId;
     }
 }
