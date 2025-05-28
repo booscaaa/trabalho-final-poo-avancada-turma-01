@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Relatorio.RelatorioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Relatorio.RelatorioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioSentimentoDTO;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioUsuariosDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Sentimento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,10 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
     @Override
     public String classificaPorMedia(int media) {
          return Sentimento.getSentimentoPorNumero(media);
+    }
+
+    @Override
+    public List<RelatorioUsuariosDTO> relatorioUsuarios() {
+        return relatorioSentimentoRepository.relatorioUsuarios();
     }
 }
