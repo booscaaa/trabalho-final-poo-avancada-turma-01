@@ -16,26 +16,26 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
     @Override
     public void adicionarProduto(Produto produto) {
-
+        produtoRepository.adicionarProduto(produto);
     }
 
     @Override
     public Produto listarProdutoPorId(int id) {
-        return null;
+        return produtoRepository.listarProdutoPorId(id);
     }
 
     @Override
     public List<Produto> listarProdutos() {
-        return List.of();
+        return produtoRepository.listarProdutos();
     }
 
     @Override
     public void deletarProduto(int id) {
-
+        produtoRepository.deletarProduto(id);
     }
 
     @Override
     public void atualizarProduto(int id, Produto produto) {
-
+        produtoRepository.atualizarProduto(id, produto);
     }
 }

@@ -64,12 +64,14 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         var query = """
                 UPDATE produto SET
                 nome = :nome,
+                pontuacao = :pontuacao,
                 categoria_id = :categoria_id
                 WHERE id = :id
                 """;
         entityManager.createNativeQuery(query, Usuario.class)
                 .setParameter("nome", produto.getNome())
                 .setParameter("categoria_id", produto.getCategoriaId())
+                .setParameter("pontuacao", produto.getPontuacao())
                 .setParameter("id", id)
                 .executeUpdate();
     }

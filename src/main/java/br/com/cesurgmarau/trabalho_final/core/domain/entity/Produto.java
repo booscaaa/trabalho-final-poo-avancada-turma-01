@@ -15,7 +15,7 @@ public class Produto {
     @Column(name = "pontuacao")
     private int pontuacao;
     @Column(name= "categoria_id")
-    private int CategoriaId;
+    private int categoriaId;
 
     public int getId() {
         return id;
@@ -42,10 +42,10 @@ public class Produto {
     }
 
     public int getCategoriaId() {
-        return CategoriaId;
+        return categoriaId;
     }
 
     public void setCategoriaId(int categoriaId) {
-        CategoriaId = categoriaId;
+        this.categoriaId = categoriaId;
     }
 }

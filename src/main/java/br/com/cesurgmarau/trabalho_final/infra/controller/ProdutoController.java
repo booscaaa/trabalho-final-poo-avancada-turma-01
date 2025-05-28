@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
