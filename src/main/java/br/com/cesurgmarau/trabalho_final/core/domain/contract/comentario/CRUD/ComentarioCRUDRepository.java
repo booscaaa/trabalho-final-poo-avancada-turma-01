@@ -1,0 +1,15 @@
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.comentario.CRUD;
+
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+
+import java.util.List;
+
+public interface ComentarioCRUDRepository {
+
+    List<Comentario> fetch ();
+    Comentario fetchById (int id);
+    void createComentario (Comentario comentario);
+    void updateComentario (Comentario comentario, int id);
+    void deleteComentario (int id);
+
+}

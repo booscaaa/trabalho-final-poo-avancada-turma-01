@@ -11,6 +11,7 @@ import java.util.Map;
 @SpringBootApplication
 public class TrabalhoFinalApplication {
 	public static void main(String[] args) {
+
 		Dotenv dotenv = Dotenv.load();
 
 		Map<String, Object> envVars = new HashMap<>();
