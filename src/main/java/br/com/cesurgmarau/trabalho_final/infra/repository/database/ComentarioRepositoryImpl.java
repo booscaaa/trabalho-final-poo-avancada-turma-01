@@ -2,6 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.repository.database;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioSentimentoDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;

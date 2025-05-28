@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioSentimentoDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

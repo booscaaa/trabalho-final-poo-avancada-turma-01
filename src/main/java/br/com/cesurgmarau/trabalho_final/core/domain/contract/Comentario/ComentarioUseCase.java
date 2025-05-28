@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioSentimentoDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 
 import java.util.List;
