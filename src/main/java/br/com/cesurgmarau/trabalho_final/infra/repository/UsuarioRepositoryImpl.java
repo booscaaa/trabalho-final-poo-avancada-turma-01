@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Transactional
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
+
     @Override
     public void adicionarUsuario(Usuario usuario) {
         var query = """
@@ -35,17 +36,31 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public void usuarioPorId(int id, Usuario usuario) {
-
+    public Usuario usuarioPorId(int id) {
+        return entityManager.find(Usuario.class, id);
     }
 
     @Override
     public void atualizarUsuario(int id, Usuario usuario) {
-
+        var query = """
+                    UPDATE usuarios
+                    SET nome = :nome, idade = :idade
+                    WHERE id_usuario = :id
+                """;
+        entityManager.createNativeQuery(query)
+                .setParameter("nome", usuario.getNome())
+                .setParameter("idade", usuario.getIdade())
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override
     public void deletarUsuario(int id) {
-
+        var query = """
+                    DELETE FROM usuarios WHERE id_usuario = :id
+                """;
+        entityManager.createNativeQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }

@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
 import jakarta.persistence.*;
 
-@Entity(name = "Usuario")
+@Entity(name = "usuarios")
 public class Usuario {
 
     @Id

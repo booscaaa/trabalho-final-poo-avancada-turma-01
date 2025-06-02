@@ -28,17 +28,17 @@ public class UsuarioUseCaseImpl implements br.com.cesurgmarau.trabalho_final.cor
     }
 
     @Override
-    public void usuarioPorId(int id, Usuario usuario) {
-
+    public Usuario usuarioPorId(int id) {
+        return this.usuarioRepository.usuarioPorId(id);
     }
 
     @Override
     public void atualizarUsuario(int id, Usuario usuario) {
-
+            this.usuarioRepository.atualizarUsuario(id, usuario);
     }
 
     @Override
     public void deletarUsuario(int id) {
-
+        this.usuarioRepository.deletarUsuario(id);
     }
 }
