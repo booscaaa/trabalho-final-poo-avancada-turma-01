@@ -1,10 +1,26 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "comentarios")
 public class Comentario {
+
+    @Id
     private Integer id;
+
+    @Column
     private String texto;
+
     private String sentimento;
+
+    @Column(name = "usuario_id")
     private Integer usuarioId;
+
+    @Column(name = "produto_id")
     private Integer produtoId;
 
     public Integer getId() {

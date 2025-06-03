@@ -1,8 +1,21 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
+
+    @Id
     private Integer id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     public Integer getId() {
