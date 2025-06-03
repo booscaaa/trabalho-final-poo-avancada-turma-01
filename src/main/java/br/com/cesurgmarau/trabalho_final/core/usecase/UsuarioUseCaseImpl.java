@@ -34,11 +34,21 @@ public class UsuarioUseCaseImpl implements br.com.cesurgmarau.trabalho_final.cor
 
     @Override
     public void atualizarUsuario(int id, Usuario usuario) {
-            this.usuarioRepository.atualizarUsuario(id, usuario);
+        Usuario existente  = usuarioRepository.usuarioPorId(id);
+        if (existente == null) {
+            throw new IllegalArgumentException("Usuário com o ID fornecido não existe.");
+        }
+
+        this.usuarioRepository.atualizarUsuario(id, usuario);
     }
 
     @Override
     public void deletarUsuario(int id) {
+        Usuario existente  = usuarioRepository.usuarioPorId(id);
+        if (existente == null) {
+            throw new IllegalArgumentException("Usuário com o ID fornecido não existe.");
+        }
+
         this.usuarioRepository.deletarUsuario(id);
     }
 }
