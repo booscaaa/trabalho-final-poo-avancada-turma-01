@@ -16,12 +16,22 @@ public class SentimentoRepositoryImpl implements SentimentoRepository {
     private EntityManager entityManager;
 
     @Override
-    public Sentimento pegarSentimentoId(String tipoSentimento) {
+    public Sentimento pegarTipoSentimento(String tipoSentimento) {
         var query = """
                 SELECT * FROM sentimento WHERE tipo = :tipoSentimento;
                 """;
         return (Sentimento) entityManager.createNativeQuery(query, Sentimento.class)
                 .setParameter("tipoSentimento", tipoSentimento)
+                .getSingleResult();
+    }
+
+    @Override
+    public Sentimento pegarSentimentoId(int id){
+        var query = """
+                SELECT * FROM sentimento WHERE id = :id;
+                """;
+        return (Sentimento) entityManager.createNativeQuery(query, Sentimento.class)
+                .setParameter("id", id)
                 .getSingleResult();
     }
 

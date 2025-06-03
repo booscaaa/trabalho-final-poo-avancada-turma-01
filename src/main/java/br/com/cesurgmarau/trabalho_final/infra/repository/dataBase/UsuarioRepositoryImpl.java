@@ -63,12 +63,14 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         var query = """
                 UPDATE usuario SET
                 nome = :nome,
-                cpf = :cpf
+                cpf = :cpf,
+                quantidade_comentario = :quantidade_comentario
                 WHERE id = :id
                 """;
         entityManager.createNativeQuery(query, Usuario.class)
                 .setParameter("nome", usuario.getNome())
                 .setParameter("cpf", usuario.getCpf())
+                .setParameter("quantidade_comentario", usuario.getQuantidadeComentario())
                 .setParameter("id", id)
                 .executeUpdate();
     }

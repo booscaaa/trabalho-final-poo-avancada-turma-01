@@ -2,6 +2,10 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorSentimentoDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorProdutoDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorUsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +24,28 @@ public class ComentarioController {
     }
 
     @GetMapping("/comentario/{id}")
-    public Comentario listarComentarioPorId (@PathVariable int id){
+    public ComentarioDTO listarComentarioPorId(@PathVariable int id) {
         return comentarioUseCase.listarComentarioPorId(id);
     }
 
     @GetMapping("/comentario")
-    public List<Comentario> listarComentario(){
+    public List<ComentarioDTO> listarComentario() {
         return comentarioUseCase.listarComentario();
+    }
+
+
+    @GetMapping("/comentario/produtoId/{id}")
+    public ComentarioPorProdutoDTO listarProdutoComComentario(@PathVariable int id) {
+        return comentarioUseCase.listarProdutoComComentarios(id);
+    }
+
+    @GetMapping("/comentario/usuarioId/{id}")
+    public ComentarioPorUsuarioDTO listarUsuarioComComentario(@PathVariable int id) {
+        return comentarioUseCase.listarUsuarioComComentario(id);
+    }
+
+    @GetMapping("/comentario/sentimentoId/{id}")
+    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(@PathVariable int id) {
+        return comentarioUseCase.listarComentarioPorSentimento(id);
     }
 }
