@@ -12,4 +12,6 @@ public interface ComentarioRepository {
     public void adicionarComentario(Comentario comentario);
     public String deletarComentario(int id);
     public String atualizarComentario(int id, Comentario comentario);
+
+    List<Comentario> findAll();
 }
