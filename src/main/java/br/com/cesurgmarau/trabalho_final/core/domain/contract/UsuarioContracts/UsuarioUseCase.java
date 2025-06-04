@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.contract;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioContracts;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 

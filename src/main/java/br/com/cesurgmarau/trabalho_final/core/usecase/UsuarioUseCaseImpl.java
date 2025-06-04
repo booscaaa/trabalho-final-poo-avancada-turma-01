@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioContracts.UsuarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioContracts.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsuarioUseCaseImpl implements br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase {
+public class UsuarioUseCaseImpl implements UsuarioUseCase {
     @Autowired
 
     private UsuarioRepository usuarioRepository;

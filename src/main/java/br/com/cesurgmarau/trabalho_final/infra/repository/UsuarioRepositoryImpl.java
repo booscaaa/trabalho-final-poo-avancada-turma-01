@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioContracts.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

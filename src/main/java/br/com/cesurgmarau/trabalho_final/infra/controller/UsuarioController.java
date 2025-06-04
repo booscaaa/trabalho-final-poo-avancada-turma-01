@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioContracts.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import br.com.cesurgmarau.trabalho_final.infra.exceptions.MensagemResponse;
 import org.springframework.beans.factory.annotation.Autowired;
