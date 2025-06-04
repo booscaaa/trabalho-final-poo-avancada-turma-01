@@ -1,24 +1,14 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.entity;
+package br.com.cesurgmarau.trabalho_final.core.dto.request;
 
-public class Usuario {
-    private int id;
+public class UsuarioRequestDTO {
     private String nome;
     private String senha;
     private String email;
 
-    public Usuario(int id, String nome, String senha, String email) {
-        this.id = id;
+    public UsuarioRequestDTO(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {

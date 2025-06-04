@@ -1,17 +1,23 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.enums.Sentimento;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Comentario {
-
     private int id;
     private String texto;
     private Usuario usuario;
     private Produto produto;
-    private Sentimento sentimento;
-    private Date data;
+    private int sentimento;
+    private LocalDateTime data;
+
+    public Comentario(int id, String texto, Usuario usuario, Produto produto, int sentimento, LocalDateTime data) {
+        this.id = id;
+        this.texto = texto;
+        this.usuario = usuario;
+        this.produto = produto;
+        this.sentimento = sentimento;
+        this.data = data;
+    }
 
     public int getId() {
         return id;
@@ -45,19 +51,19 @@ public class Comentario {
         this.produto = produto;
     }
 
-    public Sentimento getSentimento() {
+    public int getSentimento() {
         return sentimento;
     }
 
-    public void setSentimento(Sentimento sentimento) {
+    public void setSentimento(int sentimento) {
         this.sentimento = sentimento;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 }

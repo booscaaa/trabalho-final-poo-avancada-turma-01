@@ -1,33 +1,23 @@
-package br.com.cesurgmarau.trabalho_final.core.dto.repository;
+package br.com.cesurgmarau.trabalho_final.core.dto.response;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name="comentario")
-public class ComentarioRepositoryDto {
-
-    @Id
-    @Column(name="id")
+public class ComentarioResponseDTO {
     private int id;
-
-    @Column(name="texto", length=500, nullable=false)
     private String texto;
-
-    @Column(name="usuario_id", nullable=false)
     private int usuarioId;
-
-    @Column(name="produto_id", nullable=false)
     private int produtoId;
-
-    @Column(name="sentimento")
     private int sentimento;
+    private LocalDateTime data;
 
-    @Column(name="data")
-    private Date data;
+    public ComentarioResponseDTO(int id, String texto, int usuarioId, int produtoId, int sentimento, LocalDateTime data) {
+        this.id = id;
+        this.texto = texto;
+        this.usuarioId = usuarioId;
+        this.produtoId = produtoId;
+        this.sentimento = sentimento;
+        this.data = data;
+    }
 
     public int getId() {
         return id;
@@ -69,11 +59,11 @@ public class ComentarioRepositoryDto {
         this.sentimento = sentimento;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 }

@@ -1,19 +1,17 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.entity;
-
-import br.com.cesurgmarau.trabalho_final.core.domain.enums.Unidade;
+package br.com.cesurgmarau.trabalho_final.core.dto.response;
 
 import java.time.LocalDateTime;
 
-public class Produto {
+public class ProdutoResponseDTO {
     private int id;
     private String nome;
     private int valorUnitario;
-    private Unidade unidade;
+    private int unidade;
     private String descricao;
     private int quantidade;
     private LocalDateTime data;
 
-    public Produto(int id, String nome, int valorUnitario, Unidade unidade, String descricao, int quantidade, LocalDateTime data) {
+    public ProdutoResponseDTO(int id, String nome, int valorUnitario, int unidade, String descricao, int quantidade, LocalDateTime data) {
         this.id = id;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
@@ -47,11 +45,11 @@ public class Produto {
         this.valorUnitario = valorUnitario;
     }
 
-    public Unidade getUnidade() {
+    public int getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(Unidade unidade) {
+    public void setUnidade(int unidade) {
         this.unidade = unidade;
     }
 

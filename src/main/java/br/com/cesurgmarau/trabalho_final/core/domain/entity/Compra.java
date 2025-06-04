@@ -1,14 +1,23 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 public class Compra {
     private int id;
-    private Date data;
+    private LocalDateTime data;
     private int valorTotal;
     private Usuario usuario;
-    private List<Produto> produtos;
+    private List<ProdutoCompra> produtos;
+
+    public Compra(int id, LocalDateTime data, int valorTotal, Usuario usuario, List<ProdutoCompra> produtos) {
+        this.id = id;
+        this.data = data;
+        this.valorTotal = valorTotal;
+        this.usuario = usuario;
+        this.produtos = produtos;
+    }
 
     public int getId() {
         return id;
@@ -18,11 +27,11 @@ public class Compra {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
@@ -42,11 +51,11 @@ public class Compra {
         this.usuario = usuario;
     }
 
-    public List<Produto> getProdutos() {
+    public List<ProdutoCompra> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<Produto> produtos) {
+    public void setProdutos(List<ProdutoCompra> produtos) {
         this.produtos = produtos;
     }
 }

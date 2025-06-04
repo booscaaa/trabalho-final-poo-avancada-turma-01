@@ -1,25 +1,17 @@
-package br.com.cesurgmarau.trabalho_final.core.dto.repository;
+package br.com.cesurgmarau.trabalho_final.core.dto.response;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="usuario")
-public class UsuarioRepositoryDto {
-    @Id
-    @Column(name="id")
+public class UsuarioResponseDTO {
     private int id;
-
-    @Column(name="nome", length=100, nullable=false)
     private String nome;
-
-    @Column(name="senha", length=100, nullable=false)
     private String senha;
-
-    @Column(name="email", length=100, nullable=false)
     private String email;
+
+    public UsuarioResponseDTO(int id, String nome, String senha, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+    }
 
     public int getId() {
         return id;
