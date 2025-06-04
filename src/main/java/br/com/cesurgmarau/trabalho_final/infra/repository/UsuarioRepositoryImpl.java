@@ -1,10 +1,53 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UsuarioRepositoryImpl extends JpaRepository<Usuario, Integer> {
+import java.util.List;
+import java.util.Optional;
 
+@Repository
+@Transactional
+public class UsuarioRepositoryImpl implements UsuarioRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Usuario salvar(Usuario usuario) {
+        entityManager.persist(usuario);
+        return usuario;
+    }
+
+    @Override
+    public Optional<Usuario> buscarPorId(Integer id) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
+        return Optional.ofNullable(usuario);
+    }
+
+    @Override
+    public List<Usuario> listarTodos() {
+        return entityManager.createQuery(
+                        """
+                        SELECT u FROM Usuario u
+                        """, Usuario.class)
+                .getResultList();
+    }
+
+    @Override
+    public Usuario atualizar(Usuario usuario) {
+        return entityManager.merge(usuario);
+    }
+
+    @Override
+    public void remover(Integer id) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
+        if (usuario != null) {
+            entityManager.remove(usuario);
+        }
+    }
 }

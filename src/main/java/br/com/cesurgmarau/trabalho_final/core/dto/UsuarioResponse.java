@@ -1,19 +1,8 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.entity;
+package br.com.cesurgmarau.trabalho_final.core.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsuarioResponse {
     private Integer id;
-
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false, unique = true)
     private String email;
 
     public Integer getId() {

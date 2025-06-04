@@ -1,20 +1,15 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.entity;
+package br.com.cesurgmarau.trabalho_final.core.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "produtos")
-public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProdutoResponse {
     private Integer id;
-
-    @Column(nullable = false)
     private String nome;
-
-    @Column(columnDefinition = "TEXT")
     private String descricao;
+
+    public ProdutoResponse(Integer id, String nome, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+    }
 
     public Integer getId() {
         return id;

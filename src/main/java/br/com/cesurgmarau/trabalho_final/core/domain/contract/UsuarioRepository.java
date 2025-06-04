@@ -9,5 +9,5 @@ public interface UsuarioRepository {
     Optional<Usuario> buscarPorId(Integer id);
     List<Usuario> listarTodos();
     Usuario atualizar(Usuario usuario);
-    void deletar(Integer id);
+    void remover(Integer id);
 }
