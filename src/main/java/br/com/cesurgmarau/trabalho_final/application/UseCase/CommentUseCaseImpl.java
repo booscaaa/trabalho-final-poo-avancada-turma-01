@@ -1,10 +1,11 @@
-package br.com.cesurgmarau.trabalho_final.core.UseCase;
+package br.com.cesurgmarau.trabalho_final.application.UseCase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.CommentUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comment;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CommentUseCaseImpl implements CommentUseCase {
 
     @Override
