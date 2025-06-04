@@ -73,6 +73,14 @@ public class ClassificationRepositoryImpl implements ClassificationRepository {
     }
 
     @Override
+    public Classification getByName(String name) {
+        var query = "SELECT * FROM classification WHERE name = :name;";
+        return (Classification) entityManager.createNativeQuery(query, Classification.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
+    @Override
     public List<Classification> fetch() {
         var query = "SELECT * FROM classification;";
 

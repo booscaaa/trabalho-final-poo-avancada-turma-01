@@ -9,5 +9,6 @@ public interface ClassificationRepository {
     public Classification update(int classificationID, Classification classification);
     public void delete(int classificationID);
     public Classification getByID(int classificationID);
+    public Classification getByName(String name);
     public List<Classification> fetch();
 }
