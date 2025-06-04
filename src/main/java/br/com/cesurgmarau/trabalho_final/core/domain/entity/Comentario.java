@@ -1,13 +1,24 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+@Entity(name = "comentario")
 public class Comentario {
+    @Id
+    @Column(name = "id")
     private int id;
+    @Column(name = "usuario_id")
     private int usuarioId;
+    @Column(name = "livro_id")
     private int livroId;
+    @Column(name = "conteudo")
     private String conteudo;
+    @Column(name = "sentimento")
     private String sentimento;
+    @Column(name = "data")
     private LocalDateTime data;
 
     public int getId() {

@@ -1,9 +1,19 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity(name = "usuario")
 public class Usuario {
+    @Id
+    @Column(name = "id")
     private int id;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "email")
     private String email;
+    @Column(name = "senha")
     private String senha;
 
     public int getId() {
