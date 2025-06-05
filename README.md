@@ -78,11 +78,11 @@ A análise de sentimento retorna um dos seguintes valores:
 - muito negativo
 
 ## 🧱 Aplicação dos Princípios SOLID
-- S - Single Responsibility:** Separação clara entre camadas (entidade, DTO, use case, controller).
-- O - Open/Closed:** A lógica de negócio pode ser estendida sem modificar os controladores.
-- L - Liskov Substitution:** DTOs e entidades seguem contratos claros entre camadas.
-- I - Interface Segregation:** Interfaces definem comportamentos esperados dos repositórios e use cases.
-- D - Dependency Inversion:** Injeção de dependência aplicada nos controladores e use cases.
+- S - Single Responsibility: Separação clara entre camadas (entidade, DTO, use case, controller).
+- O - Open/Closed: A lógica de negócio pode ser estendida sem modificar os controladores.
+- L - Liskov Substitution: DTOs e entidades seguem contratos claros entre camadas.
+- I - Interface Segregation: Interfaces definem comportamentos esperados dos repositórios e use cases.
+- D - Dependency Inversion: Injeção de dependência aplicada nos controladores e use cases.
 
 ## 📚 Desafios e Aprendizados
 Um dos principais desafios foi configurar corretamente as entidades no banco de dados e garantir que os relacionamentos estivessem consistentes. Além disso, foi essencial integrar a API da OpenAI de forma segura e funcional. O projeto proporcionou uma compreensão mais clara da arquitetura em camadas, boas práticas de desenvolvimento com Spring Boot e aplicação real dos princípios SOLID.
