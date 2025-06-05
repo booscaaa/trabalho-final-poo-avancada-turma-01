@@ -40,7 +40,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
             throw new IllegalArgumentException("Usuário com o ID fornecido não existe.");
         }
 
-        this.atualizarProduto(id, produto);
+        this.produtoRepository.atualizarProduto(id, produto);
     }
 
     @Override

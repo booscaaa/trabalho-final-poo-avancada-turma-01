@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -17,10 +18,10 @@ public class ProdutoController {
     private ProdutoUseCase produtoUseCase;
 
     @PostMapping("/produto")
-    public ResponseEntity<MensagemResponse> adicionaProduto(Produto produto) {
-        if (produto.getNome().isBlank() || produto.getNome() == null) {
-            throw new IllegalArgumentException("Nome do usuário deve ser preenchido.");
-        }
+    public ResponseEntity<MensagemResponse> adicionaProduto(@RequestBody Produto produto) {
+//        if (produto.getNome().isBlank() || produto.getNome() == null) {
+//            throw new IllegalArgumentException("Nome do usuário deve ser preenchido.");
+//        }
 
         if (produto.getPreco() == null) {
             throw new IllegalArgumentException("Preço do produto deve ser maior que 0.");
@@ -78,7 +79,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping("produto/{id}")
-    public ResponseEntity<MensagemResponse> deletaProduto(int id) {
+    public ResponseEntity<MensagemResponse> deletaProduto(@PathVariable int id) {
         if (id < 0) {
             throw new IllegalArgumentException("ID inválido.");
         }

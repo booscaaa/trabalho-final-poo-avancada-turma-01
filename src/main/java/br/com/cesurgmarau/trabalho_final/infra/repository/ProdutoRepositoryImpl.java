@@ -34,9 +34,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public List<Produto> listarProdutos() {
-        var query = """
-                    SELECT * FROM produtos;
-                """;
+        var query = "SELECT * FROM produtos";
         return (List<Produto>) entityManager.createNativeQuery(query, Produto.class)
                 .getResultList();
     }
@@ -44,9 +42,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     @Override
     public Produto produtoPorID(int id) {
         var query = """
-                    SELECT * FROM produtos WHERE id_produto = :id;
+                    SELECT * FROM produtos WHERE produto_id = :id;
                 """;
-        return (Produto) entityManager.createNativeQuery(query)
+        return (Produto) entityManager.createNativeQuery(query, Produto.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
@@ -58,7 +56,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                     SET nome = :nome,
                     preco = :preco,
                     descricao = :descricao
-                    WHERE id_produto = :id
+                    WHERE produto_id = :id
                 """;
         entityManager.createNativeQuery(query)
                 .setParameter("id", id)
@@ -71,7 +69,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     @Override
     public void deletarProduto(int id) {
         var query = """
-                    DELETE FROM produtos WHERE id_produto = :id
+                    DELETE FROM produtos WHERE produto_id = :id
                 """;
         entityManager.createNativeQuery(query)
                 .setParameter("id", id)
