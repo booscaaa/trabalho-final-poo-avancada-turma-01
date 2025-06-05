@@ -1,21 +1,24 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity (name = "livro")
 public class Livro {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "titulo")
+
+    @Column(name = "titulo", nullable = false)
     private String titulo;
-    @Column(name = "autor")
+
+    @Column(name = "autor", nullable = false)
     private String autor;
-    @Column(name = "descricao")
+
+    @Column(name = "descricao", nullable = false)
     private String descricao;
-    @Column(name = "preco")
+
+    @Column(name = "preco", nullable = false)
     private String preco;
 
     public int getId() {

@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+
 public class ComentarioUseCaseImpl implements ComentarioUseCase {
-    @Autowired
+
     private ComentarioRepository comentarioRepository;
 
     @Override

@@ -1,25 +1,22 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 @Entity(name = "comentario")
 public class Comentario {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "usuario_id")
     private int usuarioId;
     @Column(name = "livro_id")
     private int livroId;
-    @Column(name = "conteudo")
-    private String conteudo;
-    @Column(name = "sentimento")
+    @Column(name = "texto", nullable = false)
+    private String texto;
+    @Column(name = "sentimento", nullable = false)
     private String sentimento;
-    @Column(name = "data")
-    private LocalDateTime data;
 
     public int getId() {
         return id;
@@ -45,14 +42,13 @@ public class Comentario {
         this.livroId = livroId;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public String getTexto() {
+        return texto;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
-
     public String getSentimento() {
         return sentimento;
     }
@@ -61,11 +57,4 @@ public class Comentario {
         this.sentimento = sentimento;
     }
 
-    public LocalDateTime getData() {
-        return data;
-    }
-
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
 }
