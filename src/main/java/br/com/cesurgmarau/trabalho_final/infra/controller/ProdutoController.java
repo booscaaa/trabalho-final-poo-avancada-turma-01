@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoResponse;
-import br.com.cesurgmarau.trabalho_final.core.usecase.ProdutoUseCase;
+import br.com.cesurgmarau.trabalho_final.core.usecase.ProdutoUsecase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    private final ProdutoUseCase produtoUseCase;
+    private final ProdutoUsecase produtoUseCase;
 
-    public ProdutoController(ProdutoUseCase produtoUseCase) {
+    public ProdutoController(ProdutoUsecase produtoUseCase) {
         this.produtoUseCase = produtoUseCase;
     }
 

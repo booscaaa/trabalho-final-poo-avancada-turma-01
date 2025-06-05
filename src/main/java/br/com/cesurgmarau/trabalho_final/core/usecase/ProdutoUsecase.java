@@ -7,7 +7,7 @@ import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoResponse;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProdutoUseCase {
+public interface ProdutoUsecase {
     ProdutoResponse salvar(ProdutoRequest dto);
     Optional<ProdutoResponse> buscarPorId(Integer id);
     List<ProdutoResponse> listarTodos();

@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoUseCaseImpl implements ProdutoUseCase {
+public class ProdutoUsecaseImpl implements ProdutoUsecase {
 
     private final ProdutoRepository produtoRepository;
 
-    public ProdutoUseCaseImpl(ProdutoRepository produtoRepository) {
+    public ProdutoUsecaseImpl(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 

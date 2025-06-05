@@ -7,8 +7,6 @@ public class ComentarioResponse {
     private Integer usuarioId;
     private Integer produtoId;
 
-    public ComentarioResponse() {}
-
     public Integer getId() {
         return id;
     }

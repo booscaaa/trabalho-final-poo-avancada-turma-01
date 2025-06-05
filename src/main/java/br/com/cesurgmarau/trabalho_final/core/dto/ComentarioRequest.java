@@ -5,8 +5,6 @@ public class ComentarioRequest {
     private Integer usuarioId;
     private Integer produtoId;
 
-    public ComentarioRequest() {}
-
     public String getTexto() {
         return texto;
     }

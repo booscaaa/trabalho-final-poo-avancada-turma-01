@@ -10,15 +10,15 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String texto;
 
     private String sentimento;
 
-    @Column(name = "usuario_id")
+    @Column(name = "usuario_id", nullable = false)
     private Integer usuarioId;
 
-    @Column(name = "produto_id")
+    @Column(name = "produto_id", nullable = false)
     private Integer produtoId;
 
     public Integer getId() {
