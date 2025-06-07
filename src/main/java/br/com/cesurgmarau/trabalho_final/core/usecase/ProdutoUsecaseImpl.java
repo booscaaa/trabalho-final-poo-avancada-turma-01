@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUsecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoResponse;

@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.core.usecase;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract;
 
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioResponse;
@@ -12,4 +12,5 @@ public interface ComentarioUsecase {
     List<ComentarioResponse> buscarPorProdutoId(Integer produtoId);
     List<ComentarioResponse> buscarPorUsuarioId(Integer usuarioId);
     List<ComentarioResponse> buscarPorSentimento(String sentimento);
+    List<ComentarioResponse> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento);
 }

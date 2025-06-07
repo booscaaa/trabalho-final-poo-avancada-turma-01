@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.core.usecase;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract;
 
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioResponse;

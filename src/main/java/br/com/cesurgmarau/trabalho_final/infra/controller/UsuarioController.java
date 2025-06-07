@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioResponse;
-import br.com.cesurgmarau.trabalho_final.core.usecase.UsuarioUsecase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUsecase;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 

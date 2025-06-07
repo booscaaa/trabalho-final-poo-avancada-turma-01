@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioResponse;
-import br.com.cesurgmarau.trabalho_final.core.usecase.ComentarioUsecase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUsecase;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,14 +35,7 @@ public class ComentarioController {
             @RequestParam(required = false) Integer usuarioId,
             @RequestParam(required = false) String sentimento
     ) {
-        if (produtoId != null) {
-            return ResponseEntity.ok(comentarioUsecase.buscarPorProdutoId(produtoId));
-        } else if (usuarioId != null) {
-            return ResponseEntity.ok(comentarioUsecase.buscarPorUsuarioId(usuarioId));
-        } else if (sentimento != null) {
-            return ResponseEntity.ok(comentarioUsecase.buscarPorSentimento(sentimento));
-        } else {
-            return ResponseEntity.ok(comentarioUsecase.listarTodos());
-        }
+        List<ComentarioResponse> comentarios = comentarioUsecase.buscarFiltrado(produtoId, usuarioId, sentimento);
+        return ResponseEntity.ok(comentarios);
     }
 }

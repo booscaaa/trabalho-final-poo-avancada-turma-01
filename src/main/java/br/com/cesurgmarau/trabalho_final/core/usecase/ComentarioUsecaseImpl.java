@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUsecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioResponse;
@@ -79,4 +80,13 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
         response.setProdutoId(comentario.getProdutoId());
         return response;
     }
+
+    @Override
+    public List<ComentarioResponse> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento) {
+        if (produtoId != null) return buscarPorProdutoId(produtoId);
+        if (usuarioId != null) return buscarPorUsuarioId(usuarioId);
+        if (sentimento != null) return buscarPorSentimento(sentimento);
+        return listarTodos();
+    }
+
 }
