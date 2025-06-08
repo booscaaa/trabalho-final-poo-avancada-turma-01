@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ClassificationRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.MaritacaAIGateway;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewUseCase;
@@ -18,9 +19,13 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
     @Autowired
     private MaritacaAIGateway maritacaAIGateway;
 
+    @Autowired
+    private ClassificationRepository classificationRepository;
+
     @Override
     public Review create(Review review) {
-        review.setClassificationID(maritacaAIGateway.commentAssess(review.getComment()));
+        var assess = maritacaAIGateway.commentAssess(review.getComment());
+        review.setClassificationID(classificationRepository.getByName(assess).getId());
         return reviewRepository.create(review);
     }
 

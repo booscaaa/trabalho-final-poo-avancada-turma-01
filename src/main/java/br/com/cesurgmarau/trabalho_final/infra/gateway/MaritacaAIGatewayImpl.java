@@ -1,9 +1,8 @@
 package br.com.cesurgmarau.trabalho_final.infra.gateway;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.ClassificationRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.MaritacaAIGateway;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Classification;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.MaritacaAIResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +17,8 @@ public class MaritacaAIGatewayImpl implements MaritacaAIGateway {
     @Value("${MARITACA_API_KEY}")
     private String apiKey;
 
-    @Autowired
-    private ClassificationRepository classificationRepository;
-
     @Override
-    public int commentAssess(String comment) {
+    public String commentAssess(String comment) {
         try {
             String requestBody = String.format("""
                 {
@@ -50,22 +46,13 @@ public class MaritacaAIGatewayImpl implements MaritacaAIGateway {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            ObjectMapper mapper = new ObjectMapper();
 
-            String sentiment = extractSentiment(response.body());
-            System.out.println(sentiment);
-            Classification classification = classificationRepository.getByName(sentiment);
+            MaritacaAIResponse maritaAIResponse = mapper.readValue(response.body(), MaritacaAIResponse.class);
 
-            return classification.getId();
+            return maritaAIResponse.choices.getFirst().message.content.strip();
         } catch (Exception e) {
             throw new RuntimeException("Error assessing comment: " + e.getMessage());
         }
-    }
-
-    private String extractSentiment(String response) {
-        int contentStart = response.indexOf("\"content\": \"") + 12;
-        int contentEnd = response.indexOf("\"", contentStart);
-        String content = response.substring(contentStart, contentEnd).trim();
-
-        return content.replace("O comentário é ", "").replace(".", "").toUpperCase();
     }
 }
