@@ -1,6 +1,6 @@
-package br.com.cesurgmarau.trabalho_final.Core.usecase;
+package br.com.cesurgmarau.trabalho_final.core.usecase;
 
-import br.com.cesurgmarau.trabalho_final.Core.domain.contract.UseCase.ProdutosUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase.ProdutosUseCase;
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Produtos;
 import br.com.cesurgmarau.trabalho_final.infra.repository.ProdutosRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;

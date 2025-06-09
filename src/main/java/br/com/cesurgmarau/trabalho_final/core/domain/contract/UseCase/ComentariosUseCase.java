@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.Core.domain.contract.UseCase;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase;
 
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios;
 

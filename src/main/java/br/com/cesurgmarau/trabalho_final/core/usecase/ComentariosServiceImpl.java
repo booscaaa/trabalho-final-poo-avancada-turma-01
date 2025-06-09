@@ -1,6 +1,6 @@
-package br.com.cesurgmarau.trabalho_final.Core.usecase;
+package br.com.cesurgmarau.trabalho_final.core.usecase;
 
-import br.com.cesurgmarau.trabalho_final.Core.domain.contract.UseCase.ComentariosUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase.ComentariosUseCase;
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios;
 import br.com.cesurgmarau.trabalho_final.infra.repository.ComentariosRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+
 public class ComentariosServiceImpl implements ComentariosUseCase {
     @Autowired
     ComentariosRepositoryImpl comentariosRepository;

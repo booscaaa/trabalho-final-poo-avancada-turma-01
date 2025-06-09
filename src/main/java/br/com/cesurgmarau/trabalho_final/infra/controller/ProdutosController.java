@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
-import br.com.cesurgmarau.trabalho_final.Core.domain.contract.UseCase.ProdutosUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase.ProdutosUseCase;
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Produtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

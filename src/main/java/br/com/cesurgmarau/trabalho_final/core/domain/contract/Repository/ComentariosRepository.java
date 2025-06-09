@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.Core.domain.contract.Repository;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.Repository;
 
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios;
 
