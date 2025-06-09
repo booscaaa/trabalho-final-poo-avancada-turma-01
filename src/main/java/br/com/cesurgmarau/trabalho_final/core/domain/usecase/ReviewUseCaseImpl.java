@@ -4,6 +4,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.ClassificationRepo
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.MaritacaAIGateway;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,21 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
     public List<Review> fetch() {
         return reviewRepository.fetch();
     }
+
+    @Override
+    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification() {
+        return reviewRepository.getTotalReviewsByClassification();
+    }
+
+    @Override
+    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct() {
+        return reviewRepository.getClassificationsByProduct();
+    }
+
+    @Override
+    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount() {
+        return reviewRepository.getTotalReviewByAccount();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,20 @@ public class ReviewController {
     @GetMapping("/review")
     public List<Review> fetch() {
         return reviewUseCase.fetch();
+    }
+
+    @GetMapping("/review/report/classification")
+    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification() {
+        return reviewUseCase.getTotalReviewsByClassification();
+    }
+
+    @GetMapping("/review/report/product")
+    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct() {
+        return reviewUseCase.getClassificationsByProduct();
+    }
+
+    @GetMapping("/review/report/account")
+    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount() {
+        return reviewUseCase.getTotalReviewByAccount();
     }
 }
