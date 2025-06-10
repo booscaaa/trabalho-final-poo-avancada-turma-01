@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.Comentario.ComentarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.domain.usecase.OpenAIService;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.RelatorioSentimentoDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,13 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
+    @Autowired
+    private OpenAIService openAiService;
+
     @Override
     public void create(Comentario comentario) {
+        String sentimento = openAiService.analisarSentimento(comentario.getTexto());
+        comentario.setSentimento(sentimento);
         comentarioRepository.create(comentario);
     }
 
