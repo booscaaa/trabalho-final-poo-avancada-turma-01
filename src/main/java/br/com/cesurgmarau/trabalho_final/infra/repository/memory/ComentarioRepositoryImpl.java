@@ -13,6 +13,7 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+
     @Transactional
     @Override
     public void adicionarComentario(Comentario comentario) {
@@ -83,4 +84,9 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+    @Override
+    public List<Comentario> findAll() {
+        return listar(); // Reutiliza o método listar()
+    }
+
 }
