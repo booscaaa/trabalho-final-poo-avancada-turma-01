@@ -26,7 +26,7 @@ public class Produto {
     @Column(name = "criado_em", nullable = false)
     private LocalDateTime criadoEm = LocalDateTime.now();
 
-    // Optional: comentários associados ao produto
+
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
 

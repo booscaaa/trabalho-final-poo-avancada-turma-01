@@ -1,17 +1,24 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+
 public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public Usuario criarUsuario(Usuario usuario) {
-        return null;
+        return usuarioRepository.salvar(usuario);
     }
 
     @Override

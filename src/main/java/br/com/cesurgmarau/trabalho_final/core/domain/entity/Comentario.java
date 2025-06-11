@@ -26,7 +26,7 @@ public class Comentario {
     @Column(nullable = false, length = 20)
     private TipoSentimento sentimento;
 
-    @Column(name = "pontuacao_sentimento", precision = 3, scale = 2)
+    @Column(name = "pontuacao_sentimento")
     private Double pontuacaoSentimento;
 
     @Column(name = "criado_em", nullable = false)

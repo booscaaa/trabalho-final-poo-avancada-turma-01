@@ -1,18 +1,26 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.TipoSentimento;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ComentarioUseCaseImpl implements ComentarioUseCase {
+
+    @Autowired
+    private ComentarioRepository comentarioRepository;
 
 
     @Override
     public Comentario criarComentario(Comentario comentario) {
-        return null;
+        return comentarioRepository.salvar(comentario);
     }
 
     @Override
