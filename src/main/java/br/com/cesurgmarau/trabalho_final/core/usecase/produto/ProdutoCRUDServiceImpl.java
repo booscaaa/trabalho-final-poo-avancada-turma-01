@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase.produto;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.produto.CRUD.ProdutoCRUDRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.produto.CRUD.ProdutoCRUDUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import br.com.cesurgmarau.trabalho_final.infra.repository.produto.ProdutoCRUDRepositoryImpl;
@@ -12,8 +13,7 @@ import java.util.List;
 public class ProdutoCRUDServiceImpl implements ProdutoCRUDUseCase {
 
     @Autowired
-    ProdutoCRUDRepositoryImpl produtoCRUDRepository;
-
+    ProdutoCRUDRepository produtoCRUDRepository;
 
     @Override
     public List<Produto> fetch() {

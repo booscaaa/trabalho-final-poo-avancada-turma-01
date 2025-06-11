@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.infra.gateway;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.dto.AnaliseOutput.AnaliseDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,10 @@ public class ChatGPTGateway {
     private static final String API_URL = "";
     private static final String API_KEY = "Bearer ";
 
-    public AnaliseDTO analisarComentario(String comentario) {
+    public AnaliseDTO analisarComentario(Comentario comentarioAnalise) {
+
+        var comentario = comentarioAnalise.getComentario();
+
         try {
             HttpClient client = HttpClient.newHttpClient();
             ObjectMapper mapper = new ObjectMapper();
@@ -53,8 +57,6 @@ public class ChatGPTGateway {
             JsonNode root = mapper.readTree(response.body());
             String conteudo = root.get("choices").get(0).get("message").get("content").asText();
 
-            // Aqui você pode usar um parser ou regex para separar a análise e o sentimento.
-            // Exemplo simples:
             String[] partes = conteudo.split("(?i)sentimento\\s*[:\\-]\\s*");
             String analise = partes[0].trim();
             String sentimento = partes.length > 1 ? partes[1].trim() : "desconhecido";
@@ -62,6 +64,9 @@ public class ChatGPTGateway {
             AnaliseDTO dto = new AnaliseDTO();
             dto.setAnalise(analise);
             dto.setSentimento(sentimento);
+
+            comentarioAnalise.setAnalise(analise);
+            comentarioAnalise.setSentimento(sentimento);
 
             return dto;
 

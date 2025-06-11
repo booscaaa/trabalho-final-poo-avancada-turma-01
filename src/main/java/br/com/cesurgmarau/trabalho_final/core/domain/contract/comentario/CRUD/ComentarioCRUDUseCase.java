@@ -8,7 +8,7 @@ public interface ComentarioCRUDUseCase {
 
     List<Comentario> fetch ();
     Comentario fetchById (int id);
-    void createComentario (Comentario comentario);
+    void createComentario (Comentario comentario, int produtoID);
     void updateComentario (Comentario comentario, int id);
     void deleteComentario (int id);
 

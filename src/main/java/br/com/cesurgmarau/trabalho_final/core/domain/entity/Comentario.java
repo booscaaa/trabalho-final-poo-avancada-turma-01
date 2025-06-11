@@ -23,6 +23,12 @@ public class Comentario {
     @Column(name="avaliacao")
     private int avaliacao;
 
+    @Column(name="analise")
+    private String analise;
+
+    @Column(name="sentimento")
+    private String sentimento;
+
     public int getProdutoId() {
         return produtoId;
     }
@@ -61,5 +67,21 @@ public class Comentario {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAnalise() {
+        return analise;
+    }
+
+    public void setAnalise(String analise) {
+        this.analise = analise;
+    }
+
+    public String getSentimento() {
+        return sentimento;
+    }
+
+    public void setSentimento(String sentimento) {
+        this.sentimento = sentimento;
     }
 }

@@ -6,9 +6,11 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
 
     @PersistenceContext
@@ -43,20 +45,22 @@ public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
 
     @Transactional
     @Override
-    public void createComentario(Comentario comentario) {
+    public void createComentario(Comentario comentario, int produtoID) {
 
         var query = """
                 
-                INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao)
-                VALUES (:produto_id, :usuario_id, :comentario, :avaliacao);
+                INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao, analise, sentimento)
+                VALUES (:produto_id, :usuario_id, :comentario, :avaliacao, :analise, :sentimento);
                 
                 """;
 
         entityManager.createNativeQuery(query, Comentario.class)
-                .setParameter("produto_id", comentario.getProdutoId())
+                .setParameter("produto_id", produtoID)
                 .setParameter("usuario_id", comentario.getUsuarioId())
                 .setParameter("comentario", comentario.getComentario())
                 .setParameter("avaliacao", comentario.getAvaliacao())
+                .setParameter("analise", comentario.getAnalise())
+                .setParameter("sentimento", comentario.getSentimento())
                 .executeUpdate();
 
         System.out.println("Comentario postado com sucesso!");
@@ -95,7 +99,7 @@ public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
 
         var query = """
                 
-                DELETE FROM comentaiors WHERE id = :id
+                DELETE FROM comentarios WHERE id = :id
                 
                 """;
 

@@ -42,12 +42,11 @@ public class ComentarioCRUDController {
 
     }
 
-    @PostMapping("/comentario")
-    public ResponseEntity createComentario (@RequestBody Comentario comentario) throws Exception {
+    @PostMapping("/produto/{produtoID}/comentario")
+    public ResponseEntity createComentario (@RequestBody Comentario comentario, @PathVariable int produtoID) throws Exception {
 
         try {
-
-            comentarioCRUDUseCase.createComentario(comentario);
+            comentarioCRUDUseCase.createComentario(comentario, produtoID);
             return ResponseEntity.status(HttpStatus.CREATED).body("Comentario adicionado com sucesso!");
 
         } catch (Exception e) {

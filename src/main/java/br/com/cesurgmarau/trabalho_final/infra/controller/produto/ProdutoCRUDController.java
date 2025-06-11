@@ -15,7 +15,7 @@ public class ProdutoCRUDController {
     @Autowired
     ProdutoCRUDUseCase produtoCRUDUseCase;
 
-    @GetMapping ("/produto")
+    @GetMapping ("/produtos")
     public ResponseEntity<?> fetch () throws Exception {
         try {
             List<Produto> produtos = produtoCRUDUseCase.fetch();
