@@ -36,12 +36,12 @@ public class ComentarioController {
 
     @GetMapping("/comentario/produtoId/{id}")
     public ComentarioPorProdutoDTO listarProdutoComComentario(@PathVariable int id) {
-        return comentarioUseCase.listarProdutoComComentarios(id);
+        return comentarioUseCase.listarComentarioPorProduto(id);
     }
 
     @GetMapping("/comentario/usuarioId/{id}")
     public ComentarioPorUsuarioDTO listarUsuarioComComentario(@PathVariable int id) {
-        return comentarioUseCase.listarUsuarioComComentario(id);
+        return comentarioUseCase.listarComentarioPorUsuario(id);
     }
 
     @GetMapping("/comentario/sentimentoId/{id}")

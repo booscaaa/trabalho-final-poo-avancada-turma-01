@@ -55,40 +55,38 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
     }
 
     @Override
-    public List<ComentarioDTO> listarComentarioPorProduto(int produto_id) {
+    public List<ComentarioDTO> listarComentarioPorProduto(int produtoId) {
         var query = """
                 SELECT comentario.*, usuario.nome FROM comentario
                 INNER JOIN usuario ON comentario.usuario_id = usuario.id
                 WHERE comentario.produto_id = :produto_id;
                 """;
         return entityManager.createNativeQuery(query, "ComentarioDTOMapping")
-                .setParameter("produto_id", produto_id)
+                .setParameter("produto_id", produtoId)
                 .getResultList();
     }
 
     @Override
-    public List<ComentarioDTO> listarUsuarioComComentario(int usuario_id) {
+    public List<ComentarioDTO> listarComentarioPorUsuario(int usuarioId) {
         var query = """
                 SELECT comentario.*, usuario.nome FROM comentario
                 INNER JOIN usuario ON comentario.usuario_id = usuario.id
                 WHERE comentario.usuario_id = :usuario_id;
                 """;
         return entityManager.createNativeQuery(query, "ComentarioDTOMapping")
-                .setParameter("usuario_id", usuario_id)
+                .setParameter("usuario_id", usuarioId)
                 .getResultList();
     }
 
     @Override
-    public List<ComentarioDTO> listarComentarioPorSentimento(int sentimento_id) {
+    public List<ComentarioDTO> listarComentarioPorSentimento(int sentimentoId) {
         var query = """
                 SELECT comentario.*, usuario.nome FROM comentario
                 INNER JOIN usuario ON comentario.usuario_id = usuario.id
                 WHERE comentario.sentimento_id = :sentimento_id;
                 """;
         return entityManager.createNativeQuery(query, "ComentarioDTOMapping")
-                .setParameter("sentimento_id", sentimento_id)
+                .setParameter("sentimento_id", sentimentoId)
                 .getResultList();
     }
-
-
 }

@@ -9,7 +9,7 @@ public interface ComentarioRepository {
     public void adicionarComentario (Comentario comentario);
     public ComentarioDTO listarComentarioPorId(int id);
     public List<ComentarioDTO> listarComentario();
-    public List<ComentarioDTO> listarComentarioPorProduto(int produto_id);
-    public List<ComentarioDTO> listarUsuarioComComentario(int usuario_id);
-    public List<ComentarioDTO> listarComentarioPorSentimento(int sentimento_id);
+    public List<ComentarioDTO> listarComentarioPorProduto(int produtoId);
+    public List<ComentarioDTO> listarComentarioPorUsuario(int usuarioId);
+    public List<ComentarioDTO> listarComentarioPorSentimento(int sentimentoId);
 }

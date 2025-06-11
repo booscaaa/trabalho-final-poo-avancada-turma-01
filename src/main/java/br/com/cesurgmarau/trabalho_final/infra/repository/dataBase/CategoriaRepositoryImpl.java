@@ -2,7 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.repository.dataBase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.CategoriaRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Categoria;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +60,15 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
                 .setParameter("id", id)
                 .executeUpdate();
     }
+
+    @Override
+    public Categoria listarCategoriaPorId(int id) {
+        var query = """
+                SELECT * FROM categoria_produto WHERE id = :id;
+                """;
+        return (Categoria) entityManager.createNativeQuery(query, Categoria.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

@@ -16,6 +16,8 @@ public class Produto {
     private int pontuacao;
     @Column(name= "categoria_id")
     private int categoriaId;
+    @Column(name= "quantidade_comentario")
+    private int quantidadeComentaario;
 
     public int getId() {
         return id;
@@ -44,8 +46,15 @@ public class Produto {
     public int getCategoriaId() {
         return categoriaId;
     }
-
     public void setCategoriaId(int categoriaId) {
         this.categoriaId = categoriaId;
+    }
+
+    public int getQuantidadeComentaario() {
+        return quantidadeComentaario;
+    }
+
+    public void setQuantidadeComentaario(int quantidadeComentaario) {
+        this.quantidadeComentaario = quantidadeComentaario;
     }
 }

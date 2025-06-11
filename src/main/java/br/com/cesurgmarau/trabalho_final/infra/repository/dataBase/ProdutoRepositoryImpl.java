@@ -75,4 +75,14 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 .setParameter("id", id)
                 .executeUpdate();
     }
+
+    @Override
+    public List<Produto> listarProdutosPorCategoria(int categoriaId) {
+        var query = """
+                SELECT * FROM produto WHERE categoria_id = :categoria_id ORDER BY pontuacao DESC;
+                """;
+        return entityManager.createNativeQuery(query, Produto.class)
+                .setParameter("categoria_id", categoriaId)
+                .getResultList();
+    }
 }

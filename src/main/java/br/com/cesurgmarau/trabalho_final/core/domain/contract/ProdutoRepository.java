@@ -10,4 +10,5 @@ public interface ProdutoRepository {
     public List<Produto> listarProdutos();
     public void deletarProduto (int id);
     public void atualizarProduto(int id, Produto produto);
+    public List<Produto> listarProdutosPorCategoria(int categoriaId);
 }

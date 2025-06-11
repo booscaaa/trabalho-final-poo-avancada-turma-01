@@ -59,47 +59,47 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     }
 
     @Override
-    public ComentarioPorProdutoDTO listarProdutoComComentarios(int produto_id) {
-        Produto produto = produtoRepository.listarProdutoPorId(produto_id);
-        List<ComentarioDTO> comentarioDTOs = comentarioRepository.listarComentarioPorProduto(produto_id);
+    public ComentarioPorProdutoDTO listarComentarioPorProduto(int produtoId) {
+        Produto produto = produtoRepository.listarProdutoPorId(produtoId);
+        List<ComentarioDTO> comentarioDTOList = comentarioRepository.listarComentarioPorProduto(produtoId);
 
         ComentarioPorProdutoDTO comentarioPorProdutoDTO = new ComentarioPorProdutoDTO(
                 produto.getId(),
                 produto.getNome(),
                 produto.getPontuacao(),
                 produto.getCategoriaId(),
-                comentarioDTOs
+                comentarioDTOList
         );
 
         return comentarioPorProdutoDTO;
     }
 
     @Override
-    public ComentarioPorUsuarioDTO listarUsuarioComComentario(int usuario_id) {
-        Usuario usuario = usuarioRepository.listarUsuarioPorId(usuario_id);
-        List<ComentarioDTO> comentarioDTOs = comentarioRepository.listarUsuarioComComentario(usuario_id);
+    public ComentarioPorUsuarioDTO listarComentarioPorUsuario(int usuarioId) {
+        Usuario usuario = usuarioRepository.listarUsuarioPorId(usuarioId);
+        List<ComentarioDTO> comentarioDTOList = comentarioRepository.listarComentarioPorUsuario(usuarioId);
 
         ComentarioPorUsuarioDTO comentarioPorUsuarioDTO = new ComentarioPorUsuarioDTO(
                 usuario.getId(),
                 usuario.getCpf(),
                 usuario.getNome(),
-                comentarioDTOs
+                comentarioDTOList
         );
 
         return comentarioPorUsuarioDTO;
     }
 
     @Override
-    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(int sentimento_id) {
-        Sentimento sentimento = sentimentoRepository.pegarSentimentoId(sentimento_id);
-        List<ComentarioDTO> comentarioDTOs = comentarioRepository.listarComentarioPorSentimento(sentimento_id);
+    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(int sentimentoId) {
+        Sentimento sentimento = sentimentoRepository.pegarSentimentoId(sentimentoId);
+        List<ComentarioDTO> comentarioDTOList = comentarioRepository.listarComentarioPorSentimento(sentimentoId);
 
         ComentarioPorSentimentoDTO comentarioPorSentimentoDTO = new ComentarioPorSentimentoDTO(
                 sentimento.getId(),
                 sentimento.getTipo(),
                 sentimento.getPonto(),
                 sentimento.getQuantidade(),
-                comentarioDTOs
+                comentarioDTOList
         );
 
         return comentarioPorSentimentoDTO;

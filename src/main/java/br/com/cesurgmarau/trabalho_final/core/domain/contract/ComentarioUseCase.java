@@ -13,7 +13,7 @@ public interface ComentarioUseCase {
     public void adicionarComentario (Comentario comentario) throws IOException;
     public ComentarioDTO listarComentarioPorId(int id);
     public List<ComentarioDTO> listarComentario();
-    public ComentarioPorProdutoDTO listarProdutoComComentarios(int produto_id);
-    public ComentarioPorUsuarioDTO listarUsuarioComComentario(int usuario_id);
-    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(int sentimento_id);
+    public ComentarioPorProdutoDTO listarComentarioPorProduto(int produtoId);
+    public ComentarioPorUsuarioDTO listarComentarioPorUsuario(int usuarioId);
+    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(int sentimentoId);
 }
