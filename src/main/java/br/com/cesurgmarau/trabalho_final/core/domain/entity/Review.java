@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity(name = "review")
@@ -20,6 +21,13 @@ public class Review {
 
     @Column(name = "comment")
     private String comment;
+
+    @JsonProperty("account_name")
+    private String accountName;
+
+    private String product;
+
+    private String classification;
 
     public int getId() {
         return id;
@@ -59,5 +67,29 @@ public class Review {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
     }
 }

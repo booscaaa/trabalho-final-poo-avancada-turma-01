@@ -65,5 +65,20 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
         return reviewRepository.getTotalReviewByAccount();
     }
 
+    @Override
+    public List<Review> fetchByProductID(int productID) {
+        return reviewRepository.fetchByProductID(productID);
+    }
+
+    @Override
+    public List<Review> fetchByClassificationName(String classificationName) {
+        return reviewRepository.fetchByClassificationName(classificationName);
+    }
+
+    @Override
+    public List<Review> fetchByAccountID(int accountID) {
+        return reviewRepository.fetchByAccountID(accountID);
+    }
+
 
 }

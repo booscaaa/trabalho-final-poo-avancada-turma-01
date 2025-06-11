@@ -83,7 +83,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
     @Override
     public List<Review> fetch() {
-        var query = "SELECT * FROM review;";
+        var query = """
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                INNER JOIN account AS a ON a.id = r.account_id
+                INNER JOIN product AS p ON p.id = r.product_id
+                INNER JOIN classification AS c ON c.id = r.classification_id""";
 
         return entityManager.createNativeQuery(query, Review.class).getResultList();
     }
@@ -131,6 +135,46 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 """ ;
         return entityManager.createNativeQuery(query, ReviewReport.TotalReviewByAccount.class).getResultList();
 
+    }
+
+    @Override
+    public List<Review> fetchByProductID(int productID) {
+        var query = """
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                INNER JOIN account AS a ON a.id = r.account_id
+                INNER JOIN product AS p ON p.id = r.product_id
+                INNER JOIN classification AS c ON c.id = r.classification_id
+                WHERE r.product_id = :product_id""";
+
+        return entityManager.createNativeQuery(query, Review.class)
+                .setParameter("product_id", productID)
+                .getResultList();
+    }
+
+    @Override
+    public List<Review> fetchByClassificationName(String classificationName) {
+        var query = """
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                INNER JOIN account AS a ON a.id = r.account_id
+                INNER JOIN product AS p ON p.id = r.product_id
+                INNER JOIN classification AS c ON c.id = r.classification_id
+                WHERE c.name = :classification""";
+
+        return entityManager.createNativeQuery(query, Review.class).setParameter("classification", classificationName).getResultList();
+    }
+
+    @Override
+    public List<Review> fetchByAccountID(int accountID) {
+        var query = """
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                INNER JOIN account AS a ON a.id = r.account_id
+                INNER JOIN product AS p ON p.id = r.product_id
+                INNER JOIN classification AS c ON c.id = r.classification_id
+                WHERE r.account_id = :account_id""";
+
+        return entityManager.createNativeQuery(query, Review.class)
+                .setParameter("account_id", accountID)
+                .getResultList();
     }
 
 

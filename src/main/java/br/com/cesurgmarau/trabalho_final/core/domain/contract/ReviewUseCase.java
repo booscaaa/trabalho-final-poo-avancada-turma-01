@@ -15,4 +15,8 @@ public interface ReviewUseCase {
     public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification();
     public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct();
     public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount();
+
+    public List<Review> fetchByProductID(int productID);
+    public List<Review> fetchByClassificationName(String classificationName);
+    public List<Review> fetchByAccountID(int accountID);
 }

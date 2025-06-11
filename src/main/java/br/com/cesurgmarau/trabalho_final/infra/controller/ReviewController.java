@@ -36,7 +36,23 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public List<Review> fetch() {
+    public List<Review> fetch(
+            @RequestParam(required = false) Integer accountID,
+            @RequestParam(required = false) Integer productID,
+            @RequestParam(required = false) String classification) {
+
+        if (accountID != null) {
+           return reviewUseCase.fetchByAccountID(accountID);
+        }
+
+        if (productID != null) {
+            return reviewUseCase.fetchByProductID(productID);
+        }
+
+        if (classification != null) {
+            return reviewUseCase.fetchByClassificationName(classification);
+        }
+
         return reviewUseCase.fetch();
     }
 
