@@ -11,27 +11,27 @@ public class UsuarioController {
     private UsuarioUseCase usuarioUseCase;
 
 
-    @PostMapping("/curso")
+    @PostMapping("/usuario")
     public void insert(@RequestBody Usuario usuario) {
         usuarioUseCase.insert(usuario);
     }
 
-    @GetMapping("/curso")
+    @GetMapping("/usuario")
     public List<Usuario> fetch() {
         return usuarioUseCase.fetch();
     }
 
-    @PostMapping("/curso/{id}")
+    @PostMapping("/usuario/{id}")
     public void update(@PathVariable int id, @RequestBody Usuario usuario) {
         usuarioUseCase.update(id, usuario);
     }
 
-    @DeleteMapping("/curso/{id}")
+    @DeleteMapping("/usuario/{id}")
     public void delete(@PathVariable int id) {
         usuarioUseCase.delete(id);
     }
 
-    @GetMapping("/curso/{id}")
+    @GetMapping("/usuario/{id}")
     public void get(@PathVariable int id) {
         usuarioUseCase.get(id);
     }

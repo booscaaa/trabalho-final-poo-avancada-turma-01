@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.core.dto;
+package br.com.cesurgmarau.trabalho_final.core.dto.usuario;
 
 public class UsuarioRequest {
     private String nome;

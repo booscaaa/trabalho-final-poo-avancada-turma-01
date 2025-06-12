@@ -54,11 +54,14 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         var query = """
                 SELECT id, nome, email FROM usuario;
                 """;
-        entityManager.createNativeQuery(query, Usuario.class)
+        return entityManager.createNativeQuery(query, Usuario.class)
                 .getResultList();
     }
 
     public Usuario get(int id) {
-        return null;
+        var query = "SELECT id, nome, email FROM usuario WHERE id = :id;";
+        return (Usuario) entityManager.createNativeQuery(query, Usuario.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }
