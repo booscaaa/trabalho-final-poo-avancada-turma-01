@@ -20,7 +20,6 @@ public class RelatorioUsecaseImpl implements RelatorioUsecase {
         this.comentarioRepository = comentarioRepository;
     }
 
-    // 🔹 Total de comentários por sentimento
     @Override
     public List<RelatorioSentimentosResponse> totalComentariosPorSentimento() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();
@@ -36,7 +35,6 @@ public class RelatorioUsecaseImpl implements RelatorioUsecase {
                 .toList();
     }
 
-    // 🔸 Média de sentimento por produto
     @Override
     public List<RelatorioProdutoResponse> mediaSentimentoPorProduto() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();
@@ -59,7 +57,6 @@ public class RelatorioUsecaseImpl implements RelatorioUsecase {
                 .toList();
     }
 
-    // 🔸 Ranking dos usuários mais ativos (quantidade de comentários)
     @Override
     public List<RelatorioUsuarioResponse> rankingUsuariosMaisAtivos() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();
@@ -76,7 +73,6 @@ public class RelatorioUsecaseImpl implements RelatorioUsecase {
                 .toList();
     }
 
-    // 🔥 Conversor de sentimento (Texto → Número)
     private int converterSentimentoParaPontuacao(Comentario comentario) {
         return switch (comentario.getSentimento().toLowerCase()) {
             case "muito negativo" -> 1;
