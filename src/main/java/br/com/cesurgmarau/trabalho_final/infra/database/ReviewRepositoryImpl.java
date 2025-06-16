@@ -19,8 +19,8 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public Review create(Review review) {
         var query = """
-                INSERT INTO review(account_id, classification_id, product_id, comment)
-                VALUES (:account_id, :classification_id, :product_id, :comment)
+                INSERT INTO review(account_id, classification_id, product_id, score_id, comment)
+                VALUES (:account_id, :classification_id, :product_id, :score_id, :comment)
                 RETURNING id;
                 """;
 
@@ -28,6 +28,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 .setParameter("account_id", review.getAccountID())
                 .setParameter("classification_id", review.getClassificationID())
                 .setParameter("product_id", review.getProductID())
+                .setParameter("score_id", review.getScoreID())
                 .setParameter("comment", review.getComment())
                 .getSingleResult();
 
@@ -43,6 +44,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 account_id = :account_id,
                 classification_id = :classification_id,
                 product_id = :product_id,
+                score_di = :score_id,
                 comment = :comment
                 WHERE id = :id
                 """;
@@ -51,6 +53,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 .setParameter("account_id", review.getAccountID())
                 .setParameter("classification_id", review.getClassificationID())
                 .setParameter("product_id", review.getProductID())
+                .setParameter("score_id", review.getScoreID())
                 .setParameter("comment", review.getComment())
                 .setParameter("id", reviewID)
                 .executeUpdate();
@@ -84,10 +87,12 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public List<Review> fetch() {
         var query = """
-                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, r.score_id, comment, a.name AS account_name, p.name AS product, c.name AS classification, s.name AS score FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
-                INNER JOIN classification AS c ON c.id = r.classification_id""";
+                INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
+                """;
 
         return entityManager.createNativeQuery(query, Review.class).getResultList();
     }
@@ -99,6 +104,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
                 INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
                 GROUP BY classification;
                 """ ;
         return entityManager.createNativeQuery(query, ReviewReport.TotalReviewsByClassification.class).getResultList();
@@ -109,14 +115,15 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         var query = """
             SELECT p.name AS produto,
                     COUNT(*) FILTER (WHERE c.name = 'MUITO BOM')  AS "MUITO BOM",
-                    COUNT(*) FILTER (WHERE c.name = 'BOM')        AS "BOM",
+                    COUNT(*) FILTER (WHERE c.name = 'BOM')  AS "BOM",
                     COUNT(*) FILTER (WHERE c.name = 'MÉDIO') AS "MÉDIO",
-                    COUNT(*) FILTER (WHERE c.name = 'RUIM')       AS "RUIM",
+                    COUNT(*) FILTER (WHERE c.name = 'RUIM') AS "RUIM",
                     COUNT(*) FILTER (WHERE c.name = 'MUITO RUIM') AS "MUITO RUIM",
                     COUNT(*) AS total
             FROM review r
             JOIN product p ON p.id = r.product_id
             JOIN classification c ON c.id = r.classification_id
+            INNER JOIN score AS s ON s.id = r.score_id
             GROUP BY p.name
             ORDER BY p.name;
         """;
@@ -131,6 +138,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
                 INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
                 GROUP BY account;
                 """ ;
         return entityManager.createNativeQuery(query, ReviewReport.TotalReviewByAccount.class).getResultList();
@@ -140,10 +148,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public List<Review> fetchByProductID(int productID) {
         var query = """
-                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, r.score_id, comment, a.name AS account_name, p.name AS product, c.name AS classification, s.name AS score  FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
                 INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
                 WHERE r.product_id = :product_id""";
 
         return entityManager.createNativeQuery(query, Review.class)
@@ -154,10 +163,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public List<Review> fetchByClassificationName(String classificationName) {
         var query = """
-                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, r.score_id, comment, a.name AS account_name, p.name AS product, c.name AS classification, s.name AS score FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
                 INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
                 WHERE c.name = :classification""";
 
         return entityManager.createNativeQuery(query, Review.class).setParameter("classification", classificationName).getResultList();
@@ -166,10 +176,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     @Override
     public List<Review> fetchByAccountID(int accountID) {
         var query = """
-                SELECT r.id, r.account_id, r.product_id, r.classification_id, comment, a.name AS account_name, p.name AS product, c.name AS classification  FROM review AS r
+                SELECT r.id, r.account_id, r.product_id, r.classification_id, r.score_id, comment, a.name AS account_name, p.name AS product, c.name AS classification, s.name AS score FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
                 INNER JOIN product AS p ON p.id = r.product_id
                 INNER JOIN classification AS c ON c.id = r.classification_id
+                INNER JOIN score AS s ON s.id = r.score_id
                 WHERE r.account_id = :account_id""";
 
         return entityManager.createNativeQuery(query, Review.class)

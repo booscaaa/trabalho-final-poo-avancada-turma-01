@@ -15,6 +15,9 @@ public class Account {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "comment_score")
+    private String commentScore;
+
     public int getId() {
         return id;
     }
@@ -37,5 +40,13 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCommentScore() {
+        return commentScore;
+    }
+
+    public void setCommentScore(String commentScore) {
+        this.commentScore = commentScore;
     }
 }

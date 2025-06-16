@@ -1,9 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.ClassificationRepository;
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.MaritacaAIGateway;
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewRepository;
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.*;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +20,30 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
     @Autowired
     private ClassificationRepository classificationRepository;
 
+    @Autowired
+    private ScoreRepository scoreRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Override
     public Review create(Review review) {
         var assess = maritacaAIGateway.commentAssess(review.getComment());
         review.setClassificationID(classificationRepository.getByName(assess).getId());
+
+        var score = maritacaAIGateway.commentScore(review.getComment());
+        review.setScoreID(scoreRepository.getByName(score).getId());
+
+        var account = accountRepository.getByID(review.getAccountID());
+
+        account.setCommentScore(
+                (String.valueOf(
+                        (Integer.parseInt(account.getCommentScore()) + Integer.parseInt(score)) / 2)
+                )
+        );
+
+        accountRepository.update(account.getId(), account);
+
         return reviewRepository.create(review);
     }
 

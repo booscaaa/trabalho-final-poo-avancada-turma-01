@@ -19,6 +19,9 @@ public class Review {
     @Column(name = "classification_id")
     private int classificationID;
 
+    @Column(name = "score_id")
+    private int scoreID;
+
     @Column(name = "comment")
     private String comment;
 
@@ -28,6 +31,8 @@ public class Review {
     private String product;
 
     private String classification;
+
+    private String score;
 
     public int getId() {
         return id;
@@ -91,5 +96,21 @@ public class Review {
 
     public void setClassification(String classification) {
         this.classification = classification;
+    }
+
+    public int getScoreID() {
+        return scoreID;
+    }
+
+    public void setScoreID(int scoreID) {
+        this.scoreID = scoreID;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 }

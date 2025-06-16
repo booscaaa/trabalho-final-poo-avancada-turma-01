@@ -35,11 +35,6 @@ public class ClassificationUseCaseImpl implements ClassificationUseCase {
     }
 
     @Override
-    public Classification getByName(String name) {
-        return classificationRepository.getByName(name);
-    }
-
-    @Override
     public List<Classification> fetch() {
         return classificationRepository.fetch();
     }
