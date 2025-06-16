@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name = "analyze_feelings")
+@Entity(name = "analisar_sentimento")
 public class AnalisarSentimento {
     @Id
     @Column(name="id")

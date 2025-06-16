@@ -19,7 +19,7 @@ public class AnalisarSentimentoRepositoryImpl implements AnalisarSentimentoRepos
     public List<AnalisarSentimento> fetch() {
         var query = """
                 
-                SELECT * FROM Analise;
+                SELECT * FROM analisar_sentimento;
                 
                 
                 """;
@@ -32,7 +32,7 @@ public class AnalisarSentimentoRepositoryImpl implements AnalisarSentimentoRepos
 
         var query = """
                 
-                SELECT * FROM comentarios where id = :id
+                SELECT * FROM analisar_sentimento where id = :id
                 
                 """;
 
@@ -48,7 +48,7 @@ public class AnalisarSentimentoRepositoryImpl implements AnalisarSentimentoRepos
 
         var query = """
                 
-                INSERT INTO analise_de_sentimento (sentimento, analise, comentario_id)
+                INSERT INTO analisar_sentimento (sentimento, analise, comentario_id)
                 VALUES (:sentimento, :analise, :comentario_id);
                 
                 """;
@@ -69,15 +69,16 @@ public class AnalisarSentimentoRepositoryImpl implements AnalisarSentimentoRepos
 
         var query = """
                 
-                UPDATE FROM analise_de_sentimento SET
-                sentimento = :sentimento
-                analise = :analise
+                UPDATE analisar_sentimento SET
+                sentimento = :sentimento,
+                analise = :analise,
                 comentario_id = :comentario_id
                 WHERE id = :id
                 
                 """;
 
         entityManager.createNativeQuery(query, br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios.class)
+                .setParameter("id", id)
                 .setParameter("sentimento", analisarSentimento.getSentimento())
                 .setParameter("analise", analisarSentimento.getAnalise())
                 .setParameter("comentario_id", analisarSentimento.getComentarioId())
@@ -93,7 +94,7 @@ public class AnalisarSentimentoRepositoryImpl implements AnalisarSentimentoRepos
 
         var query = """
                 
-                DELETE FROM analise_de_sentimento WHERE id = :id
+                DELETE FROM analisar_sentimento WHERE id = :id
                 
                 """;
 

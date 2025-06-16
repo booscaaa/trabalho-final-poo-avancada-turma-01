@@ -49,14 +49,14 @@ public class ProdutosRepositoryImpl implements ProdutosRepository {
 
         var query = """
                 
-                INSERT INTO produtos (nome, preco, descricao)
-                VALUES (:nome, :preco, :descricao);
+                INSERT INTO produtos (name, price, descricao)
+                VALUES (:name, :price, :descricao, );
                 
                 """;
 
         entityManager.createNativeQuery(query, Produtos.class)
-                .setParameter("nome", produto.getName())
-                .setParameter("preco", produto.getPrice())
+                .setParameter("name", produto.getName())
+                .setParameter("price", produto.getPrice())
                 .setParameter("descricao", produto.getDescricao())
                 .executeUpdate();
 
@@ -70,18 +70,19 @@ public class ProdutosRepositoryImpl implements ProdutosRepository {
 
         var query = """
                 
-                UPDATE FROM produtos SET
-                nome = :nome
-                preco = :preco
+                UPDATE produtos SET
+                name = :name,
+                price = :price,
                 descricao = :descricao
                 WHERE id = :id
                 
                 """;
 
         entityManager.createNativeQuery(query, Produtos.class)
-                .setParameter("nome", produto.getName())
-                .setParameter("preco", produto.getPrice())
+                .setParameter("name", produto.getName())
+                .setParameter("price", produto.getPrice())
                 .setParameter("descricao", produto.getDescricao())
+                .setParameter("id", id)
                 .executeUpdate();
 
         System.out.println("Produto atualizado com sucesso!");

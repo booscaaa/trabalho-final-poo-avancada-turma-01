@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name = "products")
+@Entity(name = "produtos")
 public class Produtos {
 
     @Id
@@ -20,8 +20,6 @@ public class Produtos {
     @Column (name="descricao")
     private String descricao;
 
-    @Column(name="avaliacao_produto")
-    private Double avaliacaoProduto;
 
     public int getId() {
         return id;
@@ -55,11 +53,4 @@ public class Produtos {
         this.descricao = descricao;
     }
 
-    public Double getAvaliacaoProduto() {
-        return avaliacaoProduto;
-    }
-
-    public void setAvaliacaoProduto(Double avaliacaoProduto) {
-        this.avaliacaoProduto = avaliacaoProduto;
-    }
 }

@@ -69,16 +69,17 @@ public class ComentariosRepositoryImpl implements ComentariosRepository {
 
         var query = """
                 
-                UPDATE FROM comentarios SET
-                produto_id = :produto_id
-                usuario_id = :usuario_id
-                comentario = :comentario
+                UPDATE comentarios SET
+                produto_id = :produto_id,
+                usuario_id = :usuario_id,
+                comentario = :comentario,
                 avaliacao = :avaliacao
                 WHERE id = :id
                 
                 """;
 
         entityManager.createNativeQuery(query, Comentarios.class)
+                .setParameter("id", id)
                 .setParameter("produto_id", comentario.getProdutoId())
                 .setParameter("usuario_id", comentario.getUsuarioId())
                 .setParameter("comentario", comentario.getComentario())

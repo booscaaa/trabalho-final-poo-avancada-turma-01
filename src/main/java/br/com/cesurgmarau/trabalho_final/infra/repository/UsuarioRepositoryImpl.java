@@ -5,8 +5,11 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.Repository.Usuario
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+@Repository
 
 public class UsuarioRepositoryImpl implements UsuariosRepository {
 
@@ -46,14 +49,14 @@ public class UsuarioRepositoryImpl implements UsuariosRepository {
 
         var query = """
                 
-                INSERT INTO usuarios (nome, email)
-                VALUES (:nome, :email);
+                INSERT INTO usuarios (name, email)
+                VALUES (:name, :email);
                 
                 """;
 
         entityManager.createNativeQuery(query, Usuarios.class)
 
-                .setParameter("nome", users.getName())
+                .setParameter("name", users.getName())
                 .setParameter("email", users.getEmail())
                 .executeUpdate();
 
@@ -67,16 +70,17 @@ public class UsuarioRepositoryImpl implements UsuariosRepository {
 
         var query = """
                 
-                UPDATE FROM comentarios SET
-                nome = :nome
+                UPDATE usuarios SET
+                name = :name,
                 email = :email
                 WHERE id = :id
                 
                 """;
 
         entityManager.createNativeQuery(query, Usuarios.class)
-                .setParameter("nome", user.getName())
-                .setParameter("email", user.getName())
+                .setParameter("name", user.getName())
+                .setParameter("email", user.getEmail())
+                .setParameter("id", id)
                 .executeUpdate();
 
         System.out.println("Usuario atualizado com sucesso!");
