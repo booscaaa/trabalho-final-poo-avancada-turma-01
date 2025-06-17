@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Produto salvar(Produto produto) {
         entityManager.persist(produto);
         return produto;
@@ -25,25 +25,24 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     public Optional<Produto> buscarPorId(Integer id) {
-        Produto produto = entityManager.find(Produto.class, id);
-        return Optional.ofNullable(produto);
+        return Optional.ofNullable(entityManager.find(Produto.class, id));
     }
 
     @Override
     public List<Produto> listarTodos() {
-        return entityManager.createQuery(
-                        """
-                        SELECT p FROM Produto p
-                        """, Produto.class)
+        return entityManager
+                .createQuery("SELECT p FROM Produto p", Produto.class)
                 .getResultList();
     }
 
     @Override
+    @Transactional
     public Produto atualizar(Produto produto) {
         return entityManager.merge(produto);
     }
 
     @Override
+    @Transactional
     public void remover(Integer id) {
         Produto produto = entityManager.find(Produto.class, id);
         if (produto != null) {
