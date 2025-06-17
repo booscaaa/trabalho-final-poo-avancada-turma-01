@@ -166,9 +166,6 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 ```
 
 ## 🧪 Testes com Bruno
-
-Para facilitar os testes da API REST, você pode usar os arquivos `.bru` disponíveis na pasta `trabalho-java/`. Eles podem ser abertos com o [Bruno](https://www.usebruno.com/), uma alternativa leve e eficiente ao Postman.
-
 ### Como usar:
 
 1. Instale o [Bruno](https://www.usebruno.com/)
