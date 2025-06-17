@@ -124,7 +124,7 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 
 ### 📊 Relatórios
 
-#### Média de sentimento por produto – `GET /relatorios/media-por-produto`
+#### Média de sentimento por produto – `GET /relatorios/produtos`
 ```json
 [
   {
@@ -138,7 +138,7 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 ]
 ```
 
-#### Total por sentimento – `GET /relatorios/total-por-sentimento`
+#### Total por sentimento – `GET /relatorios/sentimentos`
 ```json
 {
   "muito positivo": 5,
@@ -149,7 +149,7 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 }
 ```
 
-#### Usuários mais ativos – `GET /relatorios/usuarios-mais-ativos`
+#### Usuários mais ativos – `GET /relatorios/usuarios`
 ```json
 [
   {
