@@ -2,7 +2,6 @@ package br.com.cesurgmarau.trabalho_final.infra.repository.dataBase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 categoria_id = :categoria_id
                 WHERE id = :id
                 """;
-        entityManager.createNativeQuery(query, Usuario.class)
+        entityManager.createNativeQuery(query, Produto.class)
                 .setParameter("nome", produto.getNome())
                 .setParameter("categoria_id", produto.getCategoriaId())
                 .setParameter("pontuacao", produto.getPontuacao())
@@ -84,5 +83,17 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         return entityManager.createNativeQuery(query, Produto.class)
                 .setParameter("categoria_id", categoriaId)
                 .getResultList();
+    }
+
+    @Transactional
+    @Override
+    public void adicionarQuantidadeComentario(int id) {
+        var query = """
+                UPDATE produto SET quantidade_comentario = quantidade_comentario + 1
+                WHERE id = :id;
+                """;
+        entityManager.createNativeQuery(query, Produto.class)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }

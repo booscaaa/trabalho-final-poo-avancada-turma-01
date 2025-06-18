@@ -1,7 +1,5 @@
 package br.com.cesurgmarau.trabalho_final.core.dto;
 
-import jakarta.persistence.Column;
-
 import java.util.List;
 
 public record ComentarioPorSentimentoDTO(

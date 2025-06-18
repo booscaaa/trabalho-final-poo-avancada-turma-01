@@ -35,6 +35,7 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
         Sentimento sentimento = sentimentoRepository.pegarTipoSentimento(tipoSentimento);
         comentario.setSentimentoId(sentimento.getId());
         sentimento.setQuantidade(sentimento.getQuantidade() + 1);
+        produtoRepository.adicionarQuantidadeComentario(comentario.getProdutoId());
         sentimentoRepository.atualizarSentimento(sentimento.getId(), sentimento);
 
         Produto produto = produtoRepository.listarProdutoPorId(comentario.getProdutoId());

@@ -2,7 +2,6 @@ package br.com.cesurgmarau.trabalho_final.infra.repository.dataBase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.CategoriaRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Categoria;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

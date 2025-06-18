@@ -14,10 +14,12 @@ public class RelatorioRepositoryImpl implements RelatorioRepository {
     @Override
     public double listarPorcentagemDeComentario(int sentimentoId) {
         var query = """
-                SELECT (quantidade * 100.0) / (SELECT SUM(quantidade) FROM sentimento
-                    ) AS percentual
-                FROM sentimento
-                WHERE id = :sentimento_id
+                    SELECT (s.quantidade * 100.0) / t.total AS percentual
+                    FROM sentimento s
+                    INNER JOIN (
+                        SELECT SUM(quantidade) AS total FROM sentimento
+                    ) t ON 1=1
+                    WHERE s.id = :sentimento_id
                 """;
 
         Object result = entityManager.createNativeQuery(query)
@@ -30,10 +32,9 @@ public class RelatorioRepositoryImpl implements RelatorioRepository {
     @Override
     public double listarPorcentagemDeComentarioPorProdutoId(int produtoId, int sentimentoId) {
         var query = """
-                SELECT (COUNT(*) * 100.0) / (SELECT COUNT(*) FROM comentario WHERE produto_id = :produto_id
-                    ) AS percentual
-                FROM comentario
-                WHERE produto_id = :produto_id AND sentimento_id = :sentimento_id
+                SELECT (COUNT(*) * 100.0) / MIN(p.quantidade_comentario) AS percentual FROM comentario c
+                INNER JOIN produto p ON p.id = c.produto_id
+                WHERE c.produto_id = :produto_id AND c.sentimento_id = :sentimento_id
                 """;
 
         Object result = entityManager.createNativeQuery(query)

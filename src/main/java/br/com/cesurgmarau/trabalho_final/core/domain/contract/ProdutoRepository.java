@@ -11,4 +11,5 @@ public interface ProdutoRepository {
     public void deletarProduto (int id);
     public void atualizarProduto(int id, Produto produto);
     public List<Produto> listarProdutosPorCategoria(int categoriaId);
+    public void adicionarQuantidadeComentario(int id);
 }
