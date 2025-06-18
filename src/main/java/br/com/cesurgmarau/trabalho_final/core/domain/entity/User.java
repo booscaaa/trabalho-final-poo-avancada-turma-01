@@ -4,8 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name="user")
+@Entity(name = "user")
 public class User {
+
     @Id
     @Column(name = "id")
     private int id;
@@ -13,8 +14,11 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "age")
-    private String age;
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     public int getId() {
         return id;
@@ -32,11 +36,19 @@ public class User {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
