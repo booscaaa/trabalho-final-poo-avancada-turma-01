@@ -1,181 +1,89 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
+# 📖 Documentação Técnica — Sistema de Análise de Sentimentos em Comentários de Produtos
 
-## 🎯 Objetivo
+## Visão Geral
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
-
----
-
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
-
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+API RESTful desenvolvida em Java com Spring Boot, seguindo arquitetura limpa e princípios SOLID. Permite cadastro de usuários, produtos e comentários, com análise de sentimento integrada e filtros avançados.
 
 ---
 
-## ✅ Funcionalidades obrigatórias
+## Estrutura do Projeto
 
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+- **Entidades:**  
+  - `Usuario`  
+  - `Produto`  
+  - `Comentario`  
+  - `TipoSentimento`  
 
----
+- **DTOs:**  
+  - Usuário: `UsuarioRequestDTO`, `UsuarioResponseDTO`  
+  - Produto: `ProdutoRequestDTO`, `ProdutoResponseDTO`  
+  - Comentário: `ComentarioRequestDTO`, `ComentarioResponseDTO`  
 
-## 📚 Aplicação dos Princípios SOLID
+- **Camada de Contratos (Interfaces):**  
+  - Repositórios: `UsuarioRepository`, `ProdutoRepository`, `ComentarioRepository`  
+  - UseCases: `UsuarioUseCase`, `ProdutoUseCase`, `ComentarioUseCase`  
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+- **Implementações:**  
+  - UseCases: `UsuarioUseCaseImpl`, `ProdutoUseCaseImpl`, `ComentarioUseCaseImpl`  
+  - Repositórios: `UsuarioRepositoryImpl`, `ProdutoRepositoryImpl`, `ComentarioRepositoryImpl`  
 
----
-
-## ✅ Requisitos mínimos de entrega
-
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
+- **Controllers:**  
+  - `UsuarioController`  
+  - `ProdutoController`  
+  - `ComentarioController`  
 
 ---
 
-### 📌 Estrutura e Organização
+## Endpoints
 
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
+### Usuários
 
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
+- `POST /usuarios` — Cria usuário
+- `GET /usuarios/{id}` — Busca usuário por ID
+- `GET /usuarios` — Lista todos usuários
+- `PUT /usuarios/{id}` — Atualiza usuário
+- `DELETE /usuarios/{id}` — Remove usuário
 
----
+### Produtos
 
-### 📌 Endpoints obrigatórios
+- `POST /produtos` — Cria produto
+- `GET /produtos/{id}` — Busca produto por ID
+- `GET /produtos` — Lista todos produtos
+- `PUT /produtos/{id}` — Atualiza produto
+- `DELETE /produtos/{id}` — Remove produto
 
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
+### Comentários
 
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
-
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
-
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
+- `POST /comentarios` — Cria comentário (com análise de sentimento)
+- `GET /comentarios/{id}` — Busca comentário por ID
+- `GET /comentarios` — Lista todos comentários ou filtra por `produtoId`, `usuarioId` ou `sentimento`
 
 ---
 
-### 📌 Regras de Negócio
+## Regras de Negócio
 
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
+- **Sentimentos:**  
+  O sistema reconhece 5 tipos de sentimentos: Muito Positivo, Positivo, Neutro, Negativo, Muito Negativo (`TipoSentimento`).
 
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
+- **Relacionamentos:**  
+  - Usuário pode ter vários comentários.
+  - Produto pode ter vários comentários.
+  - Comentário está vinculado a um usuário e a um produto.
 
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
 
----
+## Observações
 
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
+- O projeto segue arquitetura limpa, separando responsabilidades em camadas.
+- Os princípios SOLID são aplicados via interfaces, injeção de dependência e segregação de responsabilidades.
+- Para detalhes de endpoints e exemplos de uso, consulte o README.md.
 
 ---
 
-## 📌 Observações
-
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
-
----
-
-## 📋 Requisitos do GitHub
-
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
-
----
-
-## ✅ Critérios de Avaliação
-
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
-
----
-
-## 🚫 Sobre Comentários no Código
-
-**Não serão aceitos comentários no código-fonte.**
-
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
-
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
-
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
-
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
-
-Comunique-se **através do seu código**.
-
-
+**Principais arquivos e símbolos citados:**
+- Usuario.java
+- Produto.java
+- Comentario.java
+- TipoSentimento.java
+- UsuarioController.java
+- ProdutoController.java
+- ComentarioController.java
