@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+
 @Entity(name="produtos")
 public class Produto {
 
@@ -22,7 +24,7 @@ public class Produto {
     private String descricao;
 
     @Column(name="avaliacao_produto")
-    private Double avaliacaoProduto;
+    private BigDecimal avaliacaoProduto;
 
     public int getId() {
         return id;
@@ -56,11 +58,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getAvaliacaoProduto() {
+    public BigDecimal getAvaliacaoProduto() {
         return avaliacaoProduto;
     }
 
-    public void setAvaliacaoProduto(Double avaliacaoProduto) {
+    public void setAvaliacaoProduto(BigDecimal avaliacaoProduto) {
         this.avaliacaoProduto = avaliacaoProduto;
     }
 }

@@ -1,11 +1,12 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository.comentario;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.comentario.CRUD.ComentarioCRUDRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.produto.AvaliacaoProduto.AvaliacaoMediaRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Autowired
+    AvaliacaoMediaRepository avaliacaoMediaRepository;
 
     @Override
     public List<Comentario> fetch() {
@@ -47,14 +51,12 @@ public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
     @Override
     public void createComentario(Comentario comentario, int produtoID) {
 
-        var query = """
-                
-                INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao, analise, sentimento)
-                VALUES (:produto_id, :usuario_id, :comentario, :avaliacao, :analise, :sentimento);
-                
-                """;
+        String query = """
+            INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao, analise, sentimento)
+            VALUES (:produto_id, :usuario_id, :comentario, :avaliacao, :analise, :sentimento);
+            """;
 
-        entityManager.createNativeQuery(query, Comentario.class)
+        entityManager.createNativeQuery(query)
                 .setParameter("produto_id", produtoID)
                 .setParameter("usuario_id", comentario.getUsuarioId())
                 .setParameter("comentario", comentario.getComentario())
@@ -63,8 +65,7 @@ public class ComentarioCRUDRepositoryImpl implements ComentarioCRUDRepository {
                 .setParameter("sentimento", comentario.getSentimento())
                 .executeUpdate();
 
-        System.out.println("Comentario postado com sucesso!");
-
+        System.out.println("Comentário postado com sucesso!");
     }
 
     @Transactional

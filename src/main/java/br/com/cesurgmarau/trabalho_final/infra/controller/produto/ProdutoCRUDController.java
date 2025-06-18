@@ -40,7 +40,7 @@ public class ProdutoCRUDController {
 
     }
 
-    @PostMapping ("/produto")
+    @PostMapping ("/produtos")
     public ResponseEntity createProduto (@RequestBody Produto produto) throws Exception {
 
         try {
@@ -55,7 +55,7 @@ public class ProdutoCRUDController {
 
     }
 
-    @PutMapping ("produto/{id}")
+    @PutMapping ("/produto/{id}")
     public ResponseEntity updateProduto (@RequestBody Produto produto, @PathVariable int id) throws Exception{
 
         try {
@@ -73,7 +73,7 @@ public class ProdutoCRUDController {
 
     }
 
-    @DeleteMapping ("produto/{id}")
+    @DeleteMapping ("/produto/{id}")
     public ResponseEntity deleteProduto (@PathVariable int id) throws Exception {
 
         try {

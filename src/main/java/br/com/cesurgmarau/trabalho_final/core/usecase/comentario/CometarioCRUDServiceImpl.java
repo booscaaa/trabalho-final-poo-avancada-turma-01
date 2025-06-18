@@ -2,10 +2,9 @@ package br.com.cesurgmarau.trabalho_final.core.usecase.comentario;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.comentario.CRUD.ComentarioCRUDRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.comentario.CRUD.ComentarioCRUDUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.produto.AvaliacaoProduto.AvaliacaoMediaRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
-import br.com.cesurgmarau.trabalho_final.core.dto.AnaliseOutput.AnaliseDTO;
 import br.com.cesurgmarau.trabalho_final.infra.gateway.ChatGPTGateway;
-import br.com.cesurgmarau.trabalho_final.infra.repository.comentario.ComentarioCRUDRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,9 @@ public class CometarioCRUDServiceImpl implements ComentarioCRUDUseCase {
 
     @Autowired
     ComentarioCRUDRepository comentarioCRUDRepository;
+
+    @Autowired
+    AvaliacaoMediaRepository avaliacaoMediaRepository;
 
     @Autowired
     ChatGPTGateway chatGPTGateway;
@@ -34,6 +36,8 @@ public class CometarioCRUDServiceImpl implements ComentarioCRUDUseCase {
     public void createComentario(Comentario comentario, int produtoID) {
 
         chatGPTGateway.analisarComentario(comentario);
+
+        avaliacaoMediaRepository.updateAvaliacaoMediaProduto(produtoID);
 
         comentarioCRUDRepository.createComentario(comentario, produtoID);
     }

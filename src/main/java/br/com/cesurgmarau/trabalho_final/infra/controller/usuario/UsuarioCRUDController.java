@@ -42,7 +42,7 @@ public class UsuarioCRUDController {
 
     }
 
-    @PostMapping("/usuario")
+    @PostMapping("/usuarios")
     public ResponseEntity createUsuario (@RequestBody Usuario usuario) throws Exception {
 
         try {
@@ -57,7 +57,7 @@ public class UsuarioCRUDController {
 
     }
 
-    @PutMapping ("usuario/{id}")
+    @PutMapping ("/usuario/{id}")
     public ResponseEntity updateUsuario (@RequestBody Usuario usuario, @PathVariable int id) throws Exception{
 
         try {
@@ -75,7 +75,7 @@ public class UsuarioCRUDController {
 
     }
 
-    @DeleteMapping ("usuario/{id}")
+    @DeleteMapping ("/usuario/{id}")
     public ResponseEntity deleteUsuario (@PathVariable int id) throws Exception {
 
         try {

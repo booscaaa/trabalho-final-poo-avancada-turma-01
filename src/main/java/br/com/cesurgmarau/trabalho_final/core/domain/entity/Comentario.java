@@ -1,8 +1,41 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+@Table(name = "comentarios")
+@SqlResultSetMapping(
+        name = "ComentarioPorSentimentoOutputMapping",
+        classes = @ConstructorResult(
+                targetClass = br.com.cesurgmarau.trabalho_final.core.dto.ComentariosPorSentimentoOutput.ComentarioPorSentimentoOutput.class,
+                columns = {
+                        @ColumnResult(name = "sentimento", type = String.class),
+                        @ColumnResult(name = "quantidade_comentarios", type = Integer.class)
+                }
+        )
+)
+
+@SqlResultSetMapping(
+        name = "SentimentoMedioPorProdutoMapping",
+        classes = @ConstructorResult(
+                targetClass = br.com.cesurgmarau.trabalho_final.core.dto.MediaSentimentoProdutoOutput.MediaSentimentoProdutoOutput.class,
+                columns = {
+                        @ColumnResult(name = "produto", type = String.class),
+                        @ColumnResult(name = "sentimento_medio", type = String.class)
+                }
+        )
+)
+
+@SqlResultSetMapping(
+        name = "UsuarioMaisAtivoMapping",
+        classes = @ConstructorResult(
+                targetClass = br.com.cesurgmarau.trabalho_final.core.dto.RankingUsuarioOutput.RankingUsuarioOutput.class,
+                columns = {
+                        @ColumnResult(name = "posicao", type = Integer.class),
+                        @ColumnResult(name = "usuario", type = String.class),
+                        @ColumnResult(name = "quantidade_comentarios", type = Integer.class)
+                }
+        )
+)
 
 @Entity(name="comentarios")
 public class Comentario {

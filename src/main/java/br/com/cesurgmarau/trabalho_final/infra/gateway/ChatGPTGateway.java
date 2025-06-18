@@ -4,6 +4,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.dto.AnaliseOutput.AnaliseDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -16,8 +17,11 @@ import java.util.Map;
 @Component
 public class ChatGPTGateway {
 
-    private static final String API_URL = "";
-    private static final String API_KEY = "Bearer ";
+    @Value("${openrouter.api.url}")
+    private String API_URL;
+
+    @Value("${openrouter.api.key}")
+    private String API_KEY;
 
     public AnaliseDTO analisarComentario(Comentario comentarioAnalise) {
 
@@ -27,9 +31,9 @@ public class ChatGPTGateway {
             HttpClient client = HttpClient.newHttpClient();
             ObjectMapper mapper = new ObjectMapper();
 
-            String prompt = "Analise o seguinte comentário sobre um produto e retorne: "
+            String prompt = "Analise o seguinte comentário sobre um produto e retorne separadamente em duas respostas: "
                     + "1) Um resumo da análise de sentimentos "
-                    + "2) A palavra que representa o sentimento (positivo, negativo ou neutro):\n\n"
+                    + "2) A palavra que representa o sentimento (muito positivo, positivo, neutro, negativo ou muito negativo) **Retornar -> sentimento: palavra que representa o sentimento.\n\n"
                     + comentario;
 
             Map<String, Object> message = Map.of(
