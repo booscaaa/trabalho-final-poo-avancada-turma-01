@@ -6,8 +6,6 @@ import br.com.cesurgmarau.trabalho_final.infra.exceptions.MensagemResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,7 +27,6 @@ public class ProdutoController {
 
         try {
             this.produtoUseCase.adicionarProduto(produto);
-            System.out.println("preco recebido" + produto.getPreco() + produto.getNome());
             return ResponseEntity.ok(new MensagemResponse("Produto adicionado!"));
         } catch (Exception e) {
             throw new RuntimeException("Erro ao adicionar produto" + e.getMessage());
