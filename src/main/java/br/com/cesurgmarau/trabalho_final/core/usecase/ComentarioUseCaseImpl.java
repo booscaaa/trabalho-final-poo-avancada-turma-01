@@ -38,13 +38,9 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
         produtoRepository.adicionarQuantidadeComentario(comentario.getProdutoId());
         sentimentoRepository.atualizarSentimento(sentimento.getId(), sentimento);
 
-        Produto produto = produtoRepository.listarProdutoPorId(comentario.getProdutoId());
-        produto.setPontuacao(produto.getPontuacao() + sentimento.getPonto());
-        produtoRepository.atualizarProduto(produto.getId(), produto);
+        produtoRepository.atualizarPontuacao(comentario.getProdutoId(), sentimento.getPonto());
 
-        Usuario usuario = usuarioRepository.listarUsuarioPorId(comentario.getUsuarioId());
-        usuario.setQuantidadeComentario(usuario.getQuantidadeComentario() + 1);
-        usuarioRepository.atualizarUsuario(usuario.getId(), usuario);
+        usuarioRepository.atualizarQuantidadeComentario(comentario.getUsuarioId(), 1);
 
         comentarioRepository.adicionarComentario(comentario);
     }

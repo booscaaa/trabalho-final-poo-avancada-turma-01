@@ -10,4 +10,5 @@ public interface UsuarioRepository {
     public List<Usuario> listarUsuarios();
     public void deletarUsuario (int id);
     public void atualizarUsuario(int id, Usuario usuario);
+    public void atualizarQuantidadeComentario(int id, int quantidade);
 }

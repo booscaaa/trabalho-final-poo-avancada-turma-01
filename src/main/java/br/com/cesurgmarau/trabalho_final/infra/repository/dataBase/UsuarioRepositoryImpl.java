@@ -74,4 +74,18 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .setParameter("id", id)
                 .executeUpdate();
     }
+
+    @Transactional
+    @Override
+    public void atualizarQuantidadeComentario(int id, int quantidade) {
+        var query = """
+                UPDATE usuario SET
+                quantidade_comentario = quantidade_comentario + :quantidade
+                WHERE id = :id
+                """;
+        entityManager.createNativeQuery(query, Usuario.class)
+                .setParameter("id", id)
+                .setParameter("quantidade", quantidade)
+                .executeUpdate();
+    }
 }

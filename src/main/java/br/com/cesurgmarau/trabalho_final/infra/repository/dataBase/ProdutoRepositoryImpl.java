@@ -96,4 +96,19 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 .setParameter("id", id)
                 .executeUpdate();
     }
+
+    @Transactional
+    @Override
+    public void atualizarPontuacao(int id, int ponto) {
+        var query = """
+            UPDATE produto SET
+            pontuacao = pontuacao + :pontuacao
+            WHERE id = :id
+            """;
+
+        entityManager.createNativeQuery(query, Produto.class)
+                .setParameter("pontuacao", ponto)
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }
