@@ -1,59 +1,61 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-
-
 import jakarta.persistence.*;
 
-@Entity (name="comentario")
+@Entity
+@Table(name = "comentarios")
 public class Comentario {
 
     @Id
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name="texto")
+    @Column(name = "texto")
     private String texto;
 
-    @Column(name="sentimento")
+    @Column(name = "sentimento")
     private String sentimento;
 
-    @ManyToOne
-    @JoinColumn(name="id_usuario")
-    private Usuario usuario;
+    @Column(name = "id_usuario")
+    private int id_usuario;
 
-    @ManyToOne
-    @JoinColumn(name="id_produto")
-    private Produto produto;
+    @Column(name = "id_produto")
+    private int id_produto;
 
+    public Comentario() {
+    }
 
     public int getId(){
         return id;
     }
     public void setId(int id){
-        this.id=id;
+        this.id = id;
     }
     public String getTexto(){
         return texto;
     }
     public void setTexto(String texto){
-        this.texto=texto;
+        this.texto = texto;
     }
     public String getSentimento(){
         return sentimento;
     }
     public void setSentimento(String sentimento){
-        this.sentimento=sentimento;
+        this.sentimento = sentimento;
     }
-    public Usuario getUsuario(){
-        return usuario;
+
+    public int getId_produto() {
+        return id_produto;
     }
-    public void setUsuario(Usuario usuario){
-        this.usuario=usuario;
+    public void setId_produto(int id_produto) {
+        this.id_produto = id_produto;
     }
-    public Produto getProduto(){
-        return produto;
+
+    public int getId_usuario() {
+        return id_usuario;
     }
-    public void setProduto(Produto produto){
-        this.produto = produto;
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 }

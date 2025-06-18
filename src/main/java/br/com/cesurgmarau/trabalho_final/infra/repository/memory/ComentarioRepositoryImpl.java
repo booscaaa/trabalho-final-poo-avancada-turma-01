@@ -18,14 +18,13 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
     @Override
     public void adicionarComentario(Comentario comentario) {
         var query = """
-                INSERT INTO comentarios (id, id_usuario, id_produto, texto, sentimento)
-                VALUES (:id, :id_usuario, :id_produto, :texto, :sentimento)
-                """;
+            INSERT INTO comentarios ( id_usuario, id_produto, texto, sentimento)
+            VALUES (:id_usuario, :id_produto, :texto, :sentimento)
+            """;
 
-        entityManager.createNativeQuery(query, Comentario.class)
-                .setParameter("id", comentario.getId())
-                .setParameter("id_usuario", comentario.getUsuario().getId())
-                .setParameter("id_produto", comentario.getProduto().getId())
+        entityManager.createNativeQuery(query)
+                .setParameter("id_usuario", comentario.getId_usuario())
+                .setParameter("id_produto", comentario.getId_produto())
                 .setParameter("texto", comentario.getTexto())
                 .setParameter("sentimento", comentario.getSentimento())
                 .executeUpdate();
@@ -44,8 +43,8 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
                 """;
 
         entityManager.createNativeQuery(query, Comentario.class)
-                .setParameter("id_usuario", comentario.getUsuario().getId())
-                .setParameter("id_produto", comentario.getProduto().getId())
+                .setParameter("id_usuario", comentario.getId_usuario())
+                .setParameter("id_produto", comentario.getId_produto())
                 .setParameter("texto", comentario.getTexto())
                 .setParameter("sentimento", comentario.getSentimento())
                 .setParameter("id", id)

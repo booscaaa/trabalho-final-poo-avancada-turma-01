@@ -3,36 +3,32 @@ package br.com.cesurgmarau.trabalho_final.dto;
 import java.util.Map;
 
 public class RelatorioDTO {
-
-    private Map<String, Long> sentimentoPorProduto;
-    private Map<String, Long> sentimentoPorUsuario;
+    private Map<Integer, Long> sentimentoPorProduto;
+    private Map<Integer, Long> sentimentoPorUsuario;
     private String produtoDestaque;
     private String usuarioDestaque;
 
-    public RelatorioDTO() {}
-
-    public RelatorioDTO(Map<String, Long> sentimentoPorProduto, Map<String, Long> sentimentoPorUsuario,
-                        String produtoDestaque, String usuarioDestaque) {
+    public RelatorioDTO(Map<Integer, Long> sentimentoPorProduto, Map<Integer, Long> sentimentoPorUsuario, String produtoDestaque, String usuarioDestaque) {
         this.sentimentoPorProduto = sentimentoPorProduto;
         this.sentimentoPorUsuario = sentimentoPorUsuario;
         this.produtoDestaque = produtoDestaque;
         this.usuarioDestaque = usuarioDestaque;
     }
 
-    public Map<String, Long> getSentimentoPorProduto() {
+    public Map<Integer, Long> getSentimentoPorProduto() {
         return sentimentoPorProduto;
     }
 
-    public void setSentimentoPorProduto(Map<String, Long> sentimentoPorProduto) {
+    public void setSentimentoPorProduto(Map<Integer, Long> sentimentoPorProduto) {
         this.sentimentoPorProduto = sentimentoPorProduto;
     }
 
-    public Map<String, Long> getSentimentoPorUsuario() {
-        return sentimentoPorUsuario;
+    public String getUsuarioDestaque() {
+        return usuarioDestaque;
     }
 
-    public void setSentimentoPorUsuario(Map<String, Long> sentimentoPorUsuario) {
-        this.sentimentoPorUsuario = sentimentoPorUsuario;
+    public void setUsuarioDestaque(String usuarioDestaque) {
+        this.usuarioDestaque = usuarioDestaque;
     }
 
     public String getProdutoDestaque() {
@@ -43,11 +39,11 @@ public class RelatorioDTO {
         this.produtoDestaque = produtoDestaque;
     }
 
-    public String getUsuarioDestaque() {
-        return usuarioDestaque;
+    public Map<Integer, Long> getSentimentoPorUsuario() {
+        return sentimentoPorUsuario;
     }
 
-    public void setUsuarioDestaque(String usuarioDestaque) {
-        this.usuarioDestaque = usuarioDestaque;
+    public void setSentimentoPorUsuario(Map<Integer, Long> sentimentoPorUsuario) {
+        this.sentimentoPorUsuario = sentimentoPorUsuario;
     }
 }

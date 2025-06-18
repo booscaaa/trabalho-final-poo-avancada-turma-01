@@ -10,7 +10,7 @@ public class RestTemplateConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        // Usando SimpleClientHttpRequestFactory para evitar Apache HttpClient 5
+
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         return new RestTemplate(factory);
     }

@@ -14,8 +14,9 @@ import java.io.IOException;
 public class IAService {
 
 
-    @Value("${huggingface.api.token}")
+    @Value("${chave.api}")
     private String huggingFaceApiToken;
+
 
     private static final String API_URL = "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment";
 
@@ -29,8 +30,8 @@ public class IAService {
     }
 
     public String classificarSentimento(String texto) throws Exception {
-
-        String payload = "{\"inputs\": \"" + texto.replace("\"", "'") + "\"}";
+        String prompt = "Classifique o sentimento do seguinte texto: '" + texto.replace("\"", "'") + "'";
+        String payload = "{\"inputs\": \"" + prompt + "\"}";
 
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,18 +40,17 @@ public class IAService {
 
         HttpEntity<String> entity = new HttpEntity<>(payload, headers);
 
-
         ResponseEntity<String> response = restTemplate.exchange(API_URL, HttpMethod.POST, entity, String.class);
+
+        System.out.println("Resposta da API HuggingFace: " + response.getBody());
 
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonNode root = objectMapper.readTree(response.getBody());
-
             JsonNode labels = root.get(0);
             if (labels != null && labels.isArray()) {
                 for (JsonNode node : labels) {
                     String label = node.get("label").asText().toLowerCase();
                     double score = node.get("score").asDouble();
-
 
                     if (label.equals("positive")) {
                         if (score > 0.85) return "muito positivo";

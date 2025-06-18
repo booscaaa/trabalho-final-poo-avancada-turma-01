@@ -18,12 +18,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Override
     public void adicionarUsuario(Usuario usuario) {
         var query = """
-                INSERT INTO usuarios (id, nome, email)
-                VALUES (:id, :nome, :email)
+                INSERT INTO usuarios (nome, email)
+                VALUES ( :nome, :email)
                 """;
 
         entityManager.createNativeQuery(query, Usuario.class)
-                .setParameter("id", usuario.getId())
                 .setParameter("nome", usuario.getNome())
                 .setParameter("email", usuario.getEmail())
                 .executeUpdate();

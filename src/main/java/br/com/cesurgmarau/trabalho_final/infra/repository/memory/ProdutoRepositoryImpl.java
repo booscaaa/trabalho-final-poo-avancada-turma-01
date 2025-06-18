@@ -19,12 +19,11 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     @Override
     public void adicionarProduto(Produto produto) {
         var query = """
-                INSERT INTO produtos (id, nome, descricao, preco)
-                VALUES (:id, :nome, :descricao, :preco)
+                INSERT INTO produtos ( nome, descricao, preco)
+                VALUES (:nome, :descricao, :preco)
                 """;
 
         entityManager.createNativeQuery(query, Produto.class)
-                .setParameter("id", produto.getId())
                 .setParameter("nome", produto.getNome())
                 .setParameter("descricao", produto.getDescricao())
                 .setParameter("preco", produto.getPreco())
