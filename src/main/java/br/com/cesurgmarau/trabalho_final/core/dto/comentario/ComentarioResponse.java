@@ -3,7 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.dto.comentario;
 public class ComentarioResponse {
     private int id;
     private String descricao;
-    private String sentimento;
+    private int sentimento_id;
     private int usuario_id;
     private int produto_id;
 
@@ -23,12 +23,12 @@ public class ComentarioResponse {
         this.descricao = descricao;
     }
 
-    public String getSentimento() {
-        return sentimento;
+    public int getSentimento_id() {
+        return sentimento_id;
     }
 
-    public void setSentimento(String sentimento) {
-        this.sentimento = sentimento;
+    public void setSentimento_id(int sentimento_id) {
+        this.sentimento_id = sentimento_id;
     }
 
     public int getUsuario_id() {

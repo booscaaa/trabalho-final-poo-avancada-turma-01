@@ -51,6 +51,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 .executeUpdate();
     }
 
+    @Transactional
     public List<Produto> fetch() {
         var query = """
                 SELECT id, nome_produto, descicao_produto FROM produto;
@@ -59,6 +60,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
                 .getResultList();
     }
 
+    @Transactional
     public Produto get(int id) {
         var query = "SELECT id, nome_produto, descicao_produto FROM produto WHERE id = :id;";
         return (Produto) entityManager.createNativeQuery(query, Produto.class)

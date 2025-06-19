@@ -50,6 +50,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .executeUpdate();
     }
 
+    @Transactional
     public List<Usuario> fetch() {
         var query = """
                 SELECT id, nome, email FROM usuario;
@@ -58,6 +59,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .getResultList();
     }
 
+    @Transactional
     public Usuario get(int id) {
         var query = "SELECT id, nome, email FROM usuario WHERE id = :id;";
         return (Usuario) entityManager.createNativeQuery(query, Usuario.class)

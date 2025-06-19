@@ -46,7 +46,7 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     }
 
     @Override
-    public List<Comentario> getBySentimento(String sentimento) {
-        return comentariorepository.getBySentimento(sentimento);
+    public List<Comentario> getBySentimento(int sentimento_id) {
+        return comentariorepository.getBySentimento(sentimento_id);
     }
 }

@@ -13,22 +13,22 @@ public class ComentarioController {
     private ComentarioUseCase comentarioUseCase;
 
     @PostMapping("/comentario")
-    public void insert(Comentario comentario) {
+    public void insert(@RequestBody Comentario comentario) {
         comentarioUseCase.insert(comentario);
     }
 
     @PutMapping("/comentario")
-    public void update(int id, Comentario comentario) {
+    public void update(@PathVariable int id,@RequestBody Comentario comentario) {
         comentarioUseCase.update(id, comentario);
     }
 
     @DeleteMapping("/comentario/{id}")
-    public void delete(int id) {
+    public void delete(@PathVariable int id) {
         comentarioUseCase.delete(id);
     }
 
     @GetMapping("/comentario/{id}")
-    public Comentario getById(int id) {
+    public Comentario getById(@PathVariable int id) {
         return comentarioUseCase.getById(id);
     }
 
@@ -37,19 +37,19 @@ public class ComentarioController {
         return comentarioUseCase.fetch();
     }
 
-    @GetMapping("/comentario")
-    public List<Comentario> getByProdutoId(int produto_id) {
+    @GetMapping("/comentario/produto/{id}")
+    public List<Comentario> getByProdutoId(@PathVariable int produto_id) {
         return comentarioUseCase.getByProdutoId(produto_id);
     }
 
-    @GetMapping("/comentario")
-    public List<Comentario> getByUsuarioId(int comentario_id) {
+    @GetMapping("/comentario/usuario/{id}")
+    public List<Comentario> getByUsuarioId(@PathVariable int comentario_id) {
         return comentarioUseCase.getByUsuarioId(comentario_id);
     }
 
-    @GetMapping("/comentario")
-    public List<Comentario> getBySentimento(String sentimento) {
-        return comentarioUseCase.getBySentimento(sentimento);
+    @GetMapping("/comentario/sentimento/{id}")
+    public List<Comentario> getBySentimento(@PathVariable int sentimento_id) {
+        return comentarioUseCase.getBySentimento(sentimento_id);
     }
 }
 

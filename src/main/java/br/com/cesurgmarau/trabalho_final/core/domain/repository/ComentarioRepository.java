@@ -10,7 +10,7 @@ public interface ComentarioRepository {
     public void delete(int id);
     public Comentario getById(int id);
     public List<Comentario> fetch();
-    public List<Comentario> getByProdutoId(int produto_Id);
-    public List<Comentario> getByUsuarioId(int usuario_Id);
-    public List<Comentario> getBySentimento(String sentimento);
+    public List<Comentario> getByProdutoId(int produto_id);
+    public List<Comentario> getByUsuarioId(int usuario_id);
+    public List<Comentario> getBySentimento(int sentimento);
 }
