@@ -1,17 +1,29 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
+@Entity(name = "compra")
 public class Compra {
-    private int id;
+    @Id
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "data")
     private LocalDateTime data;
-    private int valorTotal;
+    @Column(name = "valor_total")
+    private Integer valorTotal;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoCompra> produtos;
 
-    public Compra(int id, LocalDateTime data, int valorTotal, Usuario usuario, List<ProdutoCompra> produtos) {
+    public Compra() {
+
+    }
+    public Compra(Integer id, LocalDateTime data, Integer valorTotal, Usuario usuario, List<ProdutoCompra> produtos) {
         this.id = id;
         this.data = data;
         this.valorTotal = valorTotal;
@@ -19,11 +31,11 @@ public class Compra {
         this.produtos = produtos;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,11 +47,11 @@ public class Compra {
         this.data = data;
     }
 
-    public int getValorTotal() {
+    public Integer getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(int valorTotal) {
+    public void setValorTotal(Integer valorTotal) {
         this.valorTotal = valorTotal;
     }
 

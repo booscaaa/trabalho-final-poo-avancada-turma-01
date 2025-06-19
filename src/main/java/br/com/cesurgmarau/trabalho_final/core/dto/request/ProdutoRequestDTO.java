@@ -2,12 +2,12 @@ package br.com.cesurgmarau.trabalho_final.core.dto.request;
 
 public class ProdutoRequestDTO {
     private String nome;
-    private int valorUnitario;
-    private int unidade;
+    private Integer valorUnitario;
+    private Integer unidade;
     private String descricao;
-    private int quantidade;
+    private Integer quantidade;
 
-    public ProdutoRequestDTO(String nome, int valorUnitario, int unidade, String descricao, int quantidade) {
+    public ProdutoRequestDTO(String nome, Integer valorUnitario, Integer unidade, String descricao, Integer quantidade) {
         this.nome = nome;
         this.valorUnitario = valorUnitario;
         this.unidade = unidade;
@@ -23,19 +23,19 @@ public class ProdutoRequestDTO {
         this.nome = nome;
     }
 
-    public int getValorUnitario() {
+    public Integer getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(int valorUnitario) {
+    public void setValorUnitario(Integer valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
-    public int getUnidade() {
+    public Integer getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(int unidade) {
+    public void setUnidade(Integer unidade) {
         this.unidade = unidade;
     }
 
@@ -47,11 +47,11 @@ public class ProdutoRequestDTO {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 }

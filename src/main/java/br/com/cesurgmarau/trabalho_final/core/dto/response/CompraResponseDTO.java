@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CompraResponseDTO {
-    private int id;
+    private Integer id;
     private LocalDateTime data;
-    private int valorTotal;
-    private int usuarioId;
+    private Integer valorTotal;
+    private Integer usuarioId;
     private String usuarioNome;
     private List<ProdutoCompraResponseDTO> produtos;
 
-    public CompraResponseDTO(int id, LocalDateTime data, int valorTotal, int usuarioId, String usuarioNome, List<ProdutoCompraResponseDTO> produtos) {
+    public CompraResponseDTO(Integer id, LocalDateTime data, Integer valorTotal, Integer usuarioId, String usuarioNome, List<ProdutoCompraResponseDTO> produtos) {
         this.id = id;
         this.data = data;
         this.valorTotal = valorTotal;
@@ -20,11 +20,11 @@ public class CompraResponseDTO {
         this.produtos = produtos;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,19 +36,19 @@ public class CompraResponseDTO {
         this.data = data;
     }
 
-    public int getValorTotal() {
+    public Integer getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(int valorTotal) {
+    public void setValorTotal(Integer valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public int getUsuarioId() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(int usuarioId) {
+    public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
 

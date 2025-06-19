@@ -1,21 +1,21 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.response;
 
 public class ProdutoCompraResponseDTO {
-    private int produtoId;
+    private Integer produtoId;
     private String nomeProduto;
-    private int quantidade;
+    private Integer quantidade;
 
-    public ProdutoCompraResponseDTO(int produtoId, String nomeProduto, int quantidade) {
+    public ProdutoCompraResponseDTO(Integer produtoId, String nomeProduto, Integer quantidade) {
         this.produtoId = produtoId;
         this.nomeProduto = nomeProduto;
         this.quantidade = quantidade;
     }
 
-    public int getProdutoId() {
+    public Integer getProdutoId() {
         return produtoId;
     }
 
-    public void setProdutoId(int produtoId) {
+    public void setProdutoId(Integer produtoId) {
         this.produtoId = produtoId;
     }
 
@@ -27,11 +27,11 @@ public class ProdutoCompraResponseDTO {
         this.nomeProduto = nomeProduto;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 }

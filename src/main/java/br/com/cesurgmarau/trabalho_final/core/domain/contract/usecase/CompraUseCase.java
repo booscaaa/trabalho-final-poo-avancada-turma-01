@@ -1,10 +1,10 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.contract.repository;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Compra;
 
 import java.util.List;
 
-public interface CompraRepository {
+public interface CompraUseCase {
     void createCompra(Compra compra);
     List<Compra> readCompra();
     Compra readCompra(Integer id);

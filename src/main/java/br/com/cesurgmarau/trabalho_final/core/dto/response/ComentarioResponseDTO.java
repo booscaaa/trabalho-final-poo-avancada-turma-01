@@ -3,14 +3,14 @@ package br.com.cesurgmarau.trabalho_final.core.dto.response;
 import java.time.LocalDateTime;
 
 public class ComentarioResponseDTO {
-    private int id;
+    private Integer id;
     private String texto;
-    private int usuarioId;
-    private int produtoId;
-    private int sentimento;
+    private Integer usuarioId;
+    private Integer produtoId;
+    private Integer sentimento;
     private LocalDateTime data;
 
-    public ComentarioResponseDTO(int id, String texto, int usuarioId, int produtoId, int sentimento, LocalDateTime data) {
+    public ComentarioResponseDTO(Integer id, String texto, Integer usuarioId, Integer produtoId, Integer sentimento, LocalDateTime data) {
         this.id = id;
         this.texto = texto;
         this.usuarioId = usuarioId;
@@ -19,11 +19,11 @@ public class ComentarioResponseDTO {
         this.data = data;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,27 +35,27 @@ public class ComentarioResponseDTO {
         this.texto = texto;
     }
 
-    public int getUsuarioId() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(int usuarioId) {
+    public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
 
-    public int getProdutoId() {
+    public Integer getProdutoId() {
         return produtoId;
     }
 
-    public void setProdutoId(int produtoId) {
+    public void setProdutoId(Integer produtoId) {
         this.produtoId = produtoId;
     }
 
-    public int getSentimento() {
+    public Integer getSentimento() {
         return sentimento;
     }
 
-    public void setSentimento(int sentimento) {
+    public void setSentimento(Integer sentimento) {
         this.sentimento = sentimento;
     }
 

@@ -1,23 +1,23 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.response;
 
 public class UsuarioResponseDTO {
-    private int id;
+    private Integer id;
     private String nome;
     private String senha;
     private String email;
 
-    public UsuarioResponseDTO(int id, String nome, String senha, String email) {
+    public UsuarioResponseDTO(Integer id, String nome, String senha, String email) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

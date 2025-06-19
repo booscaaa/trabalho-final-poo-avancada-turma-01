@@ -1,10 +1,10 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.contract.repository;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 
 import java.util.List;
 
-public interface ProdutoRepository {
+public interface ProdutoUseCase {
     void createProduto(Produto produto);
     List<Produto> readProduto();
     Produto readProduto(Integer id);

@@ -1,10 +1,10 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.contract.repository;
+package br.com.cesurgmarau.trabalho_final.core.domain.contract.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 
 import java.util.List;
 
-public interface ComentarioRepository {
+public interface ComentarioUseCase {
     void createComentario(Comentario comentario);
     List<Comentario> readComentario();
     Comentario readComentario(Integer id);

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProdutoCompraController {
     public void createProdutoCompra(ProdutoCompraRequestDTO produtoCompraRequestDTO);
     public List<ProdutoCompraResponseDTO> readProdutoCompra();
-    public ProdutoCompraResponseDTO readProdutoCompra(int id);
-    public void updateProdutoCompra(int id, ProdutoCompraRequestDTO produtoCompraRequestDTO);
-    public void deleteProdutoCompra(int id);
+    public ProdutoCompraResponseDTO readProdutoCompra(Integer id);
+    public void updateProdutoCompra(Integer compraId, Integer produtoId, ProdutoCompraRequestDTO produtoCompraRequestDTO);
+    public void deleteProdutoCompra(Integer id);
 }

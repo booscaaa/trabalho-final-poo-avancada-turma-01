@@ -1,16 +1,32 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity(name = "comentario")
 public class Comentario {
-    private int id;
+    @Id
+    @Column(name = "id")
+    private Integer id;
+    @Column (name = "texto")
     private String texto;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
-    private int sentimento;
+    @Column (name = "sentimento")
+    private Integer sentimento;
+    @Column (name = "data")
     private LocalDateTime data;
 
-    public Comentario(int id, String texto, Usuario usuario, Produto produto, int sentimento, LocalDateTime data) {
+    public Comentario() {
+
+    }
+
+    public Comentario(Integer id, String texto, Usuario usuario, Produto produto, Integer sentimento, LocalDateTime data) {
         this.id = id;
         this.texto = texto;
         this.usuario = usuario;
@@ -19,11 +35,11 @@ public class Comentario {
         this.data = data;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +67,11 @@ public class Comentario {
         this.produto = produto;
     }
 
-    public int getSentimento() {
+    public Integer getSentimento() {
         return sentimento;
     }
 
-    public void setSentimento(int sentimento) {
+    public void setSentimento(Integer sentimento) {
         this.sentimento = sentimento;
     }
 

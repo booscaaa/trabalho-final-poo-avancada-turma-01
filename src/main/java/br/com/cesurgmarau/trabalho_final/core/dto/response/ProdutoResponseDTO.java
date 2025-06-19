@@ -3,15 +3,15 @@ package br.com.cesurgmarau.trabalho_final.core.dto.response;
 import java.time.LocalDateTime;
 
 public class ProdutoResponseDTO {
-    private int id;
+    private Integer id;
     private String nome;
-    private int valorUnitario;
-    private int unidade;
+    private Integer valorUnitario;
+    private Integer unidade;
     private String descricao;
-    private int quantidade;
+    private Integer quantidade;
     private LocalDateTime data;
 
-    public ProdutoResponseDTO(int id, String nome, int valorUnitario, int unidade, String descricao, int quantidade, LocalDateTime data) {
+    public ProdutoResponseDTO(Integer id, String nome, Integer valorUnitario, Integer unidade, String descricao, Integer quantidade, LocalDateTime data) {
         this.id = id;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
@@ -21,11 +21,11 @@ public class ProdutoResponseDTO {
         this.data = data;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,19 +37,19 @@ public class ProdutoResponseDTO {
         this.nome = nome;
     }
 
-    public int getValorUnitario() {
+    public Integer getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(int valorUnitario) {
+    public void setValorUnitario(Integer valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
-    public int getUnidade() {
+    public Integer getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(int unidade) {
+    public void setUnidade(Integer unidade) {
         this.unidade = unidade;
     }
 
@@ -61,11 +61,11 @@ public class ProdutoResponseDTO {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

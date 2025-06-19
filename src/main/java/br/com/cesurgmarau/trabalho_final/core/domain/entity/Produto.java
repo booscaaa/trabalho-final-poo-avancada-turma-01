@@ -1,19 +1,33 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.enums.Unidade;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+@Entity(name = "produto")
 public class Produto {
-    private int id;
+    @Id
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "nome")
     private String nome;
-    private int valorUnitario;
+    @Column(name = "valor_unitario")
+    private Integer valorUnitario;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unidade")
     private Unidade unidade;
+    @Column(name = "descricao")
     private String descricao;
-    private int quantidade;
+    @Column(name = "quantidade")
+    private Integer quantidade;
+    @Column(name = "data")
     private LocalDateTime data;
 
-    public Produto(int id, String nome, int valorUnitario, Unidade unidade, String descricao, int quantidade, LocalDateTime data) {
+    public Produto() {
+
+    }
+    public Produto(Integer id, String nome, Integer valorUnitario, Unidade unidade, String descricao, Integer quantidade, LocalDateTime data) {
         this.id = id;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
@@ -23,11 +37,11 @@ public class Produto {
         this.data = data;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,11 +53,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getValorUnitario() {
+    public Integer getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(int valorUnitario) {
+    public void setValorUnitario(Integer valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
@@ -63,11 +77,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

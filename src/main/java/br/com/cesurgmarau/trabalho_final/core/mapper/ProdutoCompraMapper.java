@@ -6,7 +6,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.ProdutoCompra;
 import br.com.cesurgmarau.trabalho_final.core.dto.response.ProdutoCompraResponseDTO;
 
 public class ProdutoCompraMapper {
-    public static ProdutoCompra toEntity(Compra compra, Produto produto, int quantidade) {
+    public static ProdutoCompra toEntity(Compra compra, Produto produto, Integer quantidade) {
         return new ProdutoCompra(compra, produto, quantidade);
     }
 

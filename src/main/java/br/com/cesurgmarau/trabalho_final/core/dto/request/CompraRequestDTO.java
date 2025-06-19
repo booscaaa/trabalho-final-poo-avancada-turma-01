@@ -3,29 +3,29 @@ package br.com.cesurgmarau.trabalho_final.core.dto.request;
 import java.util.List;
 
 public class CompraRequestDTO {
-    private int valorTotal;
-    private int usuarioId;
+    private Integer valorTotal;
+    private Integer usuarioId;
     private List<ProdutoCompraRequestDTO> produtos;
 
-    public CompraRequestDTO(int valorTotal, int usuarioId, List<ProdutoCompraRequestDTO> produtos) {
+    public CompraRequestDTO(Integer valorTotal, Integer usuarioId, List<ProdutoCompraRequestDTO> produtos) {
         this.valorTotal = valorTotal;
         this.usuarioId = usuarioId;
         this.produtos = produtos;
     }
 
-    public int getValorTotal() {
+    public Integer getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(int valorTotal) {
+    public void setValorTotal(Integer valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public int getUsuarioId() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(int usuarioId) {
+    public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
 

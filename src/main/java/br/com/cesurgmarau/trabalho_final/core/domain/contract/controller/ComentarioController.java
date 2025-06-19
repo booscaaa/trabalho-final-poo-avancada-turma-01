@@ -8,7 +8,7 @@ import java.util.List;
 public interface ComentarioController {
     public void createComentario(ComentarioRequestDTO comentarioRequestDTO);
     public List<ComentarioResponseDTO> readComentario();
-    public ComentarioResponseDTO readComentario(int id);
-    public void updateComentario(int id, ComentarioRequestDTO comentarioRequestDTO);
-    public void deleteComentario(int id);
+    public ComentarioResponseDTO readComentario(Integer id);
+    public void updateComentario(Integer id, ComentarioRequestDTO comentarioRequestDTO);
+    public void deleteComentario(Integer id);
 }

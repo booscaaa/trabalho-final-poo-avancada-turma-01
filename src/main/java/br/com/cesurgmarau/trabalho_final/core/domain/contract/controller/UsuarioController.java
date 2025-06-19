@@ -8,7 +8,7 @@ import java.util.List;
 public interface UsuarioController {
     public void createUsuario(UsuarioRequestDTO usuarioRequestDTO);
     public List<UsuarioResponseDTO> readUsuario();
-    public UsuarioResponseDTO readUsuario(int id);
-    public void updateUsuario(int id, UsuarioRequestDTO usuarioRequestDTO);
-    public void deleteUsuario(int id);
+    public UsuarioResponseDTO readUsuario(Integer id);
+    public void updateUsuario(Integer id, UsuarioRequestDTO usuarioRequestDTO);
+    public void deleteUsuario(Integer id);
 }

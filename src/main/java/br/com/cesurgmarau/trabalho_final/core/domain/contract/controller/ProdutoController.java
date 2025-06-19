@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProdutoController {
     public void createProduto(ProdutoRequestDTO produtoRequestDTO);
     public List<ProdutoResponseDTO> readProduto();
-    public ProdutoResponseDTO readProduto(int id);
-    public void updateProduto(int id, ProdutoRequestDTO produtoRequestDTO);
-    public void deleteProduto(int id);
+    public ProdutoResponseDTO readProduto(Integer id);
+    public void updateProduto(Integer id, ProdutoRequestDTO produtoRequestDTO);
+    public void deleteProduto(Integer id);
 }

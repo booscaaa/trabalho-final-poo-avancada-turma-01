@@ -1,23 +1,37 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity(name = "usuario")
 public class Usuario {
-    private int id;
+    @Id
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "senha")
     private String senha;
+    @Column(name = "email")
     private String email;
 
-    public Usuario(int id, String nome, String senha, String email) {
+    public Usuario() {
+
+    }
+
+    public Usuario(Integer id, String nome, String senha, String email) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
