@@ -10,4 +10,5 @@ public interface ComentariosRepository {
     void createComentario (Comentarios comentario);
     void updateComentario (Comentarios comentario, int id);
     void deleteComentario (int id);
+
 }

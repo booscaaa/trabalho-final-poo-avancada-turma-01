@@ -23,6 +23,17 @@ public class Comentarios {
     @Column(name="avaliacao")
     private int avaliacao;
 
+    @Column(name = "sentimento")
+    private String sentimento;
+
+    public String getSentimento() {
+        return sentimento;
+    }
+
+    public void setSentimento(String sentimento) {
+        this.sentimento = sentimento;
+    }
+
     public int getProdutoId() {
         return produtoId;
     }

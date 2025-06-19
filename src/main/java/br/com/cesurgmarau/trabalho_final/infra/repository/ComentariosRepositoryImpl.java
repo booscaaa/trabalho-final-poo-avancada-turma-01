@@ -47,8 +47,8 @@ public class ComentariosRepositoryImpl implements ComentariosRepository {
 
         var query = """
                 
-                INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao)
-                VALUES (:produto_id, :usuario_id, :comentario, :avaliacao);
+                INSERT INTO comentarios (produto_id, usuario_id, comentario, avaliacao, sentimento)
+                VALUES (:produto_id, :usuario_id, :comentario, :avaliacao, :sentimento);
                 
                 """;
 
@@ -57,6 +57,7 @@ public class ComentariosRepositoryImpl implements ComentariosRepository {
                 .setParameter("usuario_id", comentario.getUsuarioId())
                 .setParameter("comentario", comentario.getComentario())
                 .setParameter("avaliacao", comentario.getAvaliacao())
+                .setParameter("sentimento", comentario.getSentimento())
                 .executeUpdate();
 
         System.out.println("Comentario postado com sucesso!");
@@ -96,7 +97,7 @@ public class ComentariosRepositoryImpl implements ComentariosRepository {
 
         var query = """
                 
-                DELETE FROM comentaiors WHERE id = :id
+                DELETE FROM comentarios WHERE id = :id
                 
                 """;
 
@@ -107,4 +108,6 @@ public class ComentariosRepositoryImpl implements ComentariosRepository {
         System.out.println("Comentario excluído com sucesso!");
 
     }
+
+
 }

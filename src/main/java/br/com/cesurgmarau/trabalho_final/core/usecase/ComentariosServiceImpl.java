@@ -25,7 +25,36 @@ public class ComentariosServiceImpl implements ComentariosUseCase {
 
     @Override
     public void createComentario(Comentarios comentario) {
+
+        String sentimento = "neutro";
+        String texto = comentario.getComentario();
+
+        if (texto != null) {
+            if (texto.contains("bom") || texto.contains("BOM")
+                    || texto.contains("ótimo") || texto.contains("ÓTIMO")
+                    || texto.contains("excelente") || texto.contains("EXCELENTE")
+                    || texto.contains("maravilhoso") || texto.contains("MARAVILHOSO")
+                    || texto.contains("fantástico") || texto.contains("FANTÁSTICO")
+                    || texto.contains("incrível") || texto.contains("INCRÍVEL")
+                    || texto.contains("positivo") || texto.contains("POSITIVO")
+                    || texto.contains("satisfeito") || texto.contains("SATISFEITO")) {
+                sentimento = "positivo";
+            } else if (texto.contains("ruim") || texto.contains("RUIM")
+                    || texto.contains("péssimo") || texto.contains("PÉSSIMO")
+                    || texto.contains("horrível") || texto.contains("HORRÍVEL")
+                    || texto.contains("com defeito") || texto.contains("COM DEFEITO")
+                    || texto.contains("problema") || texto.contains("PROBLEMA")
+                    || texto.contains("insuportável") || texto.contains("INSUPORTÁVEL")
+                    || texto.contains("reclamação") || texto.contains("RECLAMAÇÃO")
+                    || texto.contains("pior") || texto.contains("PIOR")
+                    || texto.contains("não recomendo") || texto.contains("NÃO RECOMENDO")
+                    || texto.contains("decepcionante") || texto.contains("DECEPCIONANTE")) {
+                sentimento = "negativo";
+            }
+        }
+        comentario.setSentimento(sentimento);
         comentariosRepository.createComentario(comentario);
+
     }
 
     @Override
@@ -37,6 +66,6 @@ public class ComentariosServiceImpl implements ComentariosUseCase {
     public void deleteComentario(int id) {
         comentariosRepository.deleteComentario(id);
     }
-
-
 }
+
+

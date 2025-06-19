@@ -50,7 +50,7 @@ public class ProdutosRepositoryImpl implements ProdutosRepository {
         var query = """
                 
                 INSERT INTO produtos (name, price, descricao)
-                VALUES (:name, :price, :descricao, );
+                VALUES (:name, :price, :descricao);
                 
                 """;
 
