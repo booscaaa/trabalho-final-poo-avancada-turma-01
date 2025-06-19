@@ -39,23 +39,18 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase, ComentarioGatew
     }
 
     @Override
-    public void atualizarComentario(int id, Comentario comentario) {
-        Comentario existente = this.comentarioRepository.comentarioPorId(id);
-        if (existente == null) {
-            throw new IllegalArgumentException("Comentário com ID fornecido não existe.");
-        }
-
-        this.comentarioRepository.atualizarComentario(id, comentario);
+    public List<Comentario> buscaPorProdutoId(int produtoId) {
+        return this.comentarioRepository.buscaPorProdutoId(produtoId);
     }
 
     @Override
-    public void deletarComentario(int id) {
-        Comentario existente = this.comentarioRepository.comentarioPorId(id);
-        if (existente == null) {
-            throw new IllegalArgumentException("Comentário com ID fornecido não existe.");
-        }
+    public List<Comentario> buscaPorUsuarioId(int usuarioId) {
+        return this.comentarioRepository.buscaPorUsuarioId(usuarioId);
+    }
 
-        this.comentarioRepository.deletarComentario(id);
+    @Override
+    public List<Comentario> buscaPorSentimento(String sentimento) {
+        return this.comentarioRepository.buscaPorSentimento(sentimento);
     }
 
     @Override

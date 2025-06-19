@@ -43,16 +43,41 @@ public class ComentarioRepositoryImpl implements br.com.cesurgmarau.trabalho_fin
 
     @Override
     public Comentario comentarioPorId(int id) {
-        return null;
+        var query = "SELECT * FROM comentarios WHERE id_comentario = :id";
+
+        return (Comentario) entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
-    public void atualizarComentario(int id, Comentario comentario) {
+    public List<Comentario> buscaPorProdutoId(int produtoId) {
+        String sql = "SELECT * FROM comentarios WHERE produto = :produtoId";
+
+        return entityManager.createNativeQuery(sql, Comentario.class)
+                .setParameter("produtoId", produtoId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Comentario> buscaPorUsuarioId(int usuarioId) {
+        var query = "SELECT * FROM comentarios WHERE usuario = :usuarioId";
+
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("usuarioId", usuarioId)
+                .getResultList();
 
     }
 
     @Override
-    public void deletarComentario(int id) {
+    public List<Comentario> buscaPorSentimento(String sentimento) {
+        var query = """
+            SELECT * FROM comentarios
+            WHERE sentimento ILIKE CONCAT('%', :sentimento, '%')
+        """;
 
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("sentimento", sentimento)
+                .getResultList();
     }
 }

@@ -8,19 +8,22 @@ import jakarta.persistence.*;
 @JsonPropertyOrder({"id", "comentario", "sentimento", "usuario", "produto"})
 public class Comentario {
     @Id
+    @Column(name = "id_comentario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_comentario;
-    @Column(nullable = false)
+
+    @Column(name = "comentario", nullable = false)
     private String comentario;
 
+    @Column(name = "sentimento")
     private String sentimento;
 
     @ManyToOne
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "produto")
+    @JoinColumn(name = "produto", referencedColumnName = "produto_id")
     private Produto produto;
 
     public int getId() {

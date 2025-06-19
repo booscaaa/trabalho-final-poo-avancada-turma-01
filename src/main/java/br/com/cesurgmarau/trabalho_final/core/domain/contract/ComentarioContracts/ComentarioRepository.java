@@ -8,6 +8,7 @@ public interface ComentarioRepository {
     void adicionarComentario(Comentario comentario);
     List<Comentario> listarComentarios();
     Comentario comentarioPorId(int id);
-    void atualizarComentario(int id, Comentario comentario);
-    void deletarComentario(int id);
+    List<Comentario> buscaPorProdutoId(int produtoId);
+    List<Comentario> buscaPorUsuarioId(int produtoId);
+    List<Comentario> buscaPorSentimento(String sentimento);
 }

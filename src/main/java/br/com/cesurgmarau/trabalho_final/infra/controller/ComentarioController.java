@@ -5,15 +5,13 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioContract
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.DeepSeekRequest;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.DeepSeekResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import br.com.cesurgmarau.trabalho_final.infra.exceptions.MensagemResponse;
 import br.com.cesurgmarau.trabalho_final.infra.gateway.DeepSeekApiGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class ComentarioController {
 
             DeepSeekRequest.Message msg = new DeepSeekRequest.Message();
             msg.setRegra("user");
-            msg.setConteudo(prompt);
+            msg.setConteudo(prompt + "Crie duas linhas, uma com um título (Muito positivo, Positivo, Neutro, Negativo ou Muito negativo). Escolha apenas um desses sentimentos com base no comentário. E a outra linha com uma análise de sentimento que o comentário que te mandei transmite. Essas linhas devem ser breves e ter no máximo 5000 caracteres.");
             iaRequest.setMensagens(List.of(msg));
 
             DeepSeekResponse respostaIa = deepSeekApiGateway.enviarRequisicao(iaRequest);
@@ -66,6 +64,53 @@ public class ComentarioController {
             return ResponseEntity.ok(comentarios);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao listar comentários: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/comentario/{id}")
+    public ResponseEntity<?> comentarioPorID(@PathVariable int id){
+        if (id < 0 ) {
+            throw new IllegalArgumentException("Id inválido.");
+        }
+
+        try {
+            Comentario comentario = this.comentarioUseCase.comentarioPorId(id);
+            if (comentario == null){
+                throw new ClassNotFoundException("Comentárop não encontrado.");
+            }
+            return ResponseEntity.ok(comentario);
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao listar comentário por id: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/comentario")
+    public ResponseEntity<?> buscaPorProduto(@RequestParam("produtoId") int id){
+        try {
+            List<Comentario> comentarios = this.comentarioUseCase.buscaPorProdutoId(id);
+            return ResponseEntity.ok(comentarios);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar produtos: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/comentarioU")
+    public ResponseEntity<?> buscaPorUsuario(@RequestParam("usuarioId") int usuarioId){
+        try {
+            List<Comentario> comentarios = this.comentarioUseCase.buscaPorUsuarioId(usuarioId);
+            return ResponseEntity.ok(comentarios);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar produtos: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/sentimento")
+    public ResponseEntity<?> buscaPorSentimento(@RequestParam("sentimento") String sentimento){
+        try {
+            List<Comentario> comentarios = this.comentarioUseCase.buscaPorSentimento(sentimento);
+            return ResponseEntity.ok(comentarios);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar produtos: " + e.getMessage());
         }
     }
 }
