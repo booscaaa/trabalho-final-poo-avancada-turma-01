@@ -1,11 +1,12 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.RelatorioRepository;
-import br.com.cesurgmarau.trabalho_final.core.dto.RelatorioProdutoResponse;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.dto.RelatorioSentimentosResponse;
 import br.com.cesurgmarau.trabalho_final.core.dto.RelatorioUsuarioResponse;
+import br.com.cesurgmarau.trabalho_final.core.dto.RelatorioProdutoResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
-import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
+import br.com.cesurgmarau.trabalho_final.core.util.SentimentoUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.Comparator;
 
 @Repository
-public class    RelatorioRepositoryImpl implements RelatorioRepository {
+public class RelatorioRepositoryImpl implements RelatorioRepository {
 
     private final ComentarioRepository comentarioRepository;
 
@@ -50,7 +51,7 @@ public class    RelatorioRepositoryImpl implements RelatorioRepository {
                     List<Comentario> comentariosDoProduto = entry.getValue();
 
                     double media = comentariosDoProduto.stream()
-                            .mapToInt(this::converterSentimentoParaPontuacao)
+                            .mapToInt(c -> SentimentoUtils.converterSentimentoParaPontuacao(c.getSentimento()))
                             .average()
                             .orElse(0.0);
 
@@ -73,16 +74,5 @@ public class    RelatorioRepositoryImpl implements RelatorioRepository {
                 .map(entry -> new RelatorioUsuarioResponse(entry.getKey(), entry.getValue()))
                 .sorted(Comparator.comparing(RelatorioUsuarioResponse::getQuantidadeComentarios).reversed())
                 .collect(Collectors.toList());
-    }
-
-    private int converterSentimentoParaPontuacao(Comentario comentario) {
-        return switch (comentario.getSentimento().toLowerCase()) {
-            case "muito negativo" -> 1;
-            case "negativo" -> 2;
-            case "neutro" -> 3;
-            case "positivo" -> 4;
-            case "muito positivo" -> 5;
-            default -> 3;
-        };
     }
 }
