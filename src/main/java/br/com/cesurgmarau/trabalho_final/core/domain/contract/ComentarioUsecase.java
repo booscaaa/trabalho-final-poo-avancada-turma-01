@@ -12,5 +12,5 @@ public interface ComentarioUsecase {
     List<ComentarioResponse> buscarPorProdutoId(Integer produtoId);
     List<ComentarioResponse> buscarPorUsuarioId(Integer usuarioId);
     List<ComentarioResponse> buscarPorSentimento(String sentimento);
-    List<ComentarioResponse> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento);
+    void deletar(Integer id);
 }

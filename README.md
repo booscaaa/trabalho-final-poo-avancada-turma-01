@@ -13,8 +13,8 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01
-   cd cassiano-richato
+   git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
+   cd trabalho-final-poo-avancada-turma-01
    ```
 
 2. Configure o banco de dados PostgreSQL:
@@ -31,6 +31,9 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
    ```
 
 4. Rode o projeto
+   ``` 
+   ./mvnw spring-boot:run
+   ```
 
 ## 📬 Endpoints da API
 
@@ -186,4 +189,8 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 
 ## 📚 Desafios e Aprendizados
 
-Um dos principais desafios foi configurar corretamente as entidades no banco de dados e garantir que os relacionamentos estivessem consistentes. Além disso, foi essencial integrar a API da OpenAI de forma segura e funcional. O projeto proporcionou uma compreensão mais clara da arquitetura em camadas, boas práticas de desenvolvimento com Spring Boot e aplicação real dos princípios SOLID.
+Um dos principais desafios foi **configurar corretamente as entidades** no banco de dados e garantir que os **relacionamentos estivessem consistentes**.
+
+Além disso, foi essencial **integrar a API da OpenAI** de forma segura e funcional.
+
+O projeto proporcionou uma compreensão mais clara da **arquitetura em camadas**, **boas práticas de desenvolvimento com Spring Boot** e **aplicação real dos princípios SOLID**.

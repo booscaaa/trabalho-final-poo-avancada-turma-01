@@ -9,6 +9,7 @@ import br.com.cesurgmarau.trabalho_final.infra.ai.OpenAiService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,11 +83,12 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
     }
 
     @Override
-    public List<ComentarioResponse> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento) {
-        if (produtoId != null) return buscarPorProdutoId(produtoId);
-        if (usuarioId != null) return buscarPorUsuarioId(usuarioId);
-        if (sentimento != null) return buscarPorSentimento(sentimento);
-        return listarTodos();
+    public void deletar(Integer id) {
+        Optional<Comentario> comentarioOpt = comentarioRepository.buscarPorId(id);
+        if (comentarioOpt.isEmpty()) {
+            throw new RuntimeException("Comentário não encontrado"); // ou lance exceção customizada
+        }
+        comentarioRepository.deletar(id);
     }
 
 }

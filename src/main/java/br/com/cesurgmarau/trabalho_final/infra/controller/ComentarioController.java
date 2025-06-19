@@ -5,6 +5,7 @@ import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUsecase;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,16 +27,45 @@ public class ComentarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ComentarioResponse> buscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(comentarioUsecase.buscarPorId(id));
+        ComentarioResponse comentario = comentarioUsecase.buscarPorId(id);
+        if (comentario == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comentário não encontrado");
+        }
+        return ResponseEntity.ok(comentario);
     }
 
     @GetMapping
-    public ResponseEntity<List<ComentarioResponse>> buscar(
-            @RequestParam(required = false) Integer produtoId,
-            @RequestParam(required = false) Integer usuarioId,
-            @RequestParam(required = false) String sentimento
-    ) {
-        List<ComentarioResponse> comentarios = comentarioUsecase.buscarFiltrado(produtoId, usuarioId, sentimento);
+    public ResponseEntity<List<ComentarioResponse>> listarTodos() {
+        List<ComentarioResponse> comentarios = comentarioUsecase.listarTodos();
         return ResponseEntity.ok(comentarios);
     }
+
+    @GetMapping("/produto/{produtoId}")
+    public ResponseEntity<List<ComentarioResponse>> buscarPorProduto(@PathVariable Integer produtoId) {
+        List<ComentarioResponse> comentarios = comentarioUsecase.buscarPorProdutoId(produtoId);
+        return ResponseEntity.ok(comentarios);
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<ComentarioResponse>> buscarPorUsuario(@PathVariable Integer usuarioId) {
+        List<ComentarioResponse> comentarios = comentarioUsecase.buscarPorUsuarioId(usuarioId);
+        return ResponseEntity.ok(comentarios);
+    }
+
+    @GetMapping("/sentimento/{sentimento}")
+    public ResponseEntity<List<ComentarioResponse>> buscarPorSentimento(@PathVariable String sentimento) {
+        List<ComentarioResponse> comentarios = comentarioUsecase.buscarPorSentimento(sentimento);
+        return ResponseEntity.ok(comentarios);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+        ComentarioResponse comentario = comentarioUsecase.buscarPorId(id);
+        if (comentario == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comentário não encontrado");
+        }
+        comentarioUsecase.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
