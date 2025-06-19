@@ -3,9 +3,11 @@ package br.com.cesurgmarau.trabalho_final.core.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import br.com.cesurgmarau.trabalho_final.core.domain.repository.ProdutoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
     private ProdutoRepository produtoRepository;

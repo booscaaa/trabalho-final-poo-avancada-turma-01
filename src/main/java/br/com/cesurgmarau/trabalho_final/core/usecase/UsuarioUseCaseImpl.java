@@ -3,9 +3,11 @@ package br.com.cesurgmarau.trabalho_final.core.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import br.com.cesurgmarau.trabalho_final.core.domain.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
     private UsuarioRepository usuarioRepository;

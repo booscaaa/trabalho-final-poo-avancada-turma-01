@@ -1,17 +1,19 @@
 package br.com.cesurgmarau.trabalho_final.infra.repository;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import br.com.cesurgmarau.trabalho_final.core.domain.repository.ProdutoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ProdutoRepositoryImpl implements ProdutoRepository {
 
 
+    @Autowired
     private EntityManager entityManager;
 
     @Transactional
