@@ -2,21 +2,32 @@ package br.com.cesurgmarau.trabalho_final.core.UseCase.impl;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.CommentRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.CommentUseCase;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.FeelingRepository;
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.FeelingUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.io.IO.print;
+
 @Service
 public class CommentUseCaseImpl implements CommentUseCase {
     @Autowired
     private CommentRepository repository;
     private Comment comment;
+    private FeelingRepository feelingRepository;
+    private final FeelingUseCase feelingUseCase;
 
-
+    public CommentUseCaseImpl(CommentRepository commentRepository, FeelingUseCase feelingUseCase) {
+        this.repository = commentRepository;
+        this.feelingUseCase = feelingUseCase;
+    }
     @Override
     public String createComment(Comment comment) {
+        int feelingId = feelingUseCase.analyzeSentiment(comment.getDescription());
+        comment.setFeeling_id(feelingId);
         return repository.createComment(comment);
     }
 
