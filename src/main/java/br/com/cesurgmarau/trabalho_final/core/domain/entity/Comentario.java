@@ -26,6 +26,9 @@ public class Comentario {
     @JoinColumn(name = "produto", referencedColumnName = "produto_id")
     private Produto produto;
 
+    @Column(name = "sentimento_nota")
+    private Integer notaSentimento;
+
     public int getId() {
         return id_comentario;
     }
@@ -64,5 +67,13 @@ public class Comentario {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Integer getNotaSentimento() {
+        return notaSentimento;
+    }
+
+    public void setNotaSentimento(Integer notaSentimento) {
+        this.notaSentimento = notaSentimento;
     }
 }

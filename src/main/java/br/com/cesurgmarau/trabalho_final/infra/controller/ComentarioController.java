@@ -5,7 +5,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioContract
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.DeepSeekRequest;
 import br.com.cesurgmarau.trabalho_final.core.domain.dto.DeepSeekResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
-import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
+import br.com.cesurgmarau.trabalho_final.core.domain.utils.SentimentoParaNumero;
 import br.com.cesurgmarau.trabalho_final.infra.exceptions.MensagemResponse;
 import br.com.cesurgmarau.trabalho_final.infra.gateway.DeepSeekApiGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +41,16 @@ public class ComentarioController {
 
             DeepSeekRequest.Message msg = new DeepSeekRequest.Message();
             msg.setRegra("user");
-            msg.setConteudo(prompt + "Crie duas linhas, uma com um título (Muito positivo, Positivo, Neutro, Negativo ou Muito negativo). Escolha apenas um desses sentimentos com base no comentário. E a outra linha com uma análise de sentimento que o comentário que te mandei transmite. Essas linhas devem ser breves e ter no máximo 5000 caracteres.");
+            msg.setConteudo(prompt + "Para cada resposta, crie duas linhas, uma com um título (Muito positivo, Positivo, Neutro, Negativo ou Muito negativo). Escolha apenas um desses sentimentos com base no comentário. E a outra linha com uma análise de sentimento que o comentário que te mandei transmite. Essas linhas devem ser breves e ter no máximo 5000 caracteres.");
             iaRequest.setMensagens(List.of(msg));
 
             DeepSeekResponse respostaIa = deepSeekApiGateway.enviarRequisicao(iaRequest);
-            System.out.println(respostaIa);
             String sentimentoGerado = respostaIa.getChoices().get(0).getMessage().getContent();
             System.out.println(sentimentoGerado);
             comentario.setSentimento(sentimentoGerado);
+
+            Integer nota = SentimentoParaNumero.sentimentoParaNota(comentario.getSentimento());
+            comentario.setNotaSentimento(nota);
 
             comentarioUseCase.adicionarComentario(comentario);
             return ResponseEntity.ok(new MensagemResponse("Comentário adicionado!"));
@@ -106,8 +108,14 @@ public class ComentarioController {
 
     @GetMapping("/sentimento")
     public ResponseEntity<?> buscaPorSentimento(@RequestParam("sentimento") String sentimento){
+        int destaque = 0;
         try {
             List<Comentario> comentarios = this.comentarioUseCase.buscaPorSentimento(sentimento);
+            System.out.println("sentimento: "+ sentimento);
+            if (sentimento.equals("positivo")){
+                destaque = destaque + 1;
+                System.out.println("pontuacao: " + destaque);
+            }
             return ResponseEntity.ok(comentarios);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao buscar produtos: " + e.getMessage());

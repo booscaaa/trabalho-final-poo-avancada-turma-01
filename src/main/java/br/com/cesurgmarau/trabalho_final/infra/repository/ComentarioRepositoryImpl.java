@@ -17,11 +17,12 @@ public class ComentarioRepositoryImpl implements br.com.cesurgmarau.trabalho_fin
     @Override
     public void adicionarComentario(Comentario comentario) {
         var query = """
-                    INSERT INTO comentarios (comentario, sentimento, usuario, produto) VALUES(
+                    INSERT INTO comentarios (comentario, sentimento, usuario, produto, sentimento_nota) VALUES(
                         :comentario,
                         :sentimento,
                         :usuario,
-                        :produto
+                        :produto,
+                        :notaSentimento
                     )
                 """;
         System.out.println(comentario.getComentario());
@@ -30,6 +31,7 @@ public class ComentarioRepositoryImpl implements br.com.cesurgmarau.trabalho_fin
                 .setParameter("sentimento", comentario.getSentimento())
                 .setParameter("usuario", comentario.getUsuario().getId_usuario())
                 .setParameter("produto", comentario.getProduto().getId())
+                .setParameter("notaSentimento", comentario.getNotaSentimento())
                 .executeUpdate();
     }
 
