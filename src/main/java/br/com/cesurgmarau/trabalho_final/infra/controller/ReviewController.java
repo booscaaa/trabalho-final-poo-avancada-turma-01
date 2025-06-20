@@ -1,12 +1,15 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
-
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewUseCase;
-import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.ClassificationsByProduct;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByAccount;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByClassification;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ReviewController {
@@ -56,18 +59,32 @@ public class ReviewController {
         return reviewUseCase.fetch();
     }
 
-    @GetMapping("/review/report/classification")
-    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification() {
+    @GetMapping("/report/classification")
+    public List<TotalReviewsByClassification> getTotalReviewsByClassification() {
         return reviewUseCase.getTotalReviewsByClassification();
     }
 
-    @GetMapping("/review/report/product")
-    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct() {
+    @GetMapping("/report/product")
+    public List<ClassificationsByProduct> getClassificationsByProduct() {
         return reviewUseCase.getClassificationsByProduct();
     }
 
-    @GetMapping("/review/report/account")
-    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount() {
+    @GetMapping("/report/account")
+    public List<TotalReviewsByAccount> getTotalReviewByAccount() {
         return reviewUseCase.getTotalReviewByAccount();
+    }
+
+    @GetMapping("/report/general")
+    public Map<String, Object> getSystemStatus() {
+        Map<String, Object> status = new HashMap<>();
+
+        status.put("reviewsByClassification", reviewUseCase.getTotalReviewsByClassification());
+        status.put("reviewsByProduct", reviewUseCase.getClassificationsByProduct());
+        status.put("reviewsByAccount", reviewUseCase.getTotalReviewByAccount());
+
+        List<Review> allReviews = reviewUseCase.fetch();
+        status.put("totalReviews", allReviews.size());
+
+        return status;
     }
 }

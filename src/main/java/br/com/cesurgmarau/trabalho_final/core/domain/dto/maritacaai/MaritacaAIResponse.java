@@ -1,4 +1,4 @@
-package br.com.cesurgmarau.trabalho_final.core.domain.dto;
+package br.com.cesurgmarau.trabalho_final.core.domain.dto.maritacaai;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

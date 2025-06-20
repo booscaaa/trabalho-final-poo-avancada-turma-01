@@ -1,7 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.infra.gateway;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.MaritacaAIGateway;
-import br.com.cesurgmarau.trabalho_final.core.domain.dto.MaritacaAIResponse;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.maritacaai.MaritacaAIResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -88,7 +88,6 @@ public class MaritacaAIGatewayImpl implements MaritacaAIGateway {
             ObjectMapper mapper = new ObjectMapper();
 
             MaritacaAIResponse maritaAIResponse = mapper.readValue(response.body(), MaritacaAIResponse.class);
-            System.out.println("Pontuação:" + maritaAIResponse.choices.getFirst().message.content.strip());
             return maritaAIResponse.choices.getFirst().message.content.strip();
         } catch (Exception e) {
             throw new RuntimeException("Error assessing comment: " + e.getMessage());

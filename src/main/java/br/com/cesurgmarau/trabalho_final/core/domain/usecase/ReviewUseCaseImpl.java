@@ -1,7 +1,9 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.*;
-import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.ClassificationsByProduct;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByAccount;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByClassification;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,12 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
 
     @Override
     public Review create(Review review) {
-        var assess = maritacaAIGateway.commentAssess(review.getComment());
+        var comment = review.getComment();
+
+        var assess = maritacaAIGateway.commentAssess(comment);
         review.setClassificationID(classificationRepository.getByName(assess).getId());
 
-        var score = maritacaAIGateway.commentScore(review.getComment());
+        var score = maritacaAIGateway.commentScore(comment);
         review.setScoreID(scoreRepository.getByName(score).getId());
 
         var account = accountRepository.getByID(review.getAccountID());
@@ -49,6 +53,22 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
 
     @Override
     public Review update(int reviewID, Review review) {
+        var assess = maritacaAIGateway.commentAssess(review.getComment());
+        review.setClassificationID(classificationRepository.getByName(assess).getId());
+
+        var score = maritacaAIGateway.commentScore(review.getComment());
+        review.setScoreID(scoreRepository.getByName(score).getId());
+
+        var account = accountRepository.getByID(review.getAccountID());
+
+        account.setCommentScore(
+                (String.valueOf(
+                        (Integer.parseInt(account.getCommentScore()) + Integer.parseInt(score)) / 2)
+                )
+        );
+
+        accountRepository.update(account.getId(), account);
+
         return reviewRepository.update(reviewID, review);
     }
 
@@ -68,17 +88,17 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
     }
 
     @Override
-    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification() {
+    public List<TotalReviewsByClassification> getTotalReviewsByClassification() {
         return reviewRepository.getTotalReviewsByClassification();
     }
 
     @Override
-    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct() {
+    public List<ClassificationsByProduct> getClassificationsByProduct() {
         return reviewRepository.getClassificationsByProduct();
     }
 
     @Override
-    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount() {
+    public List<TotalReviewsByAccount> getTotalReviewByAccount() {
         return reviewRepository.getTotalReviewByAccount();
     }
 

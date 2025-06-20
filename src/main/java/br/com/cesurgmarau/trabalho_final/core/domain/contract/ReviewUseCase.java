@@ -1,6 +1,8 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.contract;
 
-import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.ClassificationsByProduct;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByAccount;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByClassification;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 
 import java.util.List;
@@ -12,9 +14,9 @@ public interface ReviewUseCase {
     public Review getByID(int reviewID);
     public List<Review> fetch();
 
-    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification();
-    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct();
-    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount();
+    public List<TotalReviewsByClassification> getTotalReviewsByClassification();
+    public List<ClassificationsByProduct> getClassificationsByProduct();
+    public List<TotalReviewsByAccount> getTotalReviewByAccount();
 
     public List<Review> fetchByProductID(int productID);
     public List<Review> fetchByClassificationName(String classificationName);

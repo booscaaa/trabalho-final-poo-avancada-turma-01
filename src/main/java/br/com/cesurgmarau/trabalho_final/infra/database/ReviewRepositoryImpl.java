@@ -1,7 +1,9 @@
 package br.com.cesurgmarau.trabalho_final.infra.database;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ReviewRepository;
-import br.com.cesurgmarau.trabalho_final.core.domain.dto.ReviewReport;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.ClassificationsByProduct;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByAccount;
+import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalReviewsByClassification;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -44,7 +46,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 account_id = :account_id,
                 classification_id = :classification_id,
                 product_id = :product_id,
-                score_di = :score_id,
+                score_id = :score_id,
                 comment = :comment
                 WHERE id = :id
                 """;
@@ -98,7 +100,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public List<ReviewReport.TotalReviewsByClassification> getTotalReviewsByClassification() {
+    public List<TotalReviewsByClassification> getTotalReviewsByClassification() {
         var query = """
                 SELECT c.name AS classification, COUNT(c.name) AS quantidade FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
@@ -107,11 +109,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 INNER JOIN score AS s ON s.id = r.score_id
                 GROUP BY classification;
                 """ ;
-        return entityManager.createNativeQuery(query, ReviewReport.TotalReviewsByClassification.class).getResultList();
+        return entityManager.createNativeQuery(query, TotalReviewsByClassification.class).getResultList();
     }
 
     @Override
-    public List<ReviewReport.ClassificationsByProduct> getClassificationsByProduct() {
+    public List<ClassificationsByProduct> getClassificationsByProduct() {
         var query = """
             SELECT p.name AS produto,
                     COUNT(*) FILTER (WHERE c.name = 'MUITO BOM')  AS "MUITO BOM",
@@ -128,11 +130,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
             ORDER BY p.name;
         """;
 
-        return entityManager.createNativeQuery(query, ReviewReport.ClassificationsByProduct.class).getResultList();
+        return entityManager.createNativeQuery(query, ClassificationsByProduct.class).getResultList();
     }
 
     @Override
-    public List<ReviewReport.TotalReviewByAccount> getTotalReviewByAccount() {
+    public List<TotalReviewsByAccount> getTotalReviewByAccount() {
         var query = """
                 SELECT a.name AS account, COUNT(c.name) AS quantidade FROM review AS r
                 INNER JOIN account AS a ON a.id = r.account_id
@@ -141,7 +143,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 INNER JOIN score AS s ON s.id = r.score_id
                 GROUP BY account;
                 """ ;
-        return entityManager.createNativeQuery(query, ReviewReport.TotalReviewByAccount.class).getResultList();
+        return entityManager.createNativeQuery(query, TotalReviewsByAccount.class).getResultList();
 
     }
 
