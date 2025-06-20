@@ -11,16 +11,16 @@ import java.math.BigDecimal;
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "produto_id")
+    @Column(name = "id_produto")
     private int produto_id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(precision = 6, scale = 2)
+    @Column(name = "preco", precision = 6, scale = 2, nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", nullable = true)
     private String descricao;
 
     public int getId() {

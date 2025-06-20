@@ -7,8 +7,13 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private int id_usuario;
+
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
+
+    @Column(name = "idade", nullable = false)
     private int idade;
 
     public int getId_usuario() {

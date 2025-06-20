@@ -5,25 +5,25 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "comentarios")
-@JsonPropertyOrder({"id", "comentario", "sentimento", "usuario", "produto"})
+@JsonPropertyOrder({"id", "comentario", "sentimento", "usuario", "produto", "sentimento_nota"})
 public class Comentario {
     @Id
     @Column(name = "id_comentario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_comentario;
 
-    @Column(name = "comentario", nullable = false)
+    @Column(name = "comentario", length = 5000, nullable = false)
     private String comentario;
 
-    @Column(name = "sentimento")
+    @Column(name = "sentimento", length = 5000, nullable = false)
     private String sentimento;
 
     @ManyToOne
-    @JoinColumn(name = "usuario", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "usuario", referencedColumnName = "id_usuario", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "produto", referencedColumnName = "produto_id")
+    @JoinColumn(name = "produto", referencedColumnName = "id_produto", nullable = false)
     private Produto produto;
 
     @Column(name = "sentimento_nota")

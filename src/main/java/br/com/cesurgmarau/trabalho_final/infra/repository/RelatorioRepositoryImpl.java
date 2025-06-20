@@ -35,7 +35,7 @@ public class RelatorioRepositoryImpl implements RelatorioRepository {
         var query = """
             SELECT p.nome, ROUND(AVG(c.sentimento_nota), 4) AS media
             FROM comentarios c
-            JOIN produtos p ON p.produto_id = c.produto
+            JOIN produtos p ON p.id_produto = c.produto
             WHERE c.sentimento_nota IS NOT NULL
             GROUP BY p.nome
             ORDER BY media DESC;

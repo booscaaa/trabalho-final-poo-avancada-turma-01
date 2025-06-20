@@ -78,7 +78,7 @@ public class ComentarioController {
         try {
             Comentario comentario = this.comentarioUseCase.comentarioPorId(id);
             if (comentario == null){
-                throw new ClassNotFoundException("Comentárop não encontrado.");
+                throw new ClassNotFoundException("Comentário não encontrado.");
             }
             return ResponseEntity.ok(comentario);
         } catch (Exception e){
@@ -108,13 +108,10 @@ public class ComentarioController {
 
     @GetMapping("/sentimento")
     public ResponseEntity<?> buscaPorSentimento(@RequestParam("sentimento") String sentimento){
-        int destaque = 0;
         try {
             List<Comentario> comentarios = this.comentarioUseCase.buscaPorSentimento(sentimento);
-            System.out.println("sentimento: "+ sentimento);
-            if (sentimento.equals("positivo")){
-                destaque = destaque + 1;
-                System.out.println("pontuacao: " + destaque);
+            if (comentarios.isEmpty()) {
+                throw new ClassNotFoundException("Não foi encontrado comentários com esse sentimento.");
             }
             return ResponseEntity.ok(comentarios);
         } catch (Exception e) {
