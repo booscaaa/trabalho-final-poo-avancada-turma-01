@@ -19,7 +19,7 @@ public class ComentarioController {
     private ComentarioUseCase comentarioUseCase;
 
     @PostMapping("/comentario")
-    public void criarComentario(@RequestBody Comentario comentario) throws IOException {
+    public void criarComentario(@RequestBody Comentario comentario) throws IOException, InterruptedException {
         comentarioUseCase.adicionarComentario(comentario);
     }
 

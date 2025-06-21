@@ -30,7 +30,7 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public void adicionarComentario(Comentario comentario) throws IOException {
+    public void adicionarComentario(Comentario comentario) throws IOException, InterruptedException {
         String tipoSentimento = chatGPTGateway.identificarSentimento(comentario.getComentario());
         Sentimento sentimento = sentimentoRepository.pegarTipoSentimento(tipoSentimento);
         comentario.setSentimentoId(sentimento.getId());

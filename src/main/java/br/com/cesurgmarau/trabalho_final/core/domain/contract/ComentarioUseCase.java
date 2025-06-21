@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ComentarioUseCase {
-    public void adicionarComentario (Comentario comentario) throws IOException;
+    public void adicionarComentario (Comentario comentario) throws IOException, InterruptedException;
     public ComentarioDTO listarComentarioPorId(int id);
     public List<ComentarioDTO> listarComentario();
     public ComentarioPorProdutoDTO listarComentarioPorProduto(int produtoId);

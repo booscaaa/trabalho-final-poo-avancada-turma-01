@@ -46,6 +46,22 @@ A aplicação realiza chamadas REST para a **API da OpenAI GPT**, enviando os te
 3. Porcentual de sentimento por produto.
 4. Listagem de Usuário mais ativo.
 
+### Como rodar o projeto 
+
+Clone o repositório:
+git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
+
+Necessario configurar o banco de dados e a key da IA, criar um arquivo .env
+deixando dentro dele este formato
+
+DATABASE_URL= [URL da conexão do banco ed dados]
+
+DATABASE_USERNAME= {User do banco}
+
+DATABASE_PASSWORD= {Senha do banco}
+
+OPENAI_API_KEY= {Sua key}
+
 ## 📂 Endpoints - Categoria
 
 ### 🔸 Criar uma nova categoria
@@ -495,3 +511,15 @@ Esponja: 10 pontuação.
 Vassoura: 6 pontuação.
 Descrição: Lista os produtos de uma determinada categoria, ordenados pela pontuação total recebida a partir dos sentimentos dos comentários.
 ```
+
+### Aplicações do SOLID
+
+S = Cada função exerce somente uma responsabilidade
+O = Geração de relatorios, pode ser extendido fácilmente a geração para outros formatos de relatorios 
+I = Cada classe utilizado sua interface sem implementar metodos que não vão utilizar.
+D = Buscando sempre depender da abstração, o controller chamando a interface do useCase, e UseCase chamando a interface do repository
+
+### Desafios e Aprendizados
+
+Principal desafio foi o planejar o sistema, organizado cada classe. Fazer um conexão com a IA foi outro desafio mas levando com aprendizado para os proximos. 
+Principal aprendizado foi em organização dos dados, quanto mais baixo o nivel melhor, o seja já puxar do banco os dados organizados.
