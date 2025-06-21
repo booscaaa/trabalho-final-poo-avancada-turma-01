@@ -7,7 +7,7 @@ import org.springframework.core.env.MapPropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//criar arquivo env e conectar com bc
 @SpringBootApplication
 public class TrabalhoFinalApplication {
 	public static void main(String[] args) {
