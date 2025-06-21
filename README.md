@@ -1,181 +1,175 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
+# 🧠 Sistema de Análise de Sentimentos com Relatórios
 
-## 🎯 Objetivo
+## 📌 Descrição do Projeto
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
+Este projeto tem como objetivo analisar o **sentimento de comentários** feitos por usuários sobre produtos em um determinado sistema. Além da análise automática por IA, o sistema gera **relatórios úteis**, como:
 
----
+- Produto mais bem avaliado
+- Usuários mais ativos
+- Total de comentários por sentimento (positivo, negativo, neutro)
 
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
-
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
-
----
-
-## ✅ Funcionalidades obrigatórias
-
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+A aplicação foi desenvolvida em **Java** com **Spring Boot**, utilizando **PostgreSQL** como banco de dados e integração com IA para análise de sentimentos.
 
 ---
 
-## 📚 Aplicação dos Princípios SOLID
+## 🚀 Como Rodar o Projeto
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+1. **Clone o repositório**:
+   ```bash
+    git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
+   ```
+2. **Acesse a pasta do projeto**:
+    ```bash
+   cd trabalho-final-poo-avancada-turma-01
+   ```
+   
+3. **Altere para minha branch pessoal**:
+    ```bash
+   git checkout arthur-spolti
+   ```
+   
+4. **Abra o projeto no Intellij IDEA (versão community)**:\
+   **Windows**:
+    https://www.jetbrains.com/idea/download/?section=windows
 
----
+   **Linux / macOS**:
+   https://www.jetbrains.com/idea/download/?section=mac
 
-## ✅ Requisitos mínimos de entrega
 
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
+ 5. **Configure seu banco PostgreSQL, atualize o application.properties se necessário e rode a aplicação pelo IntelliJ.**
 
----
+--- 
 
-### 📌 Estrutura e Organização
+## 🛠️ Estrutura do Banco de Dados
 
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
+Se as tabelas não forem criadas automaticamente ao rodar o projeto, você pode executá-las manualmente no PostgreSQL. Abaixo estão os comandos SQL para criação das tabelas:
 
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
+### Tabela `usuarios`
 
----
+  ```sql
+    CREATE TABLE usuarios (
+      id_usuario INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      nome VARCHAR(50),
+      idade INT NOT NULL
+    );
+  ```
 
-### 📌 Endpoints obrigatórios
+### Tabela `produtos`
 
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
+  ```sql
+      CREATE TABLE produtos (
+        id_produto INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        nome VARCHAR(50),
+        preco NUMERIC(6, 2) NOT NULL,
+        descricao VARCHAR(500)
+      );
+  ```
 
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
+### Tabela `comentarios`
 
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
+  ```sql
+       CREATE TABLE comentarios (
+          id_comentario INT GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
+          comentario VARCHAR(5000) NOT NULL,
+          sentimento VARCHAR(5000) NOT NULL,
+          usuario INT NOT NULL,
+          produto INT NOT NULL,
+          sentimento_nota INT,
+          FOREIGN KEY (usuario) REFERENCES usuarios(id_usuario),
+          FOREIGN KEY (produto) REFERENCES produtos(id_produto)
+       );
+  ```
 
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
-
----
-
-### 📌 Regras de Negócio
-
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
-
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
-
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
+> 💡 **Observação:** Você pode executar esses comandos diretamente no terminal do PostgreSQL ou utilizar uma ferramenta como **pgAdmin**.
 
 ---
 
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
+## 📬 Como Usar os Endpoints
+
+Você pode utilizar ferramentas como **Bruno**, **Postman** ou **curl** para testar os endpoints da API.
 
 ---
 
-## 📌 Observações
+### 🧑 Usuários
 
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
+| Método | Endpoint        | Descrição                    |
+|--------|------------------|------------------------------|
+| POST   | `/usuario`       | Cadastrar novo usuário       |
+| GET    | `/usuario/{id}`  | Buscar usuário por ID        |
+| GET    | `/usuarios`      | Listar todos os usuários     |
+| PUT    | `/usuario/{id}`  | Atualizar dados do usuário   |
+| DELETE | `/usuario/{id}`  | Remover usuário              |
 
 ---
 
-## 📋 Requisitos do GitHub
+### 📦 Produtos
 
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
+| Método | Endpoint         | Descrição                         |
+|--------|------------------|-----------------------------------|
+| POST   | `/produto`        | Cadastrar novo produto            |
+| GET    | `/produto/{id}`   | Buscar produto por ID             |
+| GET    | `/produtos`       | Listar todos os produtos          |
+| PUT    | `/produto/{id}`   | Atualizar informações do produto  |
+| DELETE | `/produto/{id}`   | Remover produto                   |
 
 ---
 
-## ✅ Critérios de Avaliação
+### 💬 Comentários
 
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
+| Método | Endpoint                             | Descrição                                 |
+|--------|--------------------------------------|-------------------------------------------|
+| POST   | `/comentario`                        | Enviar comentário (com análise de sentimento) |
+| GET    | `/comentarios`                       | Listar todos os comentários               |
+| GET    | `/comentario/{id}`                   | Buscar comentário por ID                  |
+| GET    | `/comentario?produtoId=1`            | Filtrar por produto                       |
+| GET    | `/comentarioU?usuarioId=1`           | Filtrar por usuário                       |
+| GET    | `/sentimento?sentimento=positivo`    | Filtrar por sentimento                    |
 
 ---
 
-## 🚫 Sobre Comentários no Código
+### 📊 Relatórios
 
-**Não serão aceitos comentários no código-fonte.**
+| Método | Endpoint                     | Descrição                                |
+|--------|------------------------------|------------------------------------------|
+| GET    | `/relatorios/sentimentos`    | Total de comentários por sentimento      |
+| GET    | `/relatorios/produtos`       | Média de sentimento por produto          |
+| GET    | `/relatorios/usuarios`       | Ranking de usuários mais ativos          |
+| GET    | `/relatorios/mais-ativo`     | Usuário mais ativo                       |
 
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
+---
 
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
+## 🧱 Princípios SOLID Aplicados
 
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
+O projeto segue os princípios do **SOLID**, com exceção do **Princípio de Substituição de Liskov (LSP)**.
 
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
+- **S - Single Responsibility Principle (SRP):**  
+  Cada classe possui uma única responsabilidade bem definida, como controlar uma entidade ou executar uma lógica específica.
 
-Comunique-se **através do seu código**.
+- **O - Open/Closed Principle (OCP):**  
+  A estrutura permite extensão de funcionalidades sem modificação direta nas classes existentes.
 
+- **L - Liskov Substitution Principle (LSP):**  
+  ❌ Ainda não aplicado neste projeto.
 
+- **I - Interface Segregation Principle (ISP):**  
+  As interfaces seguem o princípio de granularidade, evitando obrigar classes a implementar métodos que não utilizam.
+
+- **D - Dependency Inversion Principle (DIP):**  
+  As camadas de negócio dependem de abstrações, e não de implementações concretas.
+
+---
+
+## 🚧 Desafios e Aprendizados
+
+Na parte dos **CRUDs**, meu maior desafio foi o **tratamento de erros**. No início, tive dificuldades com o uso de exceções, mas com a prática, aprendi como utilizar corretamente as `Exceptions` para lidar com diferentes tipos de falhas e garantir respostas apropriadas da API.
+
+Já na parte da **integração com IA**, com certeza foi um dos aprendizados mais importantes. A inteligência artificial está presente em praticamente todos os sistemas modernos, e entender como utilizá-la foi essencial.
+
+Meu maior desafio nessa etapa foi **criar as queries para os relatórios**, pois precisei **mapear corretamente a resposta da IA** e também fazer a **conversão da string do sentimento para um número (`nota_sentimento`)**. Isso exigiu atenção aos detalhes e compreensão do funcionamento dos dados gerados pela IA.
+
+---
+
+## ✍️ Autor
+
+**Arthur Pedro Spolti**  
+Branch: `arthur-spolti`
