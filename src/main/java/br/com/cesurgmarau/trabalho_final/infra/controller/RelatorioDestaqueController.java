@@ -3,7 +3,6 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.RelatorioDestaqueUsecase;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoDestaqueResponse;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioDestaqueResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +18,12 @@ public class RelatorioDestaqueController {
     }
 
     @GetMapping("/usuarios")
-    public ResponseEntity<List<UsuarioDestaqueResponse>> usuariosDestaque() {
-        return ResponseEntity.ok(usecase.listarUsuariosEmDestaque());
+    public List<UsuarioDestaqueResponse> usuariosDestaque() {
+        return usecase.listarUsuariosEmDestaque();
     }
 
     @GetMapping("/produtos")
-    public ResponseEntity<List<ProdutoDestaqueResponse>> produtosDestaque() {
-        return ResponseEntity.ok(usecase.listarProdutosEmDestaque());
+    public List<ProdutoDestaqueResponse> produtosDestaque() {
+        return usecase.listarProdutosEmDestaque();
     }
 }

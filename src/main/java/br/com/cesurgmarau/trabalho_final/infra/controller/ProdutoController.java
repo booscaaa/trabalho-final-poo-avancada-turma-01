@@ -1,11 +1,12 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUsecase;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,34 +20,41 @@ public class ProdutoController {
         this.produtoUseCase = produtoUseCase;
     }
 
+    private ProdutoResponse toResponse(Produto produto) {
+        return new ProdutoResponse(produto.getId(), produto.getNome(), produto.getDescricao());
+    }
+
     @PostMapping
-    public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest dto) {
-        ProdutoResponse response = produtoUseCase.salvar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProdutoResponse salvar(@RequestBody ProdutoRequest dto) {
+        Produto produto = produtoUseCase.salvar(dto);
+        return toResponse(produto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> buscarPorId(@PathVariable Integer id) {
-        return produtoUseCase.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ProdutoResponse buscarPorId(@PathVariable Integer id) {
+        Produto produto = produtoUseCase.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
+        return toResponse(produto);
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoResponse>> listarTodos() {
-        List<ProdutoResponse> produtos = produtoUseCase.listarTodos();
-        return ResponseEntity.ok(produtos);
+    public List<ProdutoResponse> listarTodos() {
+        return produtoUseCase.listarTodos().stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> atualizar(@PathVariable Integer id, @RequestBody ProdutoRequest dto) {
-        ProdutoResponse response = produtoUseCase.atualizar(id, dto);
-        return ResponseEntity.ok(response);
+    public ProdutoResponse atualizar(@PathVariable Integer id, @RequestBody ProdutoRequest dto) {
+        Produto produto = produtoUseCase.atualizar(id, dto);
+        return toResponse(produto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Integer id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Integer id) {
         produtoUseCase.remover(id);
-        return ResponseEntity.noContent().build();
     }
 }
+

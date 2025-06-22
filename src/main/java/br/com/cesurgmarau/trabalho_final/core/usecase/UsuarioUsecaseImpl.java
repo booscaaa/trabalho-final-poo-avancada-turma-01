@@ -4,11 +4,10 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUsecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioRequest;
-import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class UsuarioUsecaseImpl implements UsuarioUsecase {
@@ -20,50 +19,38 @@ public class UsuarioUsecaseImpl implements UsuarioUsecase {
     }
 
     @Override
-    public UsuarioResponse criar(UsuarioRequest request) {
+    public Usuario criar(UsuarioRequest request) {
         Usuario usuario = new Usuario();
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
 
-        Usuario salvo = usuarioRepository.salvar(usuario);
-        return toResponse(salvo);
+        return usuarioRepository.salvar(usuario);
     }
 
     @Override
-    public UsuarioResponse buscarPorId(Integer id) {
-        Usuario usuario = usuarioRepository.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        return toResponse(usuario);
+    public Optional<Usuario> buscarPorId(Integer id) {
+        return usuarioRepository.buscarPorId(id);
     }
 
     @Override
-    public List<UsuarioResponse> listarTodos() {
-        return usuarioRepository.listarTodos()
-                .stream().map(this::toResponse)
-                .collect(Collectors.toList());
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.listarTodos();
     }
 
     @Override
-    public UsuarioResponse atualizar(Integer id, UsuarioRequest request) {
+    public Usuario atualizar(Integer id, UsuarioRequest request) {
         Usuario usuario = usuarioRepository.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
 
-        return toResponse(usuarioRepository.salvar(usuario));
+        return usuarioRepository.salvar(usuario);
     }
 
     @Override
     public void remover(Integer id) {
         usuarioRepository.remover(id);
     }
-
-    private UsuarioResponse toResponse(Usuario usuario) {
-        UsuarioResponse response = new UsuarioResponse();
-        response.setId(usuario.getId());
-        response.setNome(usuario.getNome());
-        response.setEmail(usuario.getEmail());
-        return response;
-    }
 }
+

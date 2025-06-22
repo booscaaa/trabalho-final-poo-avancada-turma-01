@@ -1,10 +1,12 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioRequest;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioResponse;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUsecase;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,29 +20,44 @@ public class UsuarioController {
         this.usuarioUsecase = usuarioUsecase;
     }
 
+    private UsuarioResponse toResponse(Usuario usuario) {
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        return response;
+    }
+
     @PostMapping
-    public ResponseEntity<UsuarioResponse> criar(@RequestBody UsuarioRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioUsecase.criar(request));
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsuarioResponse criar(@RequestBody UsuarioRequest request) {
+        Usuario usuario = usuarioUsecase.criar(request);
+        return toResponse(usuario);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(usuarioUsecase.buscarPorId(id));
+    public UsuarioResponse buscarPorId(@PathVariable Integer id) {
+        Usuario usuario = usuarioUsecase.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+        return toResponse(usuario);
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> listarTodos() {
-        return ResponseEntity.ok(usuarioUsecase.listarTodos());
+    public List<UsuarioResponse> listarTodos() {
+        return usuarioUsecase.listarTodos().stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Integer id, @RequestBody UsuarioRequest request) {
-        return ResponseEntity.ok(usuarioUsecase.atualizar(id, request));
+    public UsuarioResponse atualizar(@PathVariable Integer id, @RequestBody UsuarioRequest request) {
+        Usuario usuario = usuarioUsecase.atualizar(id, request);
+        return toResponse(usuario);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Integer id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Integer id) {
         usuarioUsecase.remover(id);
-        return ResponseEntity.noContent().build();
     }
 }

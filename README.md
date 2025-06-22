@@ -1,13 +1,19 @@
 
 # API de Análise de Sentimentos em Comentários de Produtos
 
-O objetivo é permitir o cadastro de produtos, usuários e comentários, analisando o sentimento associado a cada comentário.
+O objetivo é permitir o cadastro de produtos, usuários e comentários, analisando o sentimento associado a cada comentário.  
+A aplicação também implementa uma pontuação automática para destacar usuários e produtos com maior número de feedbacks positivos.
+
+---
 
 ## 🛠️ Tecnologias utilizadas
-- Java
+- Java 17
 - Spring Boot
 - PostgreSQL
 - OpenAI API (para análise de sentimentos)
+- Maven
+
+---
 
 ## 🚀 Como rodar o projeto localmente
 
@@ -15,6 +21,7 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
    ```bash
    git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
    cd trabalho-final-poo-avancada-turma-01
+   git checkout cassiano-richato
    ```
 
 2. Configure o banco de dados PostgreSQL:
@@ -30,93 +37,40 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
    OPENAI_API_KEY=sua_chave_aqui
    ```
 
-4. Rode o projeto
-   ``` 
+4. Rode o projeto:
+   ```bash
    ./mvnw spring-boot:run
    ```
+
+---
 
 ## 📬 Endpoints da API
 
 ### 🧑‍💼 Usuários
 
-#### Criar usuário – `POST /usuarios`
-```json
-{
-  "nome": "Carla Mendes",
-  "email": "carla.mendes@example.com"
-}
-```
-
-#### Buscar usuário por ID – `GET /usuarios/{id}`
-
-#### Listar todos os usuários – `GET /usuarios`
-
-#### Atualizar usuário – `PUT /usuarios/{id}`
-```json
-{
-  "nome": "Carla M. Souza",
-  "email": "carla.souza@example.com"
-}
-```
-
-#### Remover usuário – `DELETE /usuarios/{id}`
+- `POST /usuarios`
+- `GET /usuarios/{id}`
+- `GET /usuarios`
+- `PUT /usuarios/{id}`
+- `DELETE /usuarios/{id}`
 
 ### 📦 Produtos
 
-#### Criar produto – `POST /produtos`
-```json
-{
-  "nome": "Teclado Mecânico RGB",
-  "descricao": "Teclado com switches vermelhos e iluminação RGB.",
-  "preco": 349.90
-}
-```
-
-#### Buscar produto por ID – `GET /produtos/{id}`
-
-#### Listar todos os produtos – `GET /produtos`
-
-#### Atualizar produto – `PUT /produtos/{id}`
-```json
-{
-  "nome": "Teclado Mecânico RGB Atualizado",
-  "descricao": "Agora com switches silenciosos.",
-  "preco": 329.90
-}
-```
-
-#### Remover produto – `DELETE /produtos/{id}`
+- `POST /produtos`
+- `GET /produtos/{id}`
+- `GET /produtos`
+- `PUT /produtos/{id}`
+- `DELETE /produtos/{id}`
 
 ### 💬 Comentários
 
-#### Criar comentário – `POST /comentarios`
-```json
-{
-  "texto": "Esse produto superou minhas expectativas!",
-  "usuarioId": 1,
-  "produtoId": 2
-}
-```
-
-**Resposta esperada:**
-```json
-{
-  "id": 10,
-  "texto": "Esse produto superou minhas expectativas!",
-  "sentimento": "muito positivo",
-  "usuarioId": 1,
-  "produtoId": 2
-}
-```
-
-#### Buscar comentário por ID – `GET /comentarios/{id}`
-
-#### Listar todos os comentários – `GET /comentarios`
-
-#### Filtrar comentários:
-- Por produto: `GET /comentarios?produtoId=2`
-- Por usuário: `GET /comentarios?usuarioId=1`
-- Por sentimento: `GET /comentarios?sentimento=positivo`
+- `POST /comentarios`
+- `GET /comentarios/{id}`
+- `GET /comentarios`
+- `GET /comentarios?produtoId=1`
+- `GET /comentarios?usuarioId=1`
+- `GET /comentarios?sentimento=positivo`
+- `DELETE /comentarios/{id}`
 
 **Tipos de sentimento retornados:**
 - muito positivo
@@ -125,72 +79,55 @@ O objetivo é permitir o cadastro de produtos, usuários e comentários, analisa
 - negativo
 - muito negativo
 
+---
+
 ### 📊 Relatórios
 
-#### Média de sentimento por produto – `GET /relatorios/produtos`
-```json
-[
-  {
-    "produtoId": 1,
-    "mediaSentimento": "positivo"
-  },
-  {
-    "produtoId": 2,
-    "mediaSentimento": "neutro"
-  }
-]
-```
+- `GET /relatorios/produtos`: Média de sentimento por produto
+- `GET /relatorios/sentimentos`: Total de comentários por sentimento
+- `GET /relatorios/usuarios`: Ranking de usuários mais ativos
+- `GET /destaques/usuarios`: Usuários com mais comentários positivos
+- `GET /destaques/produtos`: Produtos com mais comentários positivos
 
-#### Total por sentimento – `GET /relatorios/sentimentos`
-```json
-{
-  "muito positivo": 5,
-  "positivo": 8,
-  "neutro": 3,
-  "negativo": 2,
-  "muito negativo": 1
-}
-```
+---
 
-#### Usuários mais ativos – `GET /relatorios/usuarios`
-```json
-[
-  {
-    "usuarioId": 1,
-    "nome": "João Silva",
-    "totalComentarios": 10
-  },
-  {
-    "usuarioId": 2,
-    "nome": "Ana Clara",
-    "totalComentarios": 7
-  }
-]
-```
+## 🏅 Destaque de Usuários e Produtos
+
+A aplicação calcula e destaca:
+
+- Usuários com maior número de comentários positivos (`%positivo%`)
+- Produtos mais bem avaliados por sentimento
+
+Esses dados são atualizados automaticamente e podem ser consumidos pelos relatórios.
+
+---
 
 ## 🧪 Testes com Bruno
-### Como usar:
 
 1. Instale o [Bruno](https://www.usebruno.com/)
 2. Abra o diretório `trabalho-java/` como um projeto no Bruno
 3. Utilize as requisições organizadas por pastas:
-    - `Usuarios/`
-    - `Produtos/`
-    - `Comentarios/`
-    - `Relatorios/`
+   - `Usuarios/`
+   - `Produtos/`
+   - `Comentarios/`
+   - `Relatorios/`
+
+---
 
 ## 🧱 Aplicação dos Princípios SOLID
 
-- **S - Single Responsibility**: Separação clara entre camadas (entidade, DTO, use case, controller).
-- **O - Open/Closed**: A lógica de negócio pode ser estendida sem modificar os controladores.
-- **L - Liskov Substitution**: DTOs e entidades seguem contratos claros entre camadas.
-- **I - Interface Segregation**: Interfaces definem comportamentos esperados dos repositórios e use cases.
-- **D - Dependency Inversion**: Injeção de dependência aplicada nos controladores e use cases.
+| Princípio | Aplicação |
+|----------|-----------|
+| **S** - Single Responsibility | Camadas bem separadas: entidades, DTOs, usecases, controllers |
+| **O** - Open/Closed           | Funcionalidades de destaque adicionadas sem alterar controladores |
+| **L** - Liskov Substitution   | Interfaces e implementações seguem contratos definidos |
+| **I** - Interface Segregation| Repositórios e usecases são específicos e coesos |
+| **D** - Dependency Inversion | Injeção de dependência nos usecases e controladores |
+
+---
 
 ## 📚 Desafios e Aprendizados
 
-Um dos principais desafios foi **configurar corretamente as entidades** no banco de dados e garantir que os **relacionamentos estivessem consistentes**.
-
-Além disso, foi essencial **integrar a API da OpenAI** de forma segura e funcional.
-
-O projeto proporcionou uma compreensão mais clara da **arquitetura em camadas**, **boas práticas de desenvolvimento com Spring Boot** e **aplicação real dos princípios SOLID**.
+- Aprendi a estruturar uma aplicação com **arquitetura limpa**, organizando pacotes por responsabilidades.
+- Foi desafiador integrar com uma **API de IA externa** (OpenAI), mantendo segurança e performance.
+- A parte de **relatórios e pontuação dinâmica** exigiu consultas otimizadas com JPQL e uso adequado de DTOs.
