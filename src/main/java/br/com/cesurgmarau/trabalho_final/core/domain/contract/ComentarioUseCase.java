@@ -1,0 +1,19 @@
+package br.com.cesurgmarau.trabalho_final.core.domain.contract;
+
+import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorSentimentoDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorProdutoDTO;
+import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioPorUsuarioDTO;
+
+import java.io.IOException;
+import java.util.List;
+
+public interface ComentarioUseCase {
+    public void adicionarComentario (Comentario comentario) throws IOException, InterruptedException;
+    public ComentarioDTO listarComentarioPorId(int id);
+    public List<ComentarioDTO> listarComentario();
+    public ComentarioPorProdutoDTO listarComentarioPorProduto(int produtoId);
+    public ComentarioPorUsuarioDTO listarComentarioPorUsuario(int usuarioId);
+    public ComentarioPorSentimentoDTO listarComentarioPorSentimento(int sentimentoId);
+}
