@@ -72,6 +72,23 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ComentarioResponse> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento) {
+        if (produtoId != null) return buscarPorProdutoId(produtoId);
+        if (usuarioId != null) return buscarPorUsuarioId(usuarioId);
+        if (sentimento != null) return buscarPorSentimento(sentimento);
+        return listarTodos();
+    }
+
+    @Override
+    public void deletar(Integer id) {
+        Optional<Comentario> comentarioOpt = comentarioRepository.buscarPorId(id);
+        if (comentarioOpt.isEmpty()) {
+            throw new RuntimeException("Comentário não encontrado");
+        }
+        comentarioRepository.deletar(id);
+    }
+
     private ComentarioResponse toResponse(Comentario comentario) {
         ComentarioResponse response = new ComentarioResponse();
         response.setId(comentario.getId());
@@ -81,14 +98,4 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
         response.setProdutoId(comentario.getProdutoId());
         return response;
     }
-
-    @Override
-    public void deletar(Integer id) {
-        Optional<Comentario> comentarioOpt = comentarioRepository.buscarPorId(id);
-        if (comentarioOpt.isEmpty()) {
-            throw new RuntimeException("Comentário não encontrado"); // ou lance exceção customizada
-        }
-        comentarioRepository.deletar(id);
-    }
-
 }

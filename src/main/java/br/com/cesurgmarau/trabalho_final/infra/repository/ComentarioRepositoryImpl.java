@@ -2,8 +2,11 @@ package br.com.cesurgmarau.trabalho_final.infra.repository;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoDestaqueResponse;
+import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioDestaqueResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -37,24 +40,27 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
 
     @Override
     public List<Comentario> buscarPorProdutoId(Integer produtoId) {
-        return entityManager
-                .createQuery("SELECT c FROM Comentario c WHERE c.produtoId = :produtoId", Comentario.class)
+        return entityManager.createQuery(
+                        "SELECT c FROM Comentario c WHERE c.produtoId = :produtoId", Comentario.class
+                )
                 .setParameter("produtoId", produtoId)
                 .getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorUsuarioId(Integer usuarioId) {
-        return entityManager
-                .createQuery("SELECT c FROM Comentario c WHERE c.usuarioId = :usuarioId", Comentario.class)
+        return entityManager.createQuery(
+                        "SELECT c FROM Comentario c WHERE c.usuarioId = :usuarioId", Comentario.class
+                )
                 .setParameter("usuarioId", usuarioId)
                 .getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorSentimento(String sentimento) {
-        return entityManager
-                .createQuery("SELECT c FROM Comentario c WHERE c.sentimento = :sentimento", Comentario.class)
+        return entityManager.createQuery(
+                        "SELECT c FROM Comentario c WHERE c.sentimento = :sentimento", Comentario.class
+                )
                 .setParameter("sentimento", sentimento)
                 .getResultList();
     }
@@ -66,5 +72,39 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
         if (comentario != null) {
             entityManager.remove(comentario);
         }
+    }
+
+    @Override
+    public List<UsuarioDestaqueResponse> buscarUsuariosComMaisComentariosPositivos() {
+        String jpql = """
+            SELECT new br.com.cesurgmarau.trabalho_final.core.dto.UsuarioDestaqueResponse(
+                u.id, u.nome, COUNT(c)
+            )
+            FROM Comentario c
+            JOIN Usuario u ON u.id = c.usuarioId
+            WHERE LOWER(c.sentimento) LIKE '%positivo%'
+            GROUP BY u.id, u.nome
+            ORDER BY COUNT(c) DESC
+        """;
+
+        TypedQuery<UsuarioDestaqueResponse> query = entityManager.createQuery(jpql, UsuarioDestaqueResponse.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ProdutoDestaqueResponse> buscarProdutosComMaisSentimentosPositivos() {
+        String jpql = """
+            SELECT new br.com.cesurgmarau.trabalho_final.core.dto.ProdutoDestaqueResponse(
+                p.id, p.nome, COUNT(c)
+            )
+            FROM Comentario c
+            JOIN Produto p ON p.id = c.produtoId
+            WHERE LOWER(c.sentimento) LIKE '%positivo%'
+            GROUP BY p.id, p.nome
+            ORDER BY COUNT(c) DESC
+        """;
+
+        TypedQuery<ProdutoDestaqueResponse> query = entityManager.createQuery(jpql, ProdutoDestaqueResponse.class);
+        return query.getResultList();
     }
 }
