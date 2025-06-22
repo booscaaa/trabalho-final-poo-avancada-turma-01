@@ -8,6 +8,6 @@ public interface UsuarioRepository {
     Usuario salvar(Usuario usuario);
     Optional<Usuario> buscarPorId(Integer id);
     List<Usuario> listarTodos();
-    Usuario atualizar(Usuario usuario);
+    void atualizar(Integer id, Usuario usuario);
     void remover(Integer id);
 }

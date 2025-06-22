@@ -27,29 +27,42 @@ public class ProdutoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoResponse salvar(@RequestBody ProdutoRequest dto) {
-        Produto produto = produtoUseCase.salvar(dto);
-        return toResponse(produto);
+        Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+
+        Produto salvo = produtoUseCase.salvar(produto);
+        return new ProdutoResponse(salvo.getId(), salvo.getNome(), salvo.getDescricao());
     }
 
     @GetMapping("/{id}")
     public ProdutoResponse buscarPorId(@PathVariable Integer id) {
-        Produto produto = produtoUseCase.buscarPorId(id)
+        return produtoUseCase.buscarPorId(id)
+                .map(p -> new ProdutoResponse(p.getId(), p.getNome(), p.getDescricao()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
-        return toResponse(produto);
     }
 
     @GetMapping
     public List<ProdutoResponse> listarTodos() {
         return produtoUseCase.listarTodos().stream()
-                .map(this::toResponse)
+                .map(p -> new ProdutoResponse(p.getId(), p.getNome(), p.getDescricao()))
                 .toList();
     }
 
     @PutMapping("/{id}")
     public ProdutoResponse atualizar(@PathVariable Integer id, @RequestBody ProdutoRequest dto) {
-        Produto produto = produtoUseCase.atualizar(id, dto);
-        return toResponse(produto);
+        Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+
+        produtoUseCase.atualizar(id, produto);
+
+        Produto atualizado = produtoUseCase.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado após atualização"));
+
+        return toResponse(atualizado);
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

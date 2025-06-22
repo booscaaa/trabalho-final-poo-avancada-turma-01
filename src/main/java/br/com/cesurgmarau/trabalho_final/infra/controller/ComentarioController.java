@@ -34,8 +34,13 @@ public class ComentarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ComentarioResponse criar(@RequestBody ComentarioRequest request) {
-        Comentario comentario = comentarioUsecase.criar(request);
-        return toResponse(comentario);
+        Comentario comentario = new Comentario();
+        comentario.setTexto(request.getTexto());
+        comentario.setUsuarioId(request.getUsuarioId());
+        comentario.setProdutoId(request.getProdutoId());
+
+        Comentario salvo = comentarioUsecase.criar(comentario);
+        return toResponse(salvo);
     }
 
     @GetMapping("/{id}")

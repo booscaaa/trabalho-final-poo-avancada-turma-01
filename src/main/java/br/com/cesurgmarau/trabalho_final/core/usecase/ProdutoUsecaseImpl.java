@@ -3,7 +3,6 @@ package br.com.cesurgmarau.trabalho_final.core.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUsecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
-import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +18,13 @@ public class ProdutoUsecaseImpl implements ProdutoUsecase {
     }
 
     @Override
-    public Produto salvar(ProdutoRequest dto) {
-        Produto produto = new Produto();
-        produto.setNome(dto.getNome());
-        produto.setDescricao(dto.getDescricao());
-
+    public Produto salvar(Produto produto) {
         return produtoRepository.salvar(produto);
+    }
+
+    @Override
+    public void atualizar(Integer id, Produto produto) {
+        produtoRepository.atualizar(produto);
     }
 
     @Override
@@ -38,18 +38,7 @@ public class ProdutoUsecaseImpl implements ProdutoUsecase {
     }
 
     @Override
-    public Produto atualizar(Integer id, ProdutoRequest dto) {
-        Produto produto = new Produto();
-        produto.setId(id);
-        produto.setNome(dto.getNome());
-        produto.setDescricao(dto.getDescricao());
-
-        return produtoRepository.atualizar(produto);
-    }
-
-    @Override
     public void remover(Integer id) {
         produtoRepository.remover(id);
     }
 }
-

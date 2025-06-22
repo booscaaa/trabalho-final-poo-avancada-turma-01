@@ -31,8 +31,11 @@ public class UsuarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioResponse criar(@RequestBody UsuarioRequest request) {
-        Usuario usuario = usuarioUsecase.criar(request);
-        return toResponse(usuario);
+        Usuario usuario = new Usuario();
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+        Usuario criado = usuarioUsecase.criar(usuario);
+        return toResponse(criado);
     }
 
     @GetMapping("/{id}")
@@ -50,9 +53,12 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public UsuarioResponse atualizar(@PathVariable Integer id, @RequestBody UsuarioRequest request) {
-        Usuario usuario = usuarioUsecase.atualizar(id, request);
-        return toResponse(usuario);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizar(@PathVariable Integer id, @RequestBody UsuarioRequest request) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+        usuarioUsecase.atualizar(id, usuario);
     }
 
     @DeleteMapping("/{id}")

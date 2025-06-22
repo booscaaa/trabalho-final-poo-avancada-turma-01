@@ -6,7 +6,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import java.util.List;
 
 public interface ComentarioUsecase {
-    Comentario criar(ComentarioRequest request);
+    Comentario criar(Comentario comentario);
     Comentario buscarPorId(Integer id);
     List<Comentario> listarTodos();
     List<Comentario> buscarPorProdutoId(Integer produtoId);
@@ -15,3 +15,4 @@ public interface ComentarioUsecase {
     List<Comentario> buscarFiltrado(Integer produtoId, Integer usuarioId, String sentimento);
     void deletar(Integer id);
 }
+

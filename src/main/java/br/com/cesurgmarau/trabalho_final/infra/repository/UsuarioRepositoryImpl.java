@@ -37,8 +37,15 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     @Transactional
-    public Usuario atualizar(Usuario usuario) {
-        return entityManager.merge(usuario);
+    public void atualizar(Integer id, Usuario usuarioAtualizado) {
+        Usuario usuarioExistente = entityManager.find(Usuario.class, id);
+        if (usuarioExistente != null) {
+            usuarioExistente.setNome(usuarioAtualizado.getNome());
+            usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+            entityManager.merge(usuarioExistente);
+        } else {
+            throw new RuntimeException("Usuário não encontrado com id: " + id);
+        }
     }
 
     @Override

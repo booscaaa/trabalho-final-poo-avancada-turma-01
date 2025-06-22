@@ -3,7 +3,6 @@ package br.com.cesurgmarau.trabalho_final.core.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUsecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
-import br.com.cesurgmarau.trabalho_final.core.dto.ComentarioRequest;
 import br.com.cesurgmarau.trabalho_final.infra.ai.OpenAiService;
 import org.springframework.stereotype.Service;
 
@@ -22,22 +21,16 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
     }
 
     @Override
-    public Comentario criar(ComentarioRequest request) {
-        Comentario comentario = new Comentario();
-        comentario.setTexto(request.getTexto());
-        comentario.setUsuarioId(request.getUsuarioId());
-        comentario.setProdutoId(request.getProdutoId());
-
-        String sentimento = openAiService.analisarSentimento(request.getTexto());
+    public Comentario criar(Comentario comentario) {
+        String sentimento = openAiService.analisarSentimento(comentario.getTexto());
         comentario.setSentimento(sentimento);
-
         return comentarioRepository.salvar(comentario);
     }
 
+
     @Override
     public Comentario buscarPorId(Integer id) {
-        return comentarioRepository.buscarPorId(id)
-                .orElseThrow(() -> new RuntimeException("Comentário não encontrado com id: " + id));
+        return comentarioRepository.buscarPorId(id).orElse(null);
     }
 
     @Override
@@ -70,10 +63,6 @@ public class ComentarioUsecaseImpl implements ComentarioUsecase {
 
     @Override
     public void deletar(Integer id) {
-        Optional<Comentario> comentarioOpt = comentarioRepository.buscarPorId(id);
-        if (comentarioOpt.isEmpty()) {
-            throw new RuntimeException("Comentário não encontrado");
-        }
         comentarioRepository.deletar(id);
     }
 }
