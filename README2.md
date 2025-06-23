@@ -91,11 +91,12 @@ Este projeto é uma API RESTful desenvolvida em Java com Spring Boot, que permit
 | `DELETE` | `/user/{id}`     | Deletar usuário por ID                 |
 
 ### 📈 Relatórios (`/report`)
-| Método | Rota                      | Descrição                                                                 |
-|--------|---------------------------|---------------------------------------------------------------------------|
-| `GET`  | `/report/feeling/{id}`    | Retorna total de comentários associados a um sentimento (por ID)         |
-| `GET`  | `/report/product/{id}`    | Retorna a média dos sentimentos de um produto, com interpretação textual |
-| `GET`  | `/report/user`            | Retorna ranking de usuários mais ativos, do mais para o menos comentador |
+| Método | Rota                   | Descrição                                                                       |
+|--------|------------------------|---------------------------------------------------------------------------------|
+| `GET`  | `/report/feeling/{id}` | Retorna total de comentários associados a um sentimento (por ID)                |
+| `GET`  | `/report/product/{id}` | Retorna a média dos sentimentos de um produto, com interpretação textual        |
+| `GET`  | `/report/user`         | Retorna ranking de usuários mais ativos, do mais para o menos comentador        |
+| `GET`  | `/report/overview`     | Retorna visão geral do sistema, total de usuarios, produtos mais comentados,etc |
 
 ---
 

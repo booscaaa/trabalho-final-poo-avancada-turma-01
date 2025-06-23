@@ -44,5 +44,10 @@ public class ReportController {
     public List<Map<String, Object>> getUserRanking() {
         return reportUseCase.getUserRanking();
     }
+
+    @GetMapping("/report/overview")
+    public ResponseEntity<Map<String, Object>> getSystemOverview() {
+        return ResponseEntity.ok(reportUseCase.getSystemOverview());
+    }
 }
 

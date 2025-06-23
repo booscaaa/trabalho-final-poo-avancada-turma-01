@@ -105,4 +105,23 @@ public class ReportUseCaseImpl implements ReportUseCase {
         else return "Very Positive";
     }
 
+    @Override
+    public Map<String, Object> getSystemOverview() {
+        Long totalUsers = reportRepository.countUsers();
+        Long totalProducts = reportRepository.countProducts();
+        Long totalComments = reportRepository.countComments();
+        Double avgFeeling = reportRepository.averageFeeling();
+        Object[] topProduct = reportRepository.topProduct();
+        Object[] topUser = reportRepository.topUser();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("total_usuarios", totalUsers);
+        data.put("total_produtos", totalProducts);
+        data.put("comentarios_totais", totalComments);
+        data.put("media_geral_sentimentos", Math.round(avgFeeling * 100.0) / 100.0);
+        data.put("produto_mais_comentado", topProduct[0]);
+        data.put("usuario_mais_ativo", topUser[0]);
+
+        return data;
+    }
 }

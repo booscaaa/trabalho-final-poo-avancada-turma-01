@@ -7,4 +7,5 @@ public interface ReportUseCase {
     Map<String, Object> getCommentCountByFeelingId(int id);
     Map<String, Object> getAverageFeelingByProductId(int id);
     List<Map<String, Object>> getUserRanking();
+    Map<String, Object> getSystemOverview();
 }

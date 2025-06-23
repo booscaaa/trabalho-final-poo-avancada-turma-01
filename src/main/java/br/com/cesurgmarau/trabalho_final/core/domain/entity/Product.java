@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name = "product")
+@Entity(name = "products")
 public class Product {
     @Id
     @Column(name = "id")
