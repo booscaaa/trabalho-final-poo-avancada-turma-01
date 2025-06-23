@@ -14,7 +14,22 @@ public class Feeling {
     @Column(name = "name")
     private String name;
 
-    public Integer getId() {
+    @Column(name = "value")
+    private int value;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getId() {
         return id;
     }
 
