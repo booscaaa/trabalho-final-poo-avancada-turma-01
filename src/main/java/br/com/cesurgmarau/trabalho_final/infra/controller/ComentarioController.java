@@ -2,6 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ComentarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.TipoSentimento;
+import br.com.cesurgmarau.trabalho_final.core.dto.Comentario.ComentarioRequestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class ComentarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Comentario> criar(@RequestBody Comentario comentario) {
-        Comentario salvo = comentarioUseCase.criarComentario(comentario);
+    public ResponseEntity<Comentario> criar(@RequestBody ComentarioRequestDTO dto) {
+        Comentario salvo = comentarioUseCase.criarComentario(dto);
         return ResponseEntity.ok(salvo);
     }
 

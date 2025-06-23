@@ -5,7 +5,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.TipoSentimento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +18,6 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public Comentario salvar(Comentario comentario) {
         if (comentario.getId() == null) {
             entityManager.persist(comentario);
@@ -34,39 +33,34 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
     }
 
     @Override
-    public List<Comentario> buscarTodos() {
-        return entityManager.createQuery("SELECT c FROM Comentario c", Comentario.class)
-                .getResultList();
+    public List<Comentario> listarTodos() {
+        String jpql = "SELECT c FROM Comentario c";
+        return entityManager.createQuery(jpql, Comentario.class).getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorProdutoId(Long produtoId) {
-        return entityManager.createQuery("SELECT c FROM Comentario c WHERE c.produto.id = :produtoId", Comentario.class)
-                .setParameter("produtoId", produtoId)
-                .getResultList();
+        String jpql = "SELECT c FROM Comentario c WHERE c.produto.id = :produtoId";
+        TypedQuery<Comentario> query = entityManager.createQuery(jpql, Comentario.class);
+        query.setParameter("produtoId", produtoId);
+        return query.getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorUsuarioId(Long usuarioId) {
-        return entityManager.createQuery("SELECT c FROM Comentario c WHERE c.usuario.id = :usuarioId", Comentario.class)
-                .setParameter("usuarioId", usuarioId)
-                .getResultList();
+        String jpql = "SELECT c FROM Comentario c WHERE c.usuario.id = :usuarioId";
+        TypedQuery<Comentario> query = entityManager.createQuery(jpql, Comentario.class);
+        query.setParameter("usuarioId", usuarioId);
+        return query.getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorSentimento(TipoSentimento sentimento) {
-        return entityManager.createQuery("SELECT c FROM Comentario c WHERE c.sentimento = :sentimento", Comentario.class)
-                .setParameter("sentimento", sentimento)
-                .getResultList();
-    }
-
-    @Override
-    @Transactional
-    public void deletar(Long id) {
-        Comentario comentario = entityManager.find(Comentario.class, id);
-        if (comentario != null) {
-            entityManager.remove(comentario);
-        }
+        String jpql = "SELECT c FROM Comentario c WHERE c.sentimento = :sentimento";
+        TypedQuery<Comentario> query = entityManager.createQuery(jpql, Comentario.class);
+        query.setParameter("sentimento", sentimento);
+        return query.getResultList();
     }
 }
+
 

@@ -7,19 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ComentarioRepository {
-
     Comentario salvar(Comentario comentario);
-
     Optional<Comentario> buscarPorId(Long id);
-
-    List<Comentario> buscarTodos();
-
+    List<Comentario> listarTodos();
     List<Comentario> buscarPorProdutoId(Long produtoId);
-
     List<Comentario> buscarPorUsuarioId(Long usuarioId);
-
     List<Comentario> buscarPorSentimento(TipoSentimento sentimento);
-
-    void deletar(Long id);
 }
+
 

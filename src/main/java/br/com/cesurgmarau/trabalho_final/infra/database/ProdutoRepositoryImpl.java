@@ -4,7 +4,6 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,33 +16,31 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
-    public Produto salvar(Produto produto) {
-        entityManager.persist(produto);
-        return produto;
-    }
-
-    @Override
     public Optional<Produto> buscarPorId(Long id) {
-        Produto produto = entityManager.find(Produto.class, id);
-        return Optional.ofNullable(produto);
+        return Optional.ofNullable(entityManager.find(Produto.class, id));
     }
 
     @Override
     public List<Produto> buscarTodos() {
-        return entityManager
-                .createQuery("SELECT p FROM Produto p", Produto.class)
-                .getResultList();
+        return List.of();
     }
 
     @Override
-    @Transactional
     public Produto atualizar(Produto produto) {
-        return entityManager.merge(produto);
+        return null;
     }
 
     @Override
-    @Transactional
+    public Produto salvar(Produto produto) {
+        if (produto.getId() == null) {
+            entityManager.persist(produto);
+            return produto;
+        } else {
+            return entityManager.merge(produto);
+        }
+    }
+
+    @Override
     public void deletar(Long id) {
         Produto produto = entityManager.find(Produto.class, id);
         if (produto != null) {
@@ -51,4 +48,6 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         }
     }
 }
+
+
 
