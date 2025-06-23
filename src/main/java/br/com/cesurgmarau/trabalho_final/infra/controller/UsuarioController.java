@@ -2,6 +2,7 @@ package br.com.cesurgmarau.trabalho_final.infra.controller;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
+import br.com.cesurgmarau.trabalho_final.core.dto.usuario.UsuarioResponseDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,8 +10,19 @@ import java.util.List;
 @RestController
 public class UsuarioController {
 
-    private UsuarioUseCase usuarioUseCase;
+    private final UsuarioUseCase usuarioUseCase;
 
+    public UsuarioController(UsuarioUseCase usuarioUseCase) {
+        this.usuarioUseCase = usuarioUseCase;
+    }
+
+    private UsuarioResponseDTO getUsuarioResponseDTO(Usuario usuario) {
+        UsuarioResponseDTO responseDTO = new UsuarioResponseDTO();
+        responseDTO.setId(usuario.getId());
+        responseDTO.setNome(usuario.getNome());
+        responseDTO.setEmail(usuario.getEmail());
+        return responseDTO;
+    }
 
     @PostMapping("/usuario")
     public void insert(@RequestBody Usuario usuario) {
@@ -33,8 +45,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuario/{id}")
-    public void get(@PathVariable int id) {
+    public UsuarioResponseDTO get(@PathVariable int id) {
         usuarioUseCase.get(id);
+        return getUsuarioResponseDTO(usuarioUseCase.get(id));
     }
 }
 

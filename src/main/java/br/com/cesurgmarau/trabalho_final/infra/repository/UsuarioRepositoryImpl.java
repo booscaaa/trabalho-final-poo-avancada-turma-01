@@ -19,7 +19,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     public void insert(Usuario usuario) {
         var query = """
                 INSERT INTO usuario (nome, email) 
-                VALUES (:nome, :email);
+                VALUES (:nome, :email); 
                 """;
         entityManager.createNativeQuery(query, Usuario.class)
                 .setParameter("nome", usuario.getNome())
@@ -51,7 +51,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Transactional
-    public List<Usuario> fetch() {
+    public List fetch() {
         var query = """
                 SELECT id, nome, email FROM usuario;
                 """;
@@ -61,7 +61,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Transactional
     public Usuario get(int id) {
-        var query = "SELECT id, nome, email FROM usuario WHERE id = :id;";
+        var query = """
+                SELECT id, nome, email FROM usuario WHERE id = :id;
+            """;
         return (Usuario) entityManager.createNativeQuery(query, Usuario.class)
                 .setParameter("id", id)
                 .getSingleResult();

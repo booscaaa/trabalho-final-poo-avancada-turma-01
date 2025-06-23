@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.usuario;
 
-public class UsuarioResponse {
+public class UsuarioResponseDTO {
     private int id;
     private String nome;
     private String email;

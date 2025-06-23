@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.produto;
 
-public class ProdutoRequest {
+public class ProdutoRequestDTO {
     private String nomeProduto;
     private String descricaoProduto;
 

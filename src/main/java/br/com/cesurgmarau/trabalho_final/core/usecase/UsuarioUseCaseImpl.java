@@ -10,7 +10,11 @@ import java.util.List;
 @Service
 public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public UsuarioUseCaseImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public void insert(Usuario usuario) {

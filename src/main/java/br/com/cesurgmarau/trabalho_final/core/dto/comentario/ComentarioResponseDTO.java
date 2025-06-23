@@ -1,6 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.comentario;
 
-public class ComentarioResponse {
+public class ComentarioResponseDTO {
     private int id;
     private String descricao;
     private int sentimento_id;
