@@ -30,19 +30,20 @@ public class ReportRepositoryImpl implements ReportRepository {
                 .getResultList();
     }
 
-    @Override
-    public List<Number> getFeelingValuesByProductId(int id) {
+    public List<Object[]> getFeelingDataByProductId(int id) {
         String sql = """
-        SELECT f.value
+        SELECT p.name, f.name, f.value
         FROM comments c
+        JOIN products p ON c.product_id = p.id
         JOIN feelings f ON c.feeling_id = f.id
-        WHERE c.product_id = :id
+        WHERE p.id = :id
     """;
 
         return entityManager.createNativeQuery(sql)
                 .setParameter("id", id)
                 .getResultList();
     }
+
 
 
 

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ReportRepository {
     List<Object[]> getCommentCountByFeelingId(int id);
-    List<Number> getFeelingValuesByProductId(int id);
+    List<Object[]> getFeelingDataByProductId(int id);
     List<Object[]> getUserRanking();
 }

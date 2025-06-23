@@ -18,6 +18,7 @@ public class ReportUseCaseImpl implements ReportUseCase {
         this.reportRepository = reportRepository;
     }
 
+
     @Override
     public Map<String, Object> getCommentCountByFeelingId(int id) {
         List<Object[]> result = reportRepository.getCommentCountByFeelingId(id);
@@ -40,34 +41,42 @@ public class ReportUseCaseImpl implements ReportUseCase {
     }
 
     @Override
-    public Map<String, Object> getAverageFeelingByProductId(int productId) {
-        List<Number> values = reportRepository.getFeelingValuesByProductId(productId);
+    public Map<String, Object> getAverageFeelingByProductId(int id) {
+        List<Object[]> data = reportRepository.getFeelingDataByProductId(id);
 
-        if (values.isEmpty()) {
+        if (data.isEmpty()) {
             return Map.of("mensagem", "Nenhum comentário encontrado para esse produto.");
         }
 
+        String productName = (String) data.get(0)[0];
+
         double sum = 0;
         int count = 0;
-        for (Number n : values) {
-            if (n != null) {
-                sum += n.doubleValue();
+
+        for (Object[] row : data) {
+            Number value = (Number) row[2];
+            if (value != null) {
+                sum += value.doubleValue();
                 count++;
             }
         }
 
         if (count == 0) {
-            return Map.of("mensagem", "Nenhum comentário com valor de sentimento válido encontrado.");
+            return Map.of("mensagem", "Sentimentos sem valor válido para esse produto.");
         }
 
         double average = sum / count;
+        double rounded = Math.round(average * 100.0) / 100.0;
 
         Map<String, Object> response = new HashMap<>();
-        response.put("produto_id", productId);
-        response.put("media_sentimento", Math.round(average * 100.0) / 100.0);
+        response.put("produto", productName);
+        response.put("media_sentimento",rounded);
+        response.put("interpretacao", interpretAverage(rounded));
 
         return response;
     }
+
+
 
 
     @Override
@@ -87,4 +96,13 @@ public class ReportUseCaseImpl implements ReportUseCase {
 
         return result;
     }
+
+    private String interpretAverage(double media) {
+        if (media < 1.5) return "Very Negative";
+        else if (media < 2) return "Negative";
+        else if (media < 3.5) return "Neutral";
+        else if (media < 4.0) return "Positive";
+        else return "Very Positive";
+    }
+
 }
