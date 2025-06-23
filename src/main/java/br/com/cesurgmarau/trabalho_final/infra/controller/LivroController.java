@@ -7,34 +7,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
-@RestController("/livro")
+
+@RestController
+@RequestMapping("/livro")
 public class LivroController {
 
     @Autowired
     private LivroRepository livroRepository;
 
-    @PostMapping("/livro")
+    @PostMapping()
     public void insert(@RequestBody Livro livro) {
         livroRepository.insert(livro);
     }
 
-    @GetMapping("/livro")
+    @GetMapping()
     public List<Livro> list() {
         return livroRepository.fetch();
     }
 
-    @PostMapping("/livro/id")
+    @PostMapping("/{id}")
     public void update(@PathVariable int id, @RequestBody Livro livro) {livroRepository.update(id, livro);
     }
-    @DeleteMapping("/livro/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         livroRepository.delete(id);
     }
 
-    @GetMapping("/livro/{id}")
-    public void get(@PathVariable int id) {
-        livroRepository.get(id);
+    @GetMapping("/{id}")
+    public Livro get(@PathVariable int id) {
+        return livroRepository.get(id);
     }
 }
 

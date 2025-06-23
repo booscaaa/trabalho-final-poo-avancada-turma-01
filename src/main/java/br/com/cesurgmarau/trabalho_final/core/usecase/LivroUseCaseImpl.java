@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class LivroUseCaseImpl implements LivroUseCase {
 
-    @Autowired
+
     private LivroRepository livroRepository;
 
 

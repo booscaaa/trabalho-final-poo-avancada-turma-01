@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.infra.repository.database;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.usuario.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Transactional
@@ -49,7 +50,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     public List<Usuario> fetch() {
-        var query = "SELECT * FROM usuario;";
+        var query = "SELECT id, nome, email, senha FROM usuario;";
         return entityManager.createNativeQuery(query, Usuario.class).getResultList();
     }
 

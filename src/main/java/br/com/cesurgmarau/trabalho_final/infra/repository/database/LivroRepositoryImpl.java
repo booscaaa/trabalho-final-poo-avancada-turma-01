@@ -4,6 +4,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.livro.LivroReposit
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Livro;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,30 +14,34 @@ import java.util.List;
 @Repository
 public class LivroRepositoryImpl implements LivroRepository {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Transactional
     public void insert(Livro livro) {
         var query = """
-                INSERT INTO livro (titulo, autor, ano_publicacao)
-                VALUES (:titulo, :autor, :ano_publicacao);
+                INSERT INTO livro (titulo, autor, descricao, preco)
+                VALUES (:titulo, :autor, :descricao, :preco);
                 """;
         entityManager.createNativeQuery(query, Livro.class)
                 .setParameter("titulo", livro.getTitulo())
                 .setParameter("autor", livro.getAutor())
+                .setParameter("descricao", livro.getDescricao())
+                .setParameter("preco", livro.getPreco())
                 .executeUpdate();
     }
     @Transactional
     public void update(int id, Livro livro) {
         var query = """
                 UPDATE livro SET 
-                titulo = :titulo, autor = :autor, ano_publicacao = :ano_publicacao
+                titulo = :titulo, autor = :autor, descricao = :descricao, preco = :preco
                 WHERE id = :id;
                 """;
         entityManager.createNativeQuery(query, Livro.class)
                 .setParameter("titulo", livro.getTitulo())
                 .setParameter("autor", livro.getAutor())
+                .setParameter("descricao", livro.getDescricao())
+                .setParameter("preco", livro.getPreco())
                 .setParameter("id", id)
                 .executeUpdate();
     }
@@ -54,5 +59,10 @@ public class LivroRepositoryImpl implements LivroRepository {
         return (Livro) entityManager.createNativeQuery(query, Livro.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<Livro> buscarTodos() {
+        return null;
     }
 }

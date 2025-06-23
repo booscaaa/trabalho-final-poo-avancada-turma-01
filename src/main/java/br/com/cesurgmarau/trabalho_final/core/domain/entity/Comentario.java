@@ -2,7 +2,6 @@ package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 @Entity(name = "comentario")
 public class Comentario {
     @Id
@@ -15,7 +14,8 @@ public class Comentario {
     private int livroId;
     @Column(name = "texto", nullable = false)
     private String texto;
-    @Column(name = "sentimento", nullable = false)
+    private double scoreSentimento;
+
     private String sentimento;
 
     public int getId() {
@@ -49,6 +49,7 @@ public class Comentario {
     public void setTexto(String texto) {
         this.texto = texto;
     }
+
     public String getSentimento() {
         return sentimento;
     }
@@ -57,4 +58,15 @@ public class Comentario {
         this.sentimento = sentimento;
     }
 
+    public int getNotaSentimento() {
+        switch (sentimento != null ? sentimento.toLowerCase() : "") {
+            case "muito positivo": return 5;
+            case "positivo": return 4;
+            case "neutro": return 3;
+            case "negativo": return 2;
+            case "muito negativo": return 1;
+            default: return 3;
+        }
+    }
 }
+

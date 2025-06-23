@@ -1,12 +1,11 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "usuario")
 public class Usuario {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -19,7 +18,7 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
-    public int getId() {
+    public boolean getId() {
         return id;
     }
 

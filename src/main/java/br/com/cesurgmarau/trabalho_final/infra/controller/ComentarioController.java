@@ -7,35 +7,42 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
-@RestController("/comentario")
+
+@RestController
+@RequestMapping("/comentario")
 public class ComentarioController {
 
     @Autowired
     private ComentarioUseCase comentarioUseCase;
 
-    @PostMapping("/comentario")
+    @PostMapping()
     public void insert(@RequestBody Comentario comentario) {
         comentarioUseCase.insert(comentario);
     }
 
-    @GetMapping("/comentario")
-    public List<Comentario> list() {
-        return comentarioUseCase.fetch();
+    @GetMapping()
+    public List<Comentario> buscarTodosOsComentarios() {
+        return comentarioUseCase.buscarTodosOsComentarios();
     }
 
-    @PostMapping("/comentario/id")
+    @PostMapping("/{id}")
         public void update(@PathVariable int id, @RequestBody Comentario comentario){
         comentarioUseCase.update(id, comentario);
     }
-
-    @DeleteMapping("/comentario/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         comentarioUseCase.delete(id);
     }
-
-    @GetMapping("/comentario/{id}")
-    public void get(@PathVariable int id) {
-        comentarioUseCase.get(id);
+    @GetMapping("/{id}")
+    public Comentario buscarComentarioPorId(@PathVariable int id) {
+        return comentarioUseCase.buscarComentarioPorId(id);
+    }
+    @GetMapping("?produtoId=1")
+    public Comentario buscarProdutoPorId(@RequestParam int livroId) {
+       return (Comentario) comentarioUseCase.buscarProdutoPorId(livroId);
+    }
+    @GetMapping("?usuarioId=1")
+    public List<Comentario> buscarUsuarioPorId(@RequestParam int usuarioId) {
+       return comentarioUseCase.buscarUsuarioPorId(usuarioId);
     }
 }

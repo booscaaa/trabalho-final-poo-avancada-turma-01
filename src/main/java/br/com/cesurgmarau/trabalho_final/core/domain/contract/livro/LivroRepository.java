@@ -10,6 +10,8 @@ public interface LivroRepository {
     public void delete (int id);
     public List<Livro> fetch();
     public Livro get (int id);
+
+    List<Livro> buscarTodos();
 }
 
 

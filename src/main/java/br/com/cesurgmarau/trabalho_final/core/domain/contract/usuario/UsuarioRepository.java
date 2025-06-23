@@ -10,4 +10,6 @@ public interface UsuarioRepository {
     public void delete (int id);
     public List<Usuario> fetch();
     public Usuario get (int id);
+
+    List<Usuario> buscarTodos();
 }

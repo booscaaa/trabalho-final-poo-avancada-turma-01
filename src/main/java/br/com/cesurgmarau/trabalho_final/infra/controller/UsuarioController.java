@@ -8,35 +8,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
-@RestController("/usuario")
+@RestController
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @PostMapping("/usuario")
+    @PostMapping()
     public void insert(@RequestBody Usuario usuario) {
         usuarioRepository.insert(usuario);
     }
 
-    @GetMapping("/usuario")
+    @GetMapping()
     public List<Usuario> list() {
         return usuarioRepository.fetch();
     }
 
-    @PostMapping("/usuario/id")
+    @PostMapping("/{id}")
     public void update(@PathVariable int id, @RequestBody Usuario usuario) {
         usuarioRepository.update(id, usuario);
     }
 
-    @DeleteMapping("/usuario/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         usuarioRepository.delete(id);
     }
 
-    @GetMapping("/usuario/{id}")
-    public void get(@PathVariable int id) {
-        usuarioRepository.get(id);
+    @GetMapping("/{id}")
+    public Usuario get(@PathVariable int id) {
+        return usuarioRepository.get(id);
     }
 }
 

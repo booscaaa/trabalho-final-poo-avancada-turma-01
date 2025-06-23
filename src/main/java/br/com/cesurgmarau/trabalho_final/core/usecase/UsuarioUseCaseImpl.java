@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
-    @Autowired
+
     private UsuarioRepository usuarioRepository;
 
     @Override
