@@ -30,13 +30,13 @@ public class ReportController {
 
     @GetMapping("/report/product/{id}")
     public ResponseEntity<Map<String, Object>> getAverageByProductId(@PathVariable int id) {
-        Map<String, Object> resultado = reportUseCase.getAverageFeelingByProductId(id);
+        Map<String, Object> result = reportUseCase.getAverageFeelingByProductId(id);
 
-        if (resultado.containsKey("mensagem")) {
-            return ResponseEntity.status(404).body(resultado);
+        if (result.containsKey("mensagem")) {
+            return ResponseEntity.status(404).body(result);
         }
 
-        return ResponseEntity.ok(resultado);
+        return ResponseEntity.ok(result);
     }
 
 

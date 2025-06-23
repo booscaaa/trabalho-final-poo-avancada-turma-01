@@ -97,11 +97,11 @@ public class ReportUseCaseImpl implements ReportUseCase {
         return result;
     }
 
-    private String interpretAverage(double media) {
-        if (media < 1.5) return "Very Negative";
-        else if (media < 2) return "Negative";
-        else if (media < 3.5) return "Neutral";
-        else if (media < 4.0) return "Positive";
+    private String interpretAverage(double average) {
+        if (average < 1.5) return "Very Negative";
+        else if (average < 2) return "Negative";
+        else if (average < 3.5) return "Neutral";
+        else if (average < 4.0) return "Positive";
         else return "Very Positive";
     }
 
