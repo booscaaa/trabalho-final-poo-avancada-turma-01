@@ -5,9 +5,8 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
 import br.com.cesurgmarau.trabalho_final.core.dto.ProdutoDestaqueResponse;
 import br.com.cesurgmarau.trabalho_final.core.dto.UsuarioDestaqueResponse;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,95 +15,115 @@ import java.util.Optional;
 @Repository
 public class ComentarioRepositoryImpl implements ComentarioRepository {
 
-    @PersistenceContext
+    @Autowired
     private EntityManager entityManager;
 
     @Override
     @Transactional
     public Comentario salvar(Comentario comentario) {
-        entityManager.persist(comentario);
+        var query = """
+            INSERT INTO comentarios (texto, sentimento, usuario_id, produto_id)
+            VALUES (:texto, :sentimento, :usuarioId, :produtoId)
+        """;
+        entityManager.createNativeQuery(query)
+                .setParameter("texto", comentario.getTexto())
+                .setParameter("sentimento", comentario.getSentimento())
+                .setParameter("usuarioId", comentario.getUsuarioId())
+                .setParameter("produtoId", comentario.getProdutoId())
+                .executeUpdate();
+
         return comentario;
     }
 
     @Override
     public Optional<Comentario> buscarPorId(Integer id) {
-        return Optional.ofNullable(entityManager.find(Comentario.class, id));
+        var query = "SELECT * FROM comentarios WHERE id = :id";
+        List<Comentario> resultado = entityManager
+                .createNativeQuery(query, Comentario.class)
+                .setParameter("id", id)
+                .getResultList();
+
+        return resultado.stream().findFirst();
     }
 
     @Override
     public List<Comentario> buscarTodos() {
-        return entityManager
-                .createQuery("SELECT c FROM Comentario c", Comentario.class)
-                .getResultList();
+        var query = "SELECT * FROM comentarios";
+        return entityManager.createNativeQuery(query, Comentario.class).getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorProdutoId(Integer produtoId) {
-        return entityManager.createQuery(
-                        "SELECT c FROM Comentario c WHERE c.produtoId = :produtoId", Comentario.class
-                )
+        var query = """
+            SELECT * FROM comentarios WHERE produto_id = :produtoId
+        """;
+        return entityManager.createNativeQuery(query, Comentario.class)
                 .setParameter("produtoId", produtoId)
                 .getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorUsuarioId(Integer usuarioId) {
-        return entityManager.createQuery(
-                        "SELECT c FROM Comentario c WHERE c.usuarioId = :usuarioId", Comentario.class
-                )
+        var query = """
+            SELECT * FROM comentarios WHERE usuario_id = :usuarioId
+        """;
+        return entityManager.createNativeQuery(query, Comentario.class)
                 .setParameter("usuarioId", usuarioId)
                 .getResultList();
     }
 
     @Override
     public List<Comentario> buscarPorSentimento(String sentimento) {
-        return entityManager.createQuery(
-                        "SELECT c FROM Comentario c WHERE c.sentimento = :sentimento", Comentario.class
-                )
-                .setParameter("sentimento", sentimento)
+        var query = """
+            SELECT * FROM comentarios WHERE LOWER(sentimento) LIKE :sentimento
+        """;
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("sentimento", "%" + sentimento.toLowerCase() + "%")
                 .getResultList();
     }
 
     @Override
     @Transactional
     public void deletar(Integer id) {
-        Comentario comentario = entityManager.find(Comentario.class, id);
-        if (comentario != null) {
-            entityManager.remove(comentario);
-        }
+        var query = "DELETE FROM comentarios WHERE id = :id";
+        entityManager.createNativeQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override
     public List<UsuarioDestaqueResponse> buscarUsuariosComMaisComentariosPositivos() {
-        String jpql = """
-            SELECT new br.com.cesurgmarau.trabalho_final.core.dto.UsuarioDestaqueResponse(
-                u.id, u.nome, COUNT(c)
-            )
-            FROM Comentario c
-            JOIN Usuario u ON u.id = c.usuarioId
+        var query = """
+            SELECT u.id, u.nome, COUNT(c.*)
+            FROM comentarios c
+            JOIN usuario u ON u.id = c.usuario_id
             WHERE LOWER(c.sentimento) LIKE '%positivo%'
             GROUP BY u.id, u.nome
-            ORDER BY COUNT(c) DESC
+            ORDER BY COUNT(c.*) DESC
         """;
+        List<Object[]> resultado = entityManager.createNativeQuery(query).getResultList();
 
-        TypedQuery<UsuarioDestaqueResponse> query = entityManager.createQuery(jpql, UsuarioDestaqueResponse.class);
-        return query.getResultList();
+        return resultado.stream()
+                .map(entry -> new UsuarioDestaqueResponse((Integer) entry[0], (String) entry[1], ((Number) entry[2]).longValue()))
+                .toList();
     }
 
     @Override
     public List<ProdutoDestaqueResponse> buscarProdutosComMaisSentimentosPositivos() {
-        String jpql = """
-            SELECT new br.com.cesurgmarau.trabalho_final.core.dto.ProdutoDestaqueResponse(
-                p.id, p.nome, COUNT(c)
-            )
-            FROM Comentario c
-            JOIN Produto p ON p.id = c.produtoId
-            WHERE LOWER(c.sentimento) LIKE '%positivo%'
-            GROUP BY p.id, p.nome
-            ORDER BY COUNT(c) DESC
-        """;
+        var query = """
+        SELECT p.id, p.nome, COUNT(*)
+        FROM comentarios c
+        JOIN produtos p ON p.id = c.produto_id
+        WHERE LOWER(c.sentimento) LIKE '%positivo%'
+        GROUP BY p.id, p.nome
+        ORDER BY COUNT(*) DESC
+    """;
 
-        TypedQuery<ProdutoDestaqueResponse> query = entityManager.createQuery(jpql, ProdutoDestaqueResponse.class);
-        return query.getResultList();
+        List<Object[]> resultado = entityManager.createNativeQuery(query).getResultList();
+
+        return resultado.stream()
+                .map(entry -> new ProdutoDestaqueResponse((Integer) entry[0], (String) entry[1], ((Number) entry[2]).longValue()))
+                .toList();
     }
+
 }

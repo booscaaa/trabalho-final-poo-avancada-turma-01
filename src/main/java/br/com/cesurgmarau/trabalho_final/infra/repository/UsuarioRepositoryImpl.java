@@ -19,41 +19,56 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Override
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        entityManager.persist(usuario);
+        var query = """
+            INSERT INTO usuario (nome, email) 
+            VALUES (:nome, :email);
+        """;
+        entityManager.createNativeQuery(query)
+                .setParameter("nome", usuario.getNome())
+                .setParameter("email", usuario.getEmail())
+                .executeUpdate();
         return usuario;
     }
 
     @Override
     public Optional<Usuario> buscarPorId(Integer id) {
-        return Optional.ofNullable(entityManager.find(Usuario.class, id));
+        var query = "SELECT * FROM usuario WHERE id = :id";
+        List<Usuario> resultado = entityManager
+                .createNativeQuery(query, Usuario.class)
+                .setParameter("id", id)
+                .getResultList();
+
+        return resultado.stream().findFirst();
     }
 
     @Override
     public List<Usuario> listarTodos() {
-        return entityManager
-                .createQuery("SELECT u FROM Usuario u", Usuario.class)
-                .getResultList();
+        var query = "SELECT * FROM usuario";
+        return entityManager.createNativeQuery(query, Usuario.class).getResultList();
     }
 
     @Override
     @Transactional
-    public void atualizar(Integer id, Usuario usuarioAtualizado) {
-        Usuario usuarioExistente = entityManager.find(Usuario.class, id);
-        if (usuarioExistente != null) {
-            usuarioExistente.setNome(usuarioAtualizado.getNome());
-            usuarioExistente.setEmail(usuarioAtualizado.getEmail());
-            entityManager.merge(usuarioExistente);
-        } else {
-            throw new RuntimeException("Usuário não encontrado com id: " + id);
-        }
+    public void atualizar(Integer id, Usuario usuario) {
+        var query = """
+            UPDATE usuario
+            SET nome = :nome,
+                email = :email
+            WHERE id = :id
+        """;
+        entityManager.createNativeQuery(query)
+                .setParameter("nome", usuario.getNome())
+                .setParameter("email", usuario.getEmail())
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     @Override
     @Transactional
     public void remover(Integer id) {
-        Usuario usuario = entityManager.find(Usuario.class, id);
-        if (usuario != null) {
-            entityManager.remove(usuario);
-        }
+        var query = "DELETE FROM usuario WHERE id = :id";
+        entityManager.createNativeQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }
