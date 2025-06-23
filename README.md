@@ -180,6 +180,51 @@ Comunique-se **através do seu código**.
 
 - TRABALHO FINAL 
 
-- Descrição do Projeto:
+- Descrição do Projeto: Este projeto é uma API RESTful em Java com Spring Boot, que permite que usuários façam comentários sobre produtos. Cada comentário é analisado automaticamente por uma IA (via API Hugging Face) que classifica o sentimento como muito positivo, positivo, neutro, negativo ou muito negativo. 
+A arquitetura segue os princípios SOLID, com camadas bem definidas (Controller, Service e Repository), 
+uso de JPA para persistência em banco PostgreSQL e integração com a IA via HTTPClient. O sistema oferece CRUD completo de comentários e organização clara do código.
+
+
+-COMO RODAR O PROJETO: Roda através dos endpoints
+
+-COMO USAR OS ENDPOINTS:atraves do local host da API Bruno
+
+POST adicionar usuario
+POST adicionar comentario
+POST adicionar produto
+DEL usuario
+DEL produto
+GET listar usuario
+GET listar produuto
+GET listar comentario
+
+
+- APLICAÇÂO DOS PRINCIPIOS SOLID
+
+- SRP
+ComentarioController: cuida das requisições HTTP.
+
+ComentarioService: trata as regras de negócio.
+
+IAService: apenas classifica sentimentos com a IA.
+
+ComentarioRepositoryImpl: lida só com o banco de dados.
+
+- OCP
+  A lógica de sentimento pode ser alterada (ex: outro modelo de IA) estendendo IAService, sem modificar o restante do sistema.
+
+- ISP
+  A interface ComentarioRepository só exige os métodos essenciais ao seu contexto (não obriga implementação de métodos desnecessários para outras entidades).
+
+- DIP
+  As camadas dependem de abstrações (ComentarioRepository, ComentarioUseCase) e não de implementações diretas, permitindo fácil troca e teste.
+
+
+- DESAFIOS E APRENDIZADOS
+ Um dos maiores desafios pra mim foi fazer a ligação com a ia, 
+eu ja não sabia muito fazer o CRUD, precisei be basear em outro trabalho
+que já tinha feito no semestre passado, mas agora estou entendo um pouco mais 
+de como funciona, consegui entender um pouco mais. 
+
 
 

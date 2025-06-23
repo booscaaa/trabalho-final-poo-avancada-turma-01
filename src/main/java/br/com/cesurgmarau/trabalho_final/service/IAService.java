@@ -28,11 +28,8 @@ public class IAService {
         this.restTemplate = restTemplate;
         this.objectMapper = new ObjectMapper();
     }
-
     public String classificarSentimento(String texto) throws Exception {
-        String prompt = "Classifique o sentimento do seguinte texto: '" + texto.replace("\"", "'") + "'";
-        String payload = "{\"inputs\": \"" + prompt + "\"}";
-
+        String payload = "{\"inputs\": \"" + texto.replace("\"", "'") + "\"}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -69,3 +66,4 @@ public class IAService {
         }
     }
 }
+
