@@ -13,6 +13,8 @@ import br.com.cesurgmarau.trabalho_final.core.dto.response.CompraResponseDTO;
 import br.com.cesurgmarau.trabalho_final.core.mapper.CompraMapper;
 import br.com.cesurgmarau.trabalho_final.core.mapper.ProdutoCompraMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class CompraControllerImpl implements CompraController {
 
     @PostMapping("/compra")
     @Override
-    public void createCompra(CompraRequestDTO compraRequestDTO) {
+    public ResponseEntity<Void> createCompra(@RequestBody CompraRequestDTO compraRequestDTO) {
         Usuario usuario = usuarioUseCase.readUsuario(compraRequestDTO.getUsuarioId());
 
         List<ProdutoCompra> produtosCompra = compraRequestDTO.getProdutos().stream()
@@ -44,26 +46,37 @@ public class CompraControllerImpl implements CompraController {
 
         produtosCompra.forEach(pc -> pc.setCompra(compra));
         compraUseCase.createCompra(compra);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/compra")
     @Override
-    public List<CompraResponseDTO> readCompra() {
-        return compraUseCase.readCompra().stream()
+    public ResponseEntity<List<CompraResponseDTO>> readCompra() {
+        List<CompraResponseDTO> comprasDTO = compraUseCase.readCompra().stream()
                 .map(CompraMapper::toResponseDTO)
                 .collect(Collectors.toList());
+
+        if (comprasDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(comprasDTO);
     }
 
     @GetMapping("/compra/{id}")
     @Override
-    public CompraResponseDTO readCompra(Integer id) {
-        Compra compra = compraUseCase.readCompra(id);
-        return CompraMapper.toResponseDTO(compra);
+    public ResponseEntity<CompraResponseDTO> readCompra(@PathVariable Integer id) {
+        CompraResponseDTO compraDTO = CompraMapper.toResponseDTO(compraUseCase.readCompra(id));
+
+        if (compraDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(compraDTO);
     }
 
     @PutMapping("/compra/{id}")
     @Override
-    public void updateCompra(Integer id, CompraRequestDTO compraRequestDTO) {
+    public ResponseEntity<Void> updateCompra(@PathVariable Integer id, @RequestBody CompraRequestDTO compraRequestDTO) {
         Usuario usuario = usuarioUseCase.readUsuario(compraRequestDTO.getUsuarioId());
 
         List<ProdutoCompra> produtosCompra = compraRequestDTO.getProdutos().stream()
@@ -79,11 +92,13 @@ public class CompraControllerImpl implements CompraController {
         produtosCompra.forEach(pc -> pc.setCompra(compra));
 
         compraUseCase.updateCompra(id, compra);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/compra/{id}")
     @Override
-    public void deleteCompra(Integer id) {
+    public ResponseEntity<Void> deleteCompra(@PathVariable Integer id) {
         compraUseCase.deleteCompra(id);
+        return ResponseEntity.noContent().build();
     }
 }

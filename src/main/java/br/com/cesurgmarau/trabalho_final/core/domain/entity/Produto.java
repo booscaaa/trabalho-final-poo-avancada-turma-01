@@ -14,7 +14,7 @@ public class Produto {
     private String nome;
     @Column(name = "valor_unitario")
     private Integer valorUnitario;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "unidade")
     private Unidade unidade;
     @Column(name = "descricao")

@@ -1,8 +1,16 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+
 public class UsuarioRequestDTO {
+
+    @NotNull(message = "O campo 'nome' é obrigatório.")
     private String nome;
+
+    @NotNull(message = "O campo 'senha' é obrigatório.")
     private String senha;
+
+    @NotNull(message = "O campo 'email' é obrigatório.")
     private String email;
 
     public UsuarioRequestDTO(String nome, String senha, String email) {

@@ -1,10 +1,21 @@
 package br.com.cesurgmarau.trabalho_final.core.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ProdutoRequestDTO {
+
+    @NotNull(message = "O campo 'nome' é obrigatório.")
     private String nome;
+
+    @NotNull(message = "O campo 'valor unitario' é obrigatório.")
     private Integer valorUnitario;
+
+    @NotNull(message = "O campo 'unidade' é obrigatório.")
     private Integer unidade;
+
     private String descricao;
+
+    @NotNull(message = "O campo 'quantidade' é obrigatório.")
     private Integer quantidade;
 
     public ProdutoRequestDTO(String nome, Integer valorUnitario, Integer unidade, String descricao, Integer quantidade) {

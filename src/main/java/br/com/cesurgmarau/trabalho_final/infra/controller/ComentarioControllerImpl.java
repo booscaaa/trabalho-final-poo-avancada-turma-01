@@ -9,6 +9,8 @@ import br.com.cesurgmarau.trabalho_final.core.dto.request.ComentarioRequestDTO;
 import br.com.cesurgmarau.trabalho_final.core.dto.response.ComentarioResponseDTO;
 import br.com.cesurgmarau.trabalho_final.core.mapper.ComentarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,43 +30,54 @@ public class ComentarioControllerImpl implements ComentarioController {
 
     @PostMapping("/comentario")
     @Override
-    public void createComentario(ComentarioRequestDTO comentarioRequestDTO) {
+    public ResponseEntity<Void> createComentario(@RequestBody ComentarioRequestDTO comentarioRequestDTO) {
         comentarioUseCase.createComentario(
                 ComentarioMapper.toEntity(comentarioRequestDTO,
                 usuarioUseCase.readUsuario(comentarioRequestDTO.getUsuarioId()),
                         produtoUseCase.readProduto(comentarioRequestDTO.getProdutoId())));
-
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/comentario")
     @Override
-    public List<ComentarioResponseDTO> readComentario() {
+    public ResponseEntity<List<ComentarioResponseDTO>> readComentario() {
         List<Comentario> comentariosEntity = comentarioUseCase.readComentario();
         List<ComentarioResponseDTO> comentariosDTO = new ArrayList<>();
         for (Integer i = 0; i < comentariosEntity.size(); i++) {
             comentariosDTO.add(ComentarioMapper.toResponseDTO(comentariosEntity.get(i)));
         }
 
-        return comentariosDTO;
+        if (comentariosDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(comentariosDTO);
     }
 
     @GetMapping("/comentario/{id}")
     @Override
-    public ComentarioResponseDTO readComentario(Integer id) {
-        return ComentarioMapper.toResponseDTO(comentarioUseCase.readComentario(id));
+    public ResponseEntity<ComentarioResponseDTO> readComentario(@PathVariable Integer id) {
+        ComentarioResponseDTO comentarioDTO = ComentarioMapper.toResponseDTO(comentarioUseCase.readComentario(id));
+
+        if (comentarioDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(comentarioDTO);
     }
 
     @PutMapping("/comentario/{id}")
     @Override
-    public void updateComentario(Integer id, ComentarioRequestDTO comentarioRequestDTO) {
+    public ResponseEntity<Void> updateComentario(@PathVariable Integer id, @RequestBody ComentarioRequestDTO comentarioRequestDTO) {
         comentarioUseCase.updateComentario(id, ComentarioMapper.toEntity(comentarioRequestDTO,
                 usuarioUseCase.readUsuario(comentarioRequestDTO.getUsuarioId()),
                 produtoUseCase.readProduto(comentarioRequestDTO.getProdutoId())));
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/comentario/{id}")
     @Override
-    public void deleteComentario(Integer id) {
+    public ResponseEntity<Void> deleteComentario(@PathVariable Integer id) {
         comentarioUseCase.deleteComentario(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
