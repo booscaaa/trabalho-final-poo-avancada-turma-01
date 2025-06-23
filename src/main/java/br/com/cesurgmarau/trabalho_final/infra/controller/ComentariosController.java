@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.infra.controller;
 
+import br.com.cesurgmarau.trabalho_final.core.DTO.RelatorioComentariosDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase.ComentariosUseCase;
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class ComentariosController {
     @Autowired
     ComentariosUseCase comentariosUseCase;
 
-    @GetMapping ("/comentarios")
+    @GetMapping ("/comentario")
     public ResponseEntity<?> fetch () throws Exception {
         try {
             List<Comentarios> comentarios = comentariosUseCase.fetch();
@@ -26,7 +27,7 @@ public class ComentariosController {
 
     }
 
-    @GetMapping ("/comentario/{id}")
+    @GetMapping ("/comentario/id/{id}")
     public ResponseEntity<?> fetchById (@PathVariable int id) throws Exception {
 
         try {
@@ -87,6 +88,28 @@ public class ComentariosController {
         }
 
     }
+
+    @GetMapping("/comentario/relatorio")
+    public ResponseEntity<?> gerarRelatorio() {
+        try {
+            RelatorioComentariosDTO relatorio = comentariosUseCase.gerarRelatorio();
+            return ResponseEntity.ok(relatorio);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao gerar relatório: " + e.getMessage());
+        }
+    }
+    @GetMapping("/comentarios/sentimento/{sentimento}")
+    public ResponseEntity<?> buscarPorSentimento(@PathVariable String sentimento) {
+        try {
+            List<Comentarios> comentarios = comentariosUseCase.buscarPorSentimento(sentimento.toLowerCase());
+            return ResponseEntity.ok(comentarios);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao buscar comentários por sentimento: " + e.getMessage());
+        }
+    }
+
 
 
 

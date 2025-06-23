@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase;
 
+import br.com.cesurgmarau.trabalho_final.core.DTO.RelatorioComentariosDTO;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UseCase.ComentariosUseCase;
 import br.com.cesurgmarau.trabalho_final.Core.domain.entity.Comentarios;
 import br.com.cesurgmarau.trabalho_final.infra.repository.ComentariosRepositoryImpl;
@@ -66,6 +67,23 @@ public class ComentariosServiceImpl implements ComentariosUseCase {
     public void deleteComentario(int id) {
         comentariosRepository.deleteComentario(id);
     }
+    @Override
+    public RelatorioComentariosDTO gerarRelatorio() {
+        RelatorioComentariosDTO dto = new RelatorioComentariosDTO();
+
+        dto.setTotalPorSentimento(comentariosRepository.totalComentariosPorSentimento());
+        dto.setMediaSentimentoPorProduto(comentariosRepository.mediaSentimentoPorProduto());
+        dto.setUsuariosMaisAtivos(comentariosRepository.rankingUsuariosMaisAtivos());
+
+        return dto;
+    }
+    @Override
+    public List<Comentarios> buscarPorSentimento(String sentimento) {
+        return comentariosRepository.buscarPorSentimento(sentimento);
+    }
+
+
+
 }
 
 
