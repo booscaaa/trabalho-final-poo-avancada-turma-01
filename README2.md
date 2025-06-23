@@ -119,13 +119,33 @@ Você pode testar os endpoints com ferramentas como:
 - Insomnia
 - UseBruno
 
-## ✅ Exemplo de testes usando UseBruno — `localhost:8080/product` -- 
+## ✅ Exemplo de testes usando UseBruno — 
+    `PUT localhost:8080/product` -- 
     Body
     {
         "name": "Mouse Logitech",
         "quantity": 15,
         "price": 1100
     }
+
+    `PUT localhost:8080/comment` --
+    Body
+    {
+        "description": "muito bom",
+        "product_id": 6,
+        "user_id" : 3
+    }
+
+    `PUT localhost:8080/user` --
+    Body
+     {
+    "name": "Alex Batista2",
+    "email": "AlexBatista2@gmail.com",
+    "password": "12344"
+    }
+
+
+
 
 ---
 
