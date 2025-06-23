@@ -60,4 +60,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
+    @Override
+    public List<Usuario> buscarTodos() {
+        return List.of();
+    }
 }

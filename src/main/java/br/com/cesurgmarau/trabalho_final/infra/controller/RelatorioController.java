@@ -18,19 +18,16 @@ public class RelatorioController {
     @Autowired
     private RelatorioUseCase relatorioUseCase;
 
-    // 1. Total de comentários por sentimento
     @GetMapping("/sentimentos")
     public List<RelatorioComentarioDTO> totalComentariosPorSentimento() {
         return relatorioUseCase.totalComentariosPorSentimento();
     }
 
-    // 2. Média de sentimento por produto
     @GetMapping("/produtos")
     public List<RelatorioProdutoDTO> mediaSentimentoPorProduto() {
         return relatorioUseCase.mediaSentimentoPorProduto();
     }
 
-    // 3. Ranking de usuários mais ativos
     @GetMapping("/usuarios")
     public List<RelatorioUsuarioDTO> rankingUsuariosMaisAtivos() {
         return relatorioUseCase.rankingUsuariosMaisAtivos();

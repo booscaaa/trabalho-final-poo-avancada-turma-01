@@ -65,7 +65,7 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (NoResultException e) {
-            return null; // ou lançar uma exceção personalizada
+            return null;
         }
     }
 

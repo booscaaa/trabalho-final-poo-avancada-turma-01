@@ -26,7 +26,6 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // 1. Total de comentários por sentimento (1 a 5)
     @Override
     public List<RelatorioComentarioDTO> totalComentariosPorSentimento() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();
@@ -37,7 +36,6 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
                         Collectors.counting()
                 ));
 
-        // Garante que todas as notas de 1 a 5 estejam presentes
         for (int i = 1; i <= 5; i++) {
             contagem.putIfAbsent(i, 0L);
         }
@@ -48,7 +46,6 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
                 .collect(Collectors.toList());
     }
 
-    // 2. Média de sentimento por produto
     @Override
     public List<RelatorioProdutoDTO> mediaSentimentoPorProduto() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();
@@ -78,7 +75,6 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
                 .collect(Collectors.toList());
     }
 
-    // 3. Ranking de usuários mais ativos
     @Override
     public List<RelatorioUsuarioDTO> rankingUsuariosMaisAtivos() {
         List<Comentario> comentarios = comentarioRepository.buscarTodos();

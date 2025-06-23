@@ -46,7 +46,7 @@ public class AnaliseSentimentoOpenAIService implements AnaliseSentimentoService 
             Map<String, String> messageResponse = (Map<String, String>) choice.get("message");
             return messageResponse.get("content").trim();
         } catch (Exception e) {
-            return "Neutro"; // fallback em caso de erro
+            return "Neutro";
         }
     }
 }

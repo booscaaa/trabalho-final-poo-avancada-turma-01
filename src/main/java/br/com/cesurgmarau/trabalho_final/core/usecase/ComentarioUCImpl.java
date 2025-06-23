@@ -53,4 +53,9 @@ public class ComentarioUCImpl implements ComentarioUseCase {
     public List<Comentario> buscarUsuarioPorId(int usuarioId) {
         return (List<Comentario>) comentarioRepository.buscarUsuarioPorId(usuarioId);
     }
+
+    @Override
+    public List<Comentario> buscarTodos() {
+        return List.of();
+    }
 }
