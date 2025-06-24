@@ -1,181 +1,195 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
+# 💬 Análise de Sentimentos de Comentários de Produtos
 
-## 🎯 Objetivo
-
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
+Projeto final da disciplina de Programação Orientada a Objetos Avançada (POO II) com o objetivo de realizar a análise de sentimentos em comentários feitos por usuários sobre produtos.
 
 ---
 
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
+## 📌 Objetivo
 
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+Desenvolver uma aplicação Java que permite aos usuários:
 
----
-
-## ✅ Funcionalidades obrigatórias
-
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+- Cadastrar produtos, usuários e comentários.
+- Realizar análise de sentimento dos comentários utilizando a API da OpenAI.
+- Gerar relatórios relacionados a comentários, sentimentos e usuários.
 
 ---
 
-## 📚 Aplicação dos Princípios SOLID
+## 🧱 Arquitetura do Projeto
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+O projeto está dividido em camadas seguindo os princípios da arquitetura limpa e SOLID:
 
----
-
-## ✅ Requisitos mínimos de entrega
-
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
+- `domain/entity`: Define as entidades de domínio como `Produto`, `Comentario`, `Usuario`.
+- `usecase`: Contém os casos de uso da aplicação, como CRUD, análise de sentimento e geração de relatórios.
+- `infra`: Contém implementações concretas e gateways externos (como o acesso à API da OpenAI e banco de dados).
+- `controller`: Controladores que expõem os endpoints da aplicação via REST.
 
 ---
 
-### 📌 Estrutura e Organização
+## 🗄️ Estrutura do Banco de Dados
 
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
+### Tabela `produtos`
+| Coluna         | Tipo     |
+|----------------|----------|
+| id             | int      |
+| nome           | string   |
+| preco          | float    |
+| descricao      | string   |
+| avaliacao_produto | float (calculada) |
 
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
+### Tabela `comentarios`
+| Coluna       | Tipo     |
+|--------------|----------|
+| id           | int      |
+| produto_id   | int      |
+| usuario_id   | int      |
+| comentario   | string   |
+| avaliacao    | int      |
+| analise      | string   |
+| sentimento   | string   |
 
----
-
-### 📌 Endpoints obrigatórios
-
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
-
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
-
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
-
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
+### Tabela `usuarios`
+| Coluna | Tipo     |
+|--------|----------|
+| id     | int      |
+| nome   | string   |
+| email  | string   |
 
 ---
 
-### 📌 Regras de Negócio
+🔌 Endpoints da API
+Abaixo estão listados os principais endpoints disponíveis na aplicação:
 
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
+👤 Usuários
+GET /usuarios – Lista todos os usuários
 
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
+GET /usuarios/{id} - lista usuário pelo ID
 
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
+POST /usuarios – Cria um novo usuário
 
----
+PUT /usuario/{id} – Atualiza os dados de um usuário existente
 
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
+DELETE /usuario/{id} – Remove um usuário
 
----
+📦 Produtos
 
-## 📌 Observações
+GET /produtos – Lista todos os produtos
 
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
+GET /produto/{id} - Lista produto pelo ID
 
----
+POST /produtos – Cadastra um novo produto
 
-## 🎥 Apresentação do Projeto
+PUT /produto/{id} – Atualiza informações de um produto
 
-Criar slides abordando os seguintes pontos:
+DELETE /produto/{id} – Deleta um produto
 
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
+GET /relatorios/produtos – Retorna média de avaliações por produto
 
----
+💬 Comentários
 
-## 📋 Requisitos do GitHub
+GET /comentarios – Retorna todos os comentários
 
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
+GET /comentario/{id} - Retorna comentário por ID
 
----
+POST /produto/{id}/comentarios – Cadastra um novo comentário (com análise de sentimento via ChatGPT)
 
-## ✅ Critérios de Avaliação
+GET /comentarios/produto/{id} – Comentários filtrados por produto
 
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
+DELETE /comentario/{id} – Remove um comentário
+
+GET /comentarios/sentimento/{sentimento} - Busca todos os comentários por sentimento
+
+GET /comentarios/user/{id} - Busca comentarios de um usuário específico pelo ID
+
+GET /comentario/{id} - Busca comentarios de um produto pelo ID
+
+📊 Relatórios
+
+GET /relatorios/comentarios – Retorna quantidade de comentários totais por sentimento
+
+GET /relatorios/produtos – Lista produtos e o sentimento médio com base nos comentários dos usuários
+
+GET /relatorios/usuarios – Ranking de usuários mais ativos
+
+
+
+## ⚙️ Funcionalidades Implementadas
+
+- [x] CRUD de usuários, produtos e comentários
+- [x] Integração com a API da OpenAI (ChatGPT) para análise de sentimento
+- [x] Atualização automática da média de avaliações dos produtos
+- [x] Geração de relatórios de sentimento médio de produtos, total de comentários por sentimento e ranking de usuários mais ativos
+- [x] Endpoints RESTful organizados
 
 ---
 
-## 🚫 Sobre Comentários no Código
+## 🔗 Integração com OpenAI
 
-**Não serão aceitos comentários no código-fonte.**
+- API utilizada: `https://api.openai.com/v1/chat/completions`
+- Modelo usado: `gpt-4.o-mini`
+- A análise de sentimento é feita automaticamente ao salvar um novo comentário.
+- **Importante**: **A chave da API não deve ser versionada!** Certifique-se de configurar a variável de ambiente `OPENAI_API_KEY`.
 
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
+---
 
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
+## 📊 Relatórios
 
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
+A aplicação permite a geração dos seguintes relatórios:
 
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
+- Sentimento médio de produtos
+- Sentimentos mais frequentes
+- Usuários mais ativos
 
-Comunique-se **através do seu código**.
+---
+
+## ▶️ Como Executar
+
+Passos:
+
+Clone o repositório:
+git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
+cd trabalho-final-poo-avancada-turma-01
+Abra o projeto no IntelliJ IDEA.
+
+Aguarde o carregamento automático das dependências Maven.
+
+Configure a conexão com o banco de dados online:
 
 
+    Edite o arquivo application.properties ou .env com as credenciais do banco hospedado.
+    spring.datasource.url=jdbc:postgresql://<host>:<port>/<database>
+    spring.datasource.username=seu_usuario
+    spring.datasource.password=sua_senha
+
+Depois, é só mapear os endpoints na ferramenta "Bruno" (testar as API's REST), ir em "TrabalhoFinalApplication" e selecionar no canto
+superior direito o botão verde "Run TrabalhoFinalApplication" (ou apertar Shift+F10);
+
+🗓️ Linha do Tempo do Desenvolvimento
+
+25/05/2025: Modelagem do banco de dados
+
+03/06/2025: CRUD de usuários e conexão inicial com a API da OpenAI
+
+10/06/2025: Correções no commit inicial e refinamento da integração com OpenAI
+
+17/06/2025: Finalização de relatórios, endpoints e testes finais
+
+23/06/2025: Revisão dos enpoints e detalhamento na documentação
+
+📁 Estrutura do Projeto
+
+src/
+
+├── core/
+│   ├── domain/
+│   ├── dto/
+│   ├── usecase/
+├── infra/
+│   ├── controller/
+│   ├── gateway/
+│   ├── repository/
+├── TrabalhoFinalApplication.java
+
+
+✍️ Autor
+Eduardo Sartori
+CESURG - Linguagem e Técnicas de Programação Orientada a Objetos

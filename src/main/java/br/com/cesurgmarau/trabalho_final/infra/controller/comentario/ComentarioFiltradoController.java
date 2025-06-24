@@ -18,7 +18,7 @@ public class ComentarioFiltradoController {
     ComentarioFiltradoUseCase comentarioFiltradoUseCase;
 
 
-    @GetMapping("/comentarios?{idProduto}")
+    @GetMapping("/comentarios/{idProduto}")
     public ResponseEntity<?> filtraPorProduto (@PathVariable int idProduto) throws Exception {
         try {
             List<Comentario> comentarios = comentarioFiltradoUseCase.filtraPorProduto(idProduto);
@@ -30,7 +30,7 @@ public class ComentarioFiltradoController {
 
     }
 
-    @GetMapping("/comentarios?{idUsuario}")
+    @GetMapping("/comentarios/user/{idUsuario}")
     public ResponseEntity<?> filtraPorUsuario (@PathVariable int idUsuario) throws Exception {
         try {
             List<Comentario> comentarios = comentarioFiltradoUseCase.filtraPorUsuario(idUsuario);
@@ -42,7 +42,7 @@ public class ComentarioFiltradoController {
 
     }
 
-    @GetMapping("/comentarios?{sentimento}")
+    @GetMapping("/comentarios/sentimento/{sentimento}")
     public ResponseEntity<?> filtraPorSentimento (@PathVariable String sentimento) throws Exception {
         try {
             List<Comentario> comentarios = comentarioFiltradoUseCase.filtraPorSentimento(sentimento);

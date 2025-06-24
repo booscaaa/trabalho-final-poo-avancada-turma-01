@@ -33,7 +33,7 @@ public class ChatGPTGateway {
 
             String prompt = "Analise o seguinte comentário sobre um produto e retorne separadamente em duas respostas: "
                     + "1) Um resumo da análise de sentimentos "
-                    + "2) A palavra que representa o sentimento (muito positivo, positivo, neutro, negativo ou muito negativo) **Retornar -> sentimento: palavra que representa o sentimento.\n\n"
+                    + "2) A palavra que representa o sentimento (muito positivo, positivo, neutro, negativo ou muito negativo) **Retornar -> sentimento: palavra que representa o sentimento (sem pontuação).\n\n"
                     + comentario;
 
             Map<String, Object> message = Map.of(
