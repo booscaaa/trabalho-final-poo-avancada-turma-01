@@ -25,7 +25,7 @@ Este projeto é uma API RESTful desenvolvida em Java com Spring Boot, com foco e
 
 ### Comentários
 - `GET /comentarios` - Listar todos os comentários
-- `GET /comentario/{id}` - Buscar um comentário por ID
+- `GET /comentario/id/{id}` - Buscar um comentário por ID
 - `POST /comentario` - Criar um novo comentário (com análise de sentimento)
 - `PUT /comentario/{id}` - Atualizar um comentário
 - `DELETE /comentario/{id}` - Excluir um comentário
