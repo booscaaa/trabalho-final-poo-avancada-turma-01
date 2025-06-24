@@ -51,7 +51,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
     @Transactional
-    public Produto atualizar(Produto produto) {
+    public Produto atualizar(Integer id, Produto produto) {
         var query = """
             UPDATE produtos
             SET nome = :nome,
@@ -62,7 +62,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         entityManager.createNativeQuery(query)
                 .setParameter("nome", produto.getNome())
                 .setParameter("descricao", produto.getDescricao())
-                .setParameter("id", produto.getId())
+                .setParameter("id", id)
                 .executeUpdate();
 
         return produto;

@@ -24,7 +24,7 @@ public class ProdutoUsecaseImpl implements ProdutoUsecase {
 
     @Override
     public void atualizar(Integer id, Produto produto) {
-        produtoRepository.atualizar(produto);
+        produtoRepository.atualizar(id, produto);
     }
 
     @Override

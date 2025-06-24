@@ -9,6 +9,6 @@ public interface ProdutoRepository {
     Produto salvar(Produto produto);
     Optional<Produto> buscarPorId(Integer id);
     List<Produto> listarTodos();
-    Produto atualizar(Produto produto);
+    Produto atualizar(Integer id,Produto produto);
     void remover(Integer id);
 }
