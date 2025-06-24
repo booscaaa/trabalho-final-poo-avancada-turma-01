@@ -1,181 +1,133 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
 
-## 🎯 Objetivo
+# API de Análise de Sentimentos em Comentários de Produtos
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
-
----
-
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
-
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+O objetivo é permitir o cadastro de produtos, usuários e comentários, analisando o sentimento associado a cada comentário.  
+A aplicação também implementa uma pontuação automática para destacar usuários e produtos com maior número de feedbacks positivos.
 
 ---
 
-## ✅ Funcionalidades obrigatórias
-
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+## 🛠️ Tecnologias utilizadas
+- Java 17
+- Spring Boot
+- PostgreSQL
+- OpenAI API (para análise de sentimentos)
+- Maven
 
 ---
 
-## 📚 Aplicação dos Princípios SOLID
+## 🚀 Como rodar o projeto localmente
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/booscaaa/trabalho-final-poo-avancada-turma-01.git
+   cd trabalho-final-poo-avancada-turma-01
+   git checkout cassiano-richato
+   ```
 
----
+2. Configure o banco de dados PostgreSQL:
+   Crie um banco chamado `trabalho_final` e ajuste as credenciais no arquivo `application.properties`:
+   ```
+   spring.datasource.url=jdbc:postgresql://localhost:5432/trabalho_final
+   spring.datasource.username=seu_usuario
+   spring.datasource.password=sua_senha
+   ```
 
-## ✅ Requisitos mínimos de entrega
+3. Adicione sua chave da OpenAI no arquivo `.env`:
+   ```
+   OPENAI_API_KEY=sua_chave_aqui
+   ```
 
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
-
----
-
-### 📌 Estrutura e Organização
-
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
-
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
-
----
-
-### 📌 Endpoints obrigatórios
-
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
-
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
-
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
-
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
+4. Rode o projeto:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
 ---
 
-### 📌 Regras de Negócio
+## 📬 Endpoints da API
 
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
+### 🧑‍💼 Usuários
 
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
+- `POST /usuarios`
+- `GET /usuarios/{id}`
+- `GET /usuarios`
+- `PUT /usuarios/{id}`
+- `DELETE /usuarios/{id}`
 
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
+### 📦 Produtos
 
----
+- `POST /produtos`
+- `GET /produtos/{id}`
+- `GET /produtos`
+- `PUT /produtos/{id}`
+- `DELETE /produtos/{id}`
 
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
+### 💬 Comentários
 
----
+- `POST /comentarios`
+- `GET /comentarios/{id}`
+- `GET /comentarios`
+- `GET /comentarios?produtoId=1`
+- `GET /comentarios?usuarioId=1`
+- `GET /comentarios?sentimento=positivo`
+- `DELETE /comentarios/{id}`
 
-## 📌 Observações
-
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
+**Tipos de sentimento retornados:**
+- muito positivo
+- positivo
+- neutro
+- negativo
+- muito negativo
 
 ---
 
-## 📋 Requisitos do GitHub
+### 📊 Relatórios
 
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
+- `GET /relatorios/produtos`: Média de sentimento por produto
+- `GET /relatorios/sentimentos`: Total de comentários por sentimento
+- `GET /relatorios/usuarios`: Ranking de usuários mais ativos
+- `GET /destaques/usuarios`: Usuários com mais comentários positivos
+- `GET /destaques/produtos`: Produtos com mais comentários positivos
 
 ---
 
-## ✅ Critérios de Avaliação
+## 🏅 Destaque de Usuários e Produtos
 
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
+A aplicação calcula e destaca:
+
+- Usuários com maior número de comentários positivos (`%positivo%`)
+- Produtos mais bem avaliados por sentimento
+
+Esses dados são atualizados automaticamente e podem ser consumidos pelos relatórios.
 
 ---
 
-## 🚫 Sobre Comentários no Código
+## 🧪 Testes com Bruno
 
-**Não serão aceitos comentários no código-fonte.**
+1. Instale o [Bruno](https://www.usebruno.com/)
+2. Abra o diretório `trabalho-java/` como um projeto no Bruno
+3. Utilize as requisições organizadas por pastas:
+   - `Usuarios/`
+   - `Produtos/`
+   - `Comentarios/`
+   - `Relatorios/`
 
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
+---
 
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
+## 🧱 Aplicação dos Princípios SOLID
 
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
+| Princípio | Aplicação |
+|----------|-----------|
+| **S** - Single Responsibility | Camadas bem separadas: entidades, DTOs, usecases, controllers |
+| **O** - Open/Closed           | Funcionalidades de destaque adicionadas sem alterar controladores |
+| **L** - Liskov Substitution   | Interfaces e implementações seguem contratos definidos |
+| **I** - Interface Segregation| Repositórios e usecases são específicos e coesos |
+| **D** - Dependency Inversion | Injeção de dependência nos usecases e controladores |
 
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
+---
 
-Comunique-se **através do seu código**.
+## 📚 Desafios e Aprendizados
 
-
+- Aprendi a estruturar uma aplicação com **arquitetura limpa**, organizando pacotes por responsabilidades.
+- Foi desafiador integrar com uma **API de IA externa** (OpenAI), mantendo segurança e performance.
+- A parte de **relatórios e pontuação dinâmica** exigiu consultas otimizadas com JPQL e uso adequado de DTOs.
