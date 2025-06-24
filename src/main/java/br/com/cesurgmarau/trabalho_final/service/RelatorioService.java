@@ -24,7 +24,7 @@ public class RelatorioService {
                 .filter(c -> c.getSentimento() != null)
                 .filter(c -> c.getSentimento().equalsIgnoreCase("positivo") || c.getSentimento().equalsIgnoreCase("muito positivo"))
                 .collect(Collectors.groupingBy(
-                        Comentario::getId_produto, // já é int, pode usar direto
+                        Comentario::getId_produto,
                         Collectors.counting()
                 ));
 
@@ -32,7 +32,7 @@ public class RelatorioService {
                 .filter(c -> c.getSentimento() != null)
                 .filter(c -> c.getSentimento().equalsIgnoreCase("positivo") || c.getSentimento().equalsIgnoreCase("muito positivo"))
                 .collect(Collectors.groupingBy(
-                        Comentario::getId_usuario, // já é int, pode usar direto
+                        Comentario::getId_usuario,
                         Collectors.counting()
                 ));
         String produtoDestaque = sentimentoPorProduto.entrySet().stream()
