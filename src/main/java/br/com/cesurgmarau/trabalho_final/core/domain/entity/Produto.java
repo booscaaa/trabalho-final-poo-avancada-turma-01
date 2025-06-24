@@ -1,6 +1,7 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class Produto {
 
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     public Long getId() {

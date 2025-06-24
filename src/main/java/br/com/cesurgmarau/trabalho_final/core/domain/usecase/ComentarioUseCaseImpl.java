@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.*;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.*;
 import br.com.cesurgmarau.trabalho_final.core.dto.Comentario.ComentarioRequestDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    @Transactional
     public Comentario criarComentario(ComentarioRequestDTO dto) {
         Produto produto = produtoRepository.buscarPorId(dto.getProdutoId())
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));

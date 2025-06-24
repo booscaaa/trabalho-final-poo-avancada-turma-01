@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ public class Comentario {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne(optional = false)
