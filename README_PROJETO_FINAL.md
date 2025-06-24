@@ -80,6 +80,12 @@ Este projeto é uma API RESTful desenvolvida em Java com Spring Boot, com foco e
    - `http://localhost:8080/comentarios/relatorio`
 
 ---
+## ❗ Desafios e Aprendizados
+
+Durante o desenvolvimento, enfrentei desafios como ajustar corretamente as rotas REST para evitar conflitos, mapear sentimentos em múltiplos níveis, alinhar os IDs de usuários e produtos nos comentários e adaptar o envio de dados para a integração com a API externa da IA (Cohere). Esses obstáculos trouxeram grande aprendizado em organização de endpoints e estruturação de lógica de negócios.
+
+---
+
 
 ## 👨‍🏫 Desenvolvido por Eduardo Rossatto
 Projeto acadêmico com fins avaliativos — Faculdade Cesurg.
