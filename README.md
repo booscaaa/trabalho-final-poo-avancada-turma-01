@@ -1,181 +1,74 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
+# Sistema de Análise de Sentimentos em Comentários de Produtos
 
-## 🎯 Objetivo
+## Visão Geral
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
+API RESTful desenvolvida em Java com Spring Boot para análise automática de sentimentos em comentários de produtos. A aplicação permite gerenciar usuários, produtos e comentários, integrando uma IA para classificar o sentimento dos comentários em cinco níveis: Muito positivo, Positivo, Neutro, Negativo e Muito negativo.
 
----
+## Estrutura do Projeto
 
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
+- **Controller**: Expõe os endpoints REST para interação.
+- **UseCase (Service)**: Contém a lógica de negócio.
+- **Repository**: Acesso e manipulação dos dados no banco.
+- **Infraestrutura IA**: Comunicação com API da OpenAI para análise de sentimentos.
 
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+## Funcionalidades
 
----
+- Cadastro, consulta, atualização e exclusão de usuários e produtos.
+- Envio de comentários com análise automática de sentimento.
+- Consulta de comentários filtrando por produto, usuário ou sentimento.
+- Relatórios agregados: total de comentários por sentimento, média de sentimento por produto, ranking dos usuários mais ativos.
 
-## ✅ Funcionalidades obrigatórias
+## Aplicação dos Princípios SOLID
 
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+- **Single Responsibility**: Cada classe tem uma única responsabilidade.
+- **Open/Closed**: Sistema aberto para extensão e fechado para modificação.
+- **Liskov Substitution**: Uso correto de interfaces e herança.
+- **Interface Segregation**: Interfaces específicas para cada contexto.
+- **Dependency Inversion**: Uso de abstrações e injeção de dependência via Spring.
 
----
+## Integração com a IA
 
-## 📚 Aplicação dos Princípios SOLID
+- Comunicação via requisição HTTP com API da OpenAI.
+- Prompt personalizado para classificação de sentimento.
+- Resultado armazenado junto ao comentário no banco.
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+## Como Rodar o Projeto
 
----
+1. Configure a variável de ambiente `OPENAI_API_KEY` com sua chave da OpenAI.
+2. Configure o banco de dados PostgreSQL (exemplo: crie banco e usuário).
+3. Clone o repositório e abra no seu IDE.
+4. Execute a aplicação Spring Boot localmente (`mvn spring-boot:run` ou similar).
+5. Use ferramentas como Postman, Insomnia ou curl para testar os endpoints.
 
-## ✅ Requisitos mínimos de entrega
+## Exemplos de Uso dos Endpoints
 
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
+- **Cadastrar Usuário:**  
+  `POST /usuarios`  
+  JSON body: `{ "nome": "João", "email": "joao@email.com" }`
 
----
+- **Cadastrar Produto:**  
+  `POST /produtos`  
+  JSON body: `{ "nome": "Produto A", "descricao": "Descrição do produto" }`
 
-### 📌 Estrutura e Organização
+- **Enviar Comentário com Análise:**  
+  `POST /comentarios`  
+  JSON body: `{ "descricao": "Ótimo produto!", "produtoId": 1, "usuarioId": 1 }`
 
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
+- **Consultar Comentários por Sentimento:**  
+  `GET /comentarios?sentimento=muito positivo`
 
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
+## Desafios e Aprendizados
 
----
+Durante o desenvolvimento, a integração com a API de IA exigiu atenção especial para tratamento de erros, segurança da chave API e interpretação correta da resposta JSON. A aplicação dos princípios SOLID guiou a organização do código, facilitando manutenção e possíveis extensões.
 
-### 📌 Endpoints obrigatórios
+## Melhorias Futuras
 
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
-
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
-
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
-
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
+- Implementar cache para otimizar chamadas à API externa.
+- Suporte multilíngue para análise de comentários.
+- Interface web para consulta e visualização de relatórios.
+- Inclusão de testes automatizados para garantir qualidade.
 
 ---
 
-### 📌 Regras de Negócio
-
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
-
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
-
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
-
----
-
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
-
----
-
-## 📌 Observações
-
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
-
----
-
-## 📋 Requisitos do GitHub
-
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
-
----
-
-## ✅ Critérios de Avaliação
-
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
-
----
-
-## 🚫 Sobre Comentários no Código
-
-**Não serão aceitos comentários no código-fonte.**
-
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
-
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
-
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
-
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
-
-Comunique-se **através do seu código**.
-
-
+Obrigado por acompanhar este projeto!  
+Victor Tasca Decesare
