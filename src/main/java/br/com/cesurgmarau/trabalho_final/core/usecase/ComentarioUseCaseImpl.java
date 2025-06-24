@@ -1,5 +1,6 @@
 package br.com.cesurgmarau.trabalho_final.core.usecase;
 
+import br.com.cesurgmarau.trabalho_final.core.domain.contract.gateway.AIGateway;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.repository.ComentarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.usecase.ComentarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Comentario;
@@ -13,6 +14,12 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
 
     @Autowired
     ComentarioRepository comentarioRepository;
+    private final AIGateway aIGateway;
+
+    public ComentarioUseCaseImpl(ComentarioRepository comentarioRepository, AIGateway aIGateway) {
+        this.comentarioRepository = comentarioRepository;
+        this.aIGateway = aIGateway;
+    }
 
     @Override
     public void createComentario(Comentario comentario) {
@@ -37,5 +44,28 @@ public class ComentarioUseCaseImpl implements ComentarioUseCase {
     @Override
     public void deleteComentario(Integer id) {
         comentarioRepository.deleteComentario(id);
+    }
+
+    @Override
+    public List<Comentario> readByProdutoId(Integer produtoId) {
+        return comentarioRepository.findByProdutoId(produtoId);
+    }
+
+    @Override
+    public List<Comentario> readByUsuarioId(Integer usuarioId) {
+        return comentarioRepository.findByUsuarioId(usuarioId);
+    }
+
+    @Override
+    public int avaliarComentariosPendentes() {
+        List<Comentario> comentarios = comentarioRepository.readComentarioByNullSentimento();
+
+        for (Comentario comentario : comentarios) {
+            int sentimento = aIGateway.classificarComentario(comentario.getTexto());
+            comentario.setSentimento(sentimento);
+            comentarioRepository.updateComentario(comentario.getId(), comentario);
+        }
+
+        return comentarios.size();
     }
 }

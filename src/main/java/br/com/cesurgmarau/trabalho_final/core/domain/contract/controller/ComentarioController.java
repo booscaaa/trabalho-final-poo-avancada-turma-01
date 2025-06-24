@@ -12,4 +12,7 @@ public interface ComentarioController {
     public ResponseEntity<ComentarioResponseDTO> readComentario(Integer id);
     public ResponseEntity<Void> updateComentario(Integer id, ComentarioRequestDTO comentarioRequestDTO);
     public ResponseEntity<Void> deleteComentario(Integer id);
+    ResponseEntity<List<ComentarioResponseDTO>> readByProdutoId(Integer produtoId);
+    ResponseEntity<List<ComentarioResponseDTO>> readByUsuarioId(Integer usuarioId);
+    public ResponseEntity<String> avaliarComentarios();
 }

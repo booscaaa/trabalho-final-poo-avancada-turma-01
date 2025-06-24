@@ -68,4 +68,28 @@ public class ComentarioRepositoryImpl implements ComentarioRepository {
                 .setParameter("id", id)
                 .executeUpdate();
     }
+
+    @Override
+    public List<Comentario> readComentarioByNullSentimento() {
+        String query = "SELECT * FROM comentario WHERE sentimento IS NULL";
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Comentario> findByProdutoId(Integer produtoId) {
+        String query = "SELECT * FROM comentario WHERE produto_id = :produtoId";
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("produtoId", produtoId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Comentario> findByUsuarioId(Integer usuarioId) {
+        String query = "SELECT * FROM comentario WHERE usuario_id = :usuarioId";
+        return entityManager.createNativeQuery(query, Comentario.class)
+                .setParameter("usuarioId", usuarioId)
+                .getResultList();
+    }
+
 }

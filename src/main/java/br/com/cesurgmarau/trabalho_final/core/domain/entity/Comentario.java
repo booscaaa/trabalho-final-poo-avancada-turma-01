@@ -22,10 +22,6 @@ public class Comentario {
     @Column (name = "data")
     private LocalDateTime data;
 
-    public Comentario() {
-
-    }
-
     public Comentario(Integer id, String texto, Usuario usuario, Produto produto, Integer sentimento, LocalDateTime data) {
         this.id = id;
         this.texto = texto;

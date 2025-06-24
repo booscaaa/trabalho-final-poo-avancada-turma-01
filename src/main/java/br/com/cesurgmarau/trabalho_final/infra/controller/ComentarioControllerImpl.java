@@ -80,4 +80,33 @@ public class ComentarioControllerImpl implements ComentarioController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(params = "produtoId")
+    public ResponseEntity<List<ComentarioResponseDTO>> readByProdutoId(@RequestParam Integer produtoId) {
+        List<Comentario> comentariosEntity = comentarioUseCase.readByProdutoId(produtoId);
+        List<ComentarioResponseDTO> comentariosDTO = new ArrayList<>();
+        for (Comentario comentario : comentariosEntity) {
+            comentariosDTO.add(ComentarioMapper.toResponseDTO(comentario));
+        }
+
+        return ResponseEntity.ok(comentariosDTO);
+    }
+
+    @GetMapping(params = "usuarioId")
+    public ResponseEntity<List<ComentarioResponseDTO>> readByUsuarioId(@RequestParam Integer usuarioId) {
+        List<Comentario> comentariosEntity = comentarioUseCase.readByUsuarioId(usuarioId);
+        List<ComentarioResponseDTO> comentariosDTO = new ArrayList<>();
+        for (Comentario comentario : comentariosEntity) {
+            comentariosDTO.add(ComentarioMapper.toResponseDTO(comentario));
+        }
+
+        return ResponseEntity.ok(comentariosDTO);
+    }
+
+    @PostMapping("/comentario/avaliar")
+    public ResponseEntity<String> avaliarComentarios() {
+        int total = comentarioUseCase.avaliarComentariosPendentes();
+        return ResponseEntity.ok("Total de comentários avaliados: " + total);
+    }
+
 }

@@ -10,4 +10,7 @@ public interface ComentarioUseCase {
     Comentario readComentario(Integer id);
     void updateComentario(Integer id, Comentario comentario);
     void deleteComentario(Integer id);
+    List<Comentario> readByProdutoId(Integer produtoId);
+    List<Comentario> readByUsuarioId(Integer usuarioId);
+    int avaliarComentariosPendentes();
 }

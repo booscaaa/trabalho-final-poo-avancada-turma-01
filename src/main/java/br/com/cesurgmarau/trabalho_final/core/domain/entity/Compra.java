@@ -20,9 +20,6 @@ public class Compra {
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProdutoCompra> produtos;
 
-    public Compra() {
-
-    }
     public Compra(Integer id, LocalDateTime data, Integer valorTotal, Usuario usuario, List<ProdutoCompra> produtos) {
         this.id = id;
         this.data = data;

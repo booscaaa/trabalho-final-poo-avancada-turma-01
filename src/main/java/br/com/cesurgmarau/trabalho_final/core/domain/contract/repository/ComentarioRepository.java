@@ -10,4 +10,7 @@ public interface ComentarioRepository {
     Comentario readComentario(Integer id);
     void updateComentario(Integer id, Comentario comentario);
     void deleteComentario(Integer id);
+    List<Comentario> readComentarioByNullSentimento();
+    List<Comentario> findByProdutoId(Integer produtoId);
+    List<Comentario> findByUsuarioId(Integer usuarioId);
 }

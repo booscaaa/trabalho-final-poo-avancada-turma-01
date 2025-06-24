@@ -13,7 +13,6 @@ public class ComentarioRequestDTO {
     @NotNull(message = "O campo 'produto id' é obrigatório.")
     private Integer produtoId;
 
-    @NotNull(message = "O campo 'sentimento' é obrigatório.")
     private Integer sentimento;
 
     public ComentarioRequestDTO(String texto, Integer usuarioId, Integer produtoId, Integer sentimento) {
