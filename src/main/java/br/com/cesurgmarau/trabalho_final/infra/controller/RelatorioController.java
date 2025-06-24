@@ -28,6 +28,7 @@ public class RelatorioController {
 
     @GetMapping("/relatorio/produto/{id}")
     public String mediaSentimentosPorProduto(@PathVariable int id) {
+        System.out.println(id);
         int media = relatorioUseCase.calcularMediaSentimentos(id);
         return relatorioUseCase.classificaPorMedia(media);
     }

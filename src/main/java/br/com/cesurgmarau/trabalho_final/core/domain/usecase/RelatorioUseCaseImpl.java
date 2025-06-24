@@ -27,10 +27,12 @@ public class RelatorioUseCaseImpl implements RelatorioUseCase {
 
     @Override
     public int calcularMediaSentimentos(int idProduto) {
+        System.out.println(idProduto);
         List<String> sentimentos = relatorioSentimentoRepository.totalSentimentosByProduct(idProduto);
         double soma = 0.0;
         for (int i = 0; i < sentimentos.size(); i++) {
             Integer valor = Sentimento.getNumeroSentimento(sentimentos.get(i));
+            System.out.println(valor);
             soma += valor;
         }
         return (int) Math.round(soma/sentimentos.size());
