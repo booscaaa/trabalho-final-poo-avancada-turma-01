@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RelatorioDestaqueImpl implements RelatorioDestaqueUsecase {
+public class RelatorioDestaqueUsecaseImpl implements RelatorioDestaqueUsecase {
 
     private final ComentarioRepository comentarioRepository;
 
-    public RelatorioDestaqueImpl(ComentarioRepository comentarioRepository) {
+    public RelatorioDestaqueUsecaseImpl(ComentarioRepository comentarioRepository) {
         this.comentarioRepository = comentarioRepository;
     }
 
