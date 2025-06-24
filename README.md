@@ -1,181 +1,166 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
 
-## 🎯 Objetivo
+# 💬 Projeto de API de Comentários com Análise de Sentimento (GPT)
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
-
----
-
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
-
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+Este projeto é uma API RESTful desenvolvida com **Java 23** e **Spring Boot 3.4.5**, voltada para o gerenciamento de comentários de produtos. A API permite que os comentários sejam analisados com ajuda da inteligência artificial do ChatGPT, atribuindo um valor de sentimento de **0 a 4**, representando o quão positivo é o comentário.
 
 ---
 
-## ✅ Funcionalidades obrigatórias
+## ⚙️ Tecnologias Utilizadas
 
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+- Java 23
+- Spring Boot 3.4.5
+- PostgreSQL
+- Maven
+- OpenAI GPT-3.5 API
+- dotenv-java (para variáveis de ambiente)
+- HTTP Client do Java 11+
 
 ---
 
-## 📚 Aplicação dos Princípios SOLID
+## 📂 Estrutura do Projeto
 
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
-
----
-
-## ✅ Requisitos mínimos de entrega
-
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
-
----
-
-### 📌 Estrutura e Organização
-
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
-
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
-
----
-
-### 📌 Endpoints obrigatórios
-
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
-
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
-
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
-
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
+```
+trabalho_final/
+├── core/
+│   ├── domain/
+│   │   ├── entity/
+│   │   ├── enums/
+│   │   ├── contract/
+│   │   │   ├── controller/
+│   │   │   ├── gateway/
+│   │   │   ├── repository/
+│   │   │   └── usecase/
+│   ├── dto/
+│   │   ├── request/
+│   │   └── response/
+│   ├── usecase/
+│   └── mapper/
+├── global/
+├── resources/
+├── infra/
+│   ├── controller/
+│   ├── database/
+│   └── gateway/
+```
 
 ---
 
-### 📌 Regras de Negócio
+## 🔐 Configuração da API Key (OpenAI)
 
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
-
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
+```
+OPENAI_API_KEY=sk-xxxxxxx
+```
 
 ---
 
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
+## 🧪 Endpoints da API
+
+### 🗨️ Comentários
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `POST` | `/comentario` | Criar um novo comentário |
+| `GET`  | `/comentario` | Listar todos os comentários |
+| `GET`  | `/comentario/{id}` | Buscar comentário por ID |
+| `PUT`  | `/comentario/{id}` | Atualizar um comentário |
+| `DELETE` | `/comentario/{id}` | Remover um comentário |
+| `GET` | `/comentario?produtoId=1` | Listar por produto |
+| `GET` | `/comentario?usuarioId=1` | Listar por usuário |
+| `POST` | `/comentario/avaliar` | Avalia todos os comentários pendentes com o GPT |
 
 ---
 
-## 📌 Observações
+### 🛒 Compras
 
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
+| Método   | Rota             | Descrição                          |
+|----------|------------------|------------------------------------|
+| `POST`   | `/compra`        | Criar uma nova compra              |
+| `GET`    | `/compra`        | Listar todas as compras            |
+| `GET`    | `/compra/{id}`   | Buscar uma compra por ID           |
+| `PUT`    | `/compra/{id}`   | Atualizar uma compra existente     |
+| `DELETE` | `/compra/{id}`   | Remover uma compra por ID          |
 
 ---
 
-## 📋 Requisitos do GitHub
+### 🛍️ Produtos
 
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
+| Método   | Rota             | Descrição                      |
+|----------|------------------|--------------------------------|
+| `POST`   | `/produto`       | Criar um novo produto          |
+| `GET`    | `/produto`       | Listar todos os produtos       |
+| `GET`    | `/produto/{id}`  | Buscar um produto por ID       |
+| `PUT`    | `/produto/{id}`  | Atualizar um produto existente |
+| `DELETE` | `/produto/{id}`  | Remover um produto por ID      |
 
 ---
 
-## ✅ Critérios de Avaliação
+### 👤 Usuários
 
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
+| Método   | Rota             | Descrição                      |
+|----------|------------------|--------------------------------|
+| `POST`   | `/usuario`       | Criar um novo usuário          |
+| `GET`    | `/usuario`       | Listar todos os usuários       |
+| `GET`    | `/usuario/{id}`  | Buscar um usuário por ID       |
+| `PUT`    | `/usuario/{id}`  | Atualizar um usuário existente |
+| `DELETE` | `/usuario/{id}`  | Remover um usuário por ID      |
 
 ---
 
-## 🚫 Sobre Comentários no Código
+### 📊 Relatórios
 
-**Não serão aceitos comentários no código-fonte.**
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `GET` | `/relatorios/sentimentos` | Total de comentários por sentimento |
+| `GET` | `/relatorios/produtos` | Média de sentimento por produto |
+| `GET` | `/relatorios/usuarios` | Ranking de usuários mais ativos |
 
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
+---
 
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
+## 🔄 Sentimento
 
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
+O sentimento retornado pela IA segue a seguinte escala:
 
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
+| Valor | Significado |
+|-------|-------------|
+| 0     | Muito negativo |
+| 1     | Negativo |
+| 2     | Neutro |
+| 3     | Positivo |
+| 4     | Muito positivo |
 
-Comunique-se **através do seu código**.
+---
 
+## 🧠 Como funciona a análise de sentimento?
 
+1. A rota `/comentario/avaliar` coleta todos os comentários com campo `sentimento` nulo.
+2. Para cada um, envia o texto do comentário para a API do ChatGPT.
+3. A IA responde com um número de **0 a 4**, que é salvo no banco como `sentimento`.
+
+---
+
+## 🛠️ Como executar o projeto
+
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-projeto.git
+   ```
+2. Configure o arquivo `.env` com sua chave da OpenAI.
+3. Crie um banco PostgreSQL e configure as variáveis do `application.properties` ou `application.yml`.
+4. Execute o projeto via Maven:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+---
+
+## 👥 Créditos
+
+- Leonardo Benedetti Antunes
+
+---
+
+## 📄 Licença
+
+Este projeto é apenas para fins educacionais.

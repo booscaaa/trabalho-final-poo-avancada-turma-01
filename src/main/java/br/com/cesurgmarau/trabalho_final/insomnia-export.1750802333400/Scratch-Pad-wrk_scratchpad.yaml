@@ -1,0 +1,717 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1740252130896
+  modified: 1740252130896
+  description: ""
+collection:
+  - name: Trabalho Final Spring
+    meta:
+      id: fld_af4f76e1cb784b40906856b6f67b424e
+      created: 1750207515181
+      modified: 1750802153486
+      sortKey: -1750207515181
+      description: ""
+    children:
+      - name: Comentario
+        meta:
+          id: fld_3bd3628cbd494d7ba67c6255448e6fd5
+          created: 1750207587804
+          modified: 1750207587804
+          sortKey: -1750207587804
+          description: ""
+        children:
+          - url: " http://localhost:8080/comentario"
+            name: Post comentario
+            meta:
+              id: req_d0be049aa8984edcaa33de74e34b2437
+              created: 1750207520409
+              modified: 1750790746077
+              isPrivate: false
+              description: ""
+              sortKey: -1750207591705
+            method: POST
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "texto": "Produto asdsadsa!",
+                  "usuarioId": 12,
+                  "produtoId": 7
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/comentario"
+            name: Get comentarios
+            meta:
+              id: req_f92e818bdc244f7aba55dee3af7ee60b
+              created: 1750207679912
+              modified: 1750208062750
+              isPrivate: false
+              description: ""
+              sortKey: -1750207679912
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/comentario/5"
+            name: Get comentarios
+            meta:
+              id: req_9bb1df1a66b64018931f2a2529d30f38
+              created: 1750207688212
+              modified: 1750790782219
+              isPrivate: false
+              description: ""
+              sortKey: -1750207688212
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/comentario/5"
+            name: Put comentario
+            meta:
+              id: req_4abe32d62b744095bbf60b47a245d6f6
+              created: 1750207696150
+              modified: 1750790814657
+              isPrivate: false
+              description: ""
+              sortKey: -1750207696150
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "texto": "AOBA",
+                  "usuarioId": 11,
+                  "produtoId": 6,
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/comentario/5"
+            name: Delete comentario
+            meta:
+              id: req_cd6a3e7a8e1749a99a2ce2e6f23801de
+              created: 1750207707515
+              modified: 1750790853344
+              isPrivate: false
+              description: ""
+              sortKey: -1750207707515
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8080/comentario/avaliar
+            name: Post sentimento
+            meta:
+              id: req_5939d9555c40473d808ae2d7fcaf36b7
+              created: 1750776704235
+              modified: 1750788148804
+              isPrivate: false
+              description: ""
+              sortKey: -1750785111153
+            method: POST
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8080/comentario?usuarioId=12
+            name: Get comentarios por usuário
+            meta:
+              id: req_22e0cb5ef90448aa8b3640f9b60ba1f0
+              created: 1750785105440
+              modified: 1750790890369
+              isPrivate: false
+              description: ""
+              sortKey: -1750785105440
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8080/comentario?produtoId=6
+            name: Get comentarios por produto
+            meta:
+              id: req_e6ead86c00c246d1a2d5daa74117c583
+              created: 1750785111053
+              modified: 1750791041996
+              isPrivate: false
+              description: ""
+              sortKey: -1750785111053
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Compra
+        meta:
+          id: fld_81fd3504a5dd4ca6824165a6abdcb0c2
+          created: 1750207775281
+          modified: 1750207775281
+          sortKey: -1750207775281
+          description: ""
+        children:
+          - url: " http://localhost:8080/compra"
+            name: Post compra
+            meta:
+              id: req_13902d9bf4284ba6918a0387d8965124
+              created: 1750207795983
+              modified: 1750790514832
+              isPrivate: false
+              description: ""
+              sortKey: -1750207795983
+            method: POST
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "valorTotal": 15000,
+                  "usuarioId": 11,
+                  "produtos": [
+                    {
+                      "produtoId": 6,
+                      "quantidade": 2
+                    },
+                    {
+                      "produtoId": 7,
+                      "quantidade": 1
+                    }
+                  ]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/compra"
+            name: Get compras
+            meta:
+              id: req_5289381526f447d0ab78cf68f3889e67
+              created: 1750207834737
+              modified: 1750208096344
+              isPrivate: false
+              description: ""
+              sortKey: -1750207834737
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/compra/4"
+            name: Get compra
+            meta:
+              id: req_1d8cab04d4884a5a932ddf2286de0615
+              created: 1750207848292
+              modified: 1750790539448
+              isPrivate: false
+              description: ""
+              sortKey: -1750207848292
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/compra/4"
+            name: Put compra
+            meta:
+              id: req_3fc16bf8b020420f8f2028b843cba1fe
+              created: 1750207862839
+              modified: 1750790596210
+              isPrivate: false
+              description: ""
+              sortKey: -1750207862839
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "valorTotal": 150000,
+                  "usuarioId": 11,
+                  "produtos": [
+                    {
+                      "produtoId": 6,
+                      "quantidade": 10
+                    },
+                    {
+                      "produtoId": 7,
+                      "quantidade": 15
+                    }
+                  ]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/compra/5"
+            name: Delete compra
+            meta:
+              id: req_d6f2194604ae465f9a08389b9df0e668
+              created: 1750207873574
+              modified: 1750790619326
+              isPrivate: false
+              description: ""
+              sortKey: -1750207873574
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Produto
+        meta:
+          id: fld_0e7bfdca71f34695b39f11fb8a129e91
+          created: 1750207897192
+          modified: 1750207897192
+          sortKey: -1750207897192
+          description: ""
+        children:
+          - url: " http://localhost:8080/produto"
+            name: Post produto
+            meta:
+              id: req_aff39ddacb90480186778fbd030e31e6
+              created: 1750207912276
+              modified: 1750689203182
+              isPrivate: false
+              description: ""
+              sortKey: -1750207912276
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Camiseta Básica",
+                  "valorUnitario": 4990,
+                  "unidade": 1,
+                  "descricao": "Camiseta de algodão, tamanho M, cor preta",
+                  "quantidade": 50
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/produto"
+            name: Get produtos
+            meta:
+              id: req_183c43c4e7de45e5b0bcb22099357daa
+              created: 1750207925694
+              modified: 1750208191954
+              isPrivate: false
+              description: ""
+              sortKey: -1750207925694
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/produto/5"
+            name: Get produto
+            meta:
+              id: req_3de501a3489b4bde8bbef6bed5c95d9a
+              created: 1750207929691
+              modified: 1750790374808
+              isPrivate: false
+              description: ""
+              sortKey: -1750207929691
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/produto/7"
+            name: Put produto
+            meta:
+              id: req_78fa77912aba47f38571fe8281dc94c4
+              created: 1750207950608
+              modified: 1750790480536
+              isPrivate: false
+              description: ""
+              sortKey: -1750207950608
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "A",
+                  "valorUnitario": 2000,
+                  "unidade": 2,
+                  "descricao": "B",
+                  "quantidade": 5
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/produto/5"
+            name: Delete produto
+            meta:
+              id: req_37c27706fb1c48f087d9f326ec156eb3
+              created: 1750207962520
+              modified: 1750790389018
+              isPrivate: false
+              description: ""
+              sortKey: -1750207962520
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Usuario
+        meta:
+          id: fld_0317ffb792fc433486e8f8d9c1fe8f49
+          created: 1750207981342
+          modified: 1750207981342
+          sortKey: -1750207981342
+          description: ""
+        children:
+          - url: " http://localhost:8080/usuario"
+            name: Post usuario
+            meta:
+              id: req_f32206d545ce49afb036c96581666afb
+              created: 1750207984041
+              modified: 1750357390988
+              isPrivate: false
+              description: ""
+              sortKey: -1750207984041
+            method: POST
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "nome": "João Silva",
+                  "senha": "senhaSegura123!",
+                  "email": "joao.silva@email.com"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/usuario"
+            name: Get usuarios
+            meta:
+              id: req_fda4de2f3e5148ba8d95f89b7a50aae3
+              created: 1750208002407
+              modified: 1750208148513
+              isPrivate: false
+              description: ""
+              sortKey: -1750208002407
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/usuario/10"
+            name: Get usuario
+            meta:
+              id: req_064f425e14e4448baeecfcbb1dc90ed3
+              created: 1750208007194
+              modified: 1750790268518
+              isPrivate: false
+              description: ""
+              sortKey: -1750208007194
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/usuario/10"
+            name: Put usuario
+            meta:
+              id: req_49f795448f92474c8298467ebc4241f7
+              created: 1750208019762
+              modified: 1750790283106
+              isPrivate: false
+              description: ""
+              sortKey: -1750208019762
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |
+                {
+                  "nome": "A",
+                  "senha": "B",
+                  "email": "C"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/usuario/10"
+            name: Delete usuario
+            meta:
+              id: req_6ba353b0652d4036b2d6183706107235
+              created: 1750208027155
+              modified: 1750790294517
+              isPrivate: false
+              description: ""
+              sortKey: -1750208027155
+            method: DELETE
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Relatorio
+        meta:
+          id: fld_7d630a99e18c4a8b9f23f60578e7c526
+          created: 1750786026121
+          modified: 1750786026121
+          sortKey: -1750786026121
+          description: ""
+        children:
+          - url: " http://localhost:8080/relatorio/usuarios"
+            name: Get relatorio Usuario
+            meta:
+              id: req_fd0d115612914adb9314c17a95c38c65
+              created: 1750786047945
+              modified: 1750791158661
+              isPrivate: false
+              description: ""
+              sortKey: -1750786047945
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/relatorio/produtos"
+            name: Get relatorio Produto
+            meta:
+              id: req_25f2cc9c20dd4e8cbd7dfb8649e9405d
+              created: 1750786051335
+              modified: 1750791135998
+              isPrivate: false
+              description: ""
+              sortKey: -1750786051335
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: " http://localhost:8080/relatorio/sentimentos"
+            name: Get Relatorio Sentimento
+            meta:
+              id: req_35d5cded9df74a1e91e41fc0862cce35
+              created: 1750786053972
+              modified: 1750791115882
+              isPrivate: false
+              description: ""
+              sortKey: -1750786053972
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.2.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1740252149167
+    modified: 1740252149167
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1740252148863
+    modified: 1740252148863
+    isPrivate: false
