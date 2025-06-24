@@ -10,7 +10,11 @@ import java.util.List;
 @Service
 public class ProdutoUseCaseImpl implements ProdutoUseCase {
 
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
+
+    public ProdutoUseCaseImpl(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
 
     @Override
     public void insert(Produto produto) {
@@ -37,3 +41,4 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         return produtoRepository.get(id);
     }
 }
+

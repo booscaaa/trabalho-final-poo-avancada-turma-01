@@ -15,6 +15,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     @Autowired
     private EntityManager entityManager;
 
+    @Override
     @Transactional
     public void insert(Usuario usuario) {
         var query = """
@@ -26,31 +27,30 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .setParameter("email", usuario.getEmail())
                 .executeUpdate();
     }
-
+    @Override
     @Transactional
     public void update(int id, Usuario usuario) {
         var query = """
                 UPDATE usuario SET nome = :nome, email = :email
                 WHERE id = :id;
                 """;
-        entityManager.createNativeQuery(query, Usuario.class)
+        entityManager.createNativeQuery(query)
                 .setParameter("nome", usuario.getNome())
                 .setParameter("email", usuario.getEmail())
                 .executeUpdate();
 
     }
-
+    @Override
     @Transactional
     public void delete(int id) {
         var query = """
                 DELETE FROM usuario WHERE id = :id;
                 """;
-        entityManager.createNativeQuery(query, Usuario.class)
+        entityManager.createNativeQuery(query)
                 .setParameter("id", id)
                 .executeUpdate();
     }
-
-    @Transactional
+    @Override
     public List fetch() {
         var query = """
                 SELECT id, nome, email FROM usuario;
@@ -59,7 +59,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                 .getResultList();
     }
 
-    @Transactional
+    @Override
     public Usuario get(int id) {
         var query = """
                 SELECT id, nome, email FROM usuario WHERE id = :id;
