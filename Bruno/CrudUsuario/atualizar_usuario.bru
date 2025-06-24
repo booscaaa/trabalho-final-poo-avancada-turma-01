@@ -1,0 +1,18 @@
+meta {
+  name: atualizar_usuario
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8080/usuario/8
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome":"Quintilhano",
+    "idade":90
+  }
+}

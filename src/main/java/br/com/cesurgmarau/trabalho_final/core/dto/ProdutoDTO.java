@@ -2,13 +2,13 @@ package br.com.cesurgmarau.trabalho_final.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class UsuarioDTO {
+public class ProdutoDTO {
     private String nome;
-    private int idade;
+    private double valor;
+    private String descricao;
 }

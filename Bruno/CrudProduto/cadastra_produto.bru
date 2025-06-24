@@ -1,0 +1,19 @@
+meta {
+  name: cadastra_produto
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/produto
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome":"Lorenzo23",
+    "valor":1.50,
+    "descricao":"nao trabalha"
+  }
+}
