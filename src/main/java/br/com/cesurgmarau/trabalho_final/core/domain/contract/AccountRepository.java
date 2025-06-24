@@ -10,6 +10,4 @@ public interface AccountRepository {
     public void delete(int accountID);
     public Account getByID(int accountID);
     public List<Account> fetch();
-
-    //public List<Account> fetch
 }

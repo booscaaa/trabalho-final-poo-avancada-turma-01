@@ -25,7 +25,7 @@ public class Review {
     @Column(name = "comment")
     private String comment;
 
-    @JsonProperty("account_name")
+    @JsonProperty("accountName")
     private String accountName;
 
     private String product;

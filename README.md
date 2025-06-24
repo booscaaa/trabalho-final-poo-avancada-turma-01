@@ -1,181 +1,140 @@
-# 💻 Trabalho Final - Java Avançado com Spring Boot e SOLID
+# 💻 Sistema de Análise de Sentimentos em Comentários de Produtos com IA Brasileira.
 
-## 🎯 Objetivo
+![](https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,format=auto,onerror=redirect,quality=80/uploads/asset/file/7c810313-5150-49ba-8c7d-7fa5971bbb65/maritaca-ai-4-1920x1080.png?t=1743194476)
 
-Desenvolver uma **API RESTful individual** utilizando **Spring Boot**, aplicando **todos os princípios do SOLID** na prática, com foco em qualidade de código, arquitetura limpa e integração com uma **API de Inteligência Artificial gratuita** para análise de sentimentos em comentários.
+## 📖 Descrição do Projeto
 
----
-
-## 💡 Tema: Sistema de Análise de Sentimentos em Comentários de Produtos
-
-A aplicação deve permitir que usuários publiquem comentários sobre produtos e, ao enviar o comentário, a API realiza uma **análise de sentimento** (positivo, negativo ou neutro) utilizando uma **IA gratuita**. O resultado será armazenado e poderá ser consultado via endpoints específicos.
+Este projeto é uma API REST desenvolvida em Java com Spring Boot, focada na análise de sentimentos em comentários de produtos. Usuários podem cadastrar-se, criar produtos e enviar comentários, que são automaticamente avaliados por uma IA (Maritaca AI) para identificar o sentimento e a qualidade do texto. O sistema armazena essas informações e oferece endpoints para consulta, filtragem e relatórios estatísticos.
 
 ---
 
-## ✅ Funcionalidades obrigatórias
+## 🚀 Como Rodar o Projeto
 
-- Cadastro de usuários
-- CRUD de produtos
-- CRUD de comentários
-- Integração com uma API de IA gratuita para análise de sentimento
-- Armazenamento do sentimento junto com o comentário
-- Filtros para buscar comentários por:
-  - Produto
-  - Sentimento
-  - Usuário
+1. **Pré-requisitos**:
+   - Java 17 ou superior (recomendado Java 24) ☕
+   - PostgreSQL em execução (recomendo fazer o download do [PgAdmin4](https://www.pgadmin.org/download/) ou utilizar uma conexão com o [Supabase](https://supabase.com/)) 🐘
+   - Chave da API da [MARITACA AI](https://www.maritaca.ai/) 🦜
+   - IntelliJ IDEA (recomendado) 
 
----
+2. **Configuração**:
+   - Clone o repositório.
+   - Crie um arquivo chamado `.env` na raiz do projeto com as variáveis de ambiente, siga a estrutura do arquivo [`example.env`](example.env).
+   - Certifique-se de que as variáveis fora configuradas corretamente
+   - Crie as tabelas no banco de dados disponíveis em [`00001_create_initial_state_database.sql`](db/migrations/00001_create_initial_state_database.sql) 
 
-## 📚 Aplicação dos Princípios SOLID
-
-| Princípio | Aplicação Esperada |
-|----------|--------------------|
-| **S** - Single Responsibility | Separação clara de responsabilidades em serviços, controladores e repositórios |
-| **O** - Open/Closed           | Possibilidade de extensão do sistema sem modificar classes existentes |
-| **L (se aplicavel)** - Liskov Substitution   | Uso adequado de herança e interfaces substituíveis |
-| **I** - Interface Segregation | Interfaces coesas e específicas para cada contexto |
-| **D** - Dependency Inversion  | Uso de abstrações e injeção de dependências corretamente aplicada |
+3. **Execução**:
+   - Abra o projeto no IntelliJ IDEA.
+   - Aguarde o carregamento das dependências Maven.
+   - Execute a classe [`br.com.cesurgmarau.trabalho_final.TrabalhoFinalApplication`](src/main/java/br/com/cesurgmarau/trabalho_final/TrabalhoFinalApplication.java) como uma aplicação Spring Boot.
+   - A API estará disponível em `http://localhost:8080`.
 
 ---
 
-## ✅ Requisitos mínimos de entrega
+## 🛠️ Como Usar os Endpoints
 
-A seguir estão os requisitos mínimos que **devem obrigatoriamente estar presentes** no projeto entregue. Cada item será avaliado na apresentação final:
+💡**Dica:** Utilize um Cliente HTTP (Insomnia, Postman, Bruno...) para executar as rotas da API, com essas ferramentas você pode criar uma request através de um comando `cURL`.
 
----
+### Usuários
 
-### 📌 Estrutura e Organização
+- **Criar usuário**
+  ```sh
+  curl -X POST http://localhost:8080/account -H "Content-Type: application/json" -d '{"username":"user1","name":"Usuário 1"}'
+  ```
+- **Buscar usuário por ID**
+  ```sh
+  curl http://localhost:8080/account/1
+  ```
+- **Listar todos os usuários**
+  ```sh
+  curl http://localhost:8080/account
+  ```
+- **Atualizar usuário**
+  ```sh
+  curl -X PUT http://localhost:8080/account/1 -H "Content-Type: application/json" -d '{"username":"user1","name":"Novo Nome"}'
+  ```
+- **Remover usuário**
+  ```sh
+  curl -X DELETE http://localhost:8080/account/1
+  ```
 
-- **Menu funcional via endpoints organizados**  
-  A API deve apresentar endpoints REST bem definidos, com verbos HTTP apropriados (`GET`, `POST`, `PUT`, `DELETE`) e rotas intuitivas.
+### Produtos
 
-- **Código limpo, organizado e comentado**  
-  Uso de camadas (controller, usecase, repository), separação de responsabilidades e comentários explicativos nas partes mais relevantes da lógica.
+- **Criar produto**
+  ```sh
+  curl -X POST http://localhost:8080/product -H "Content-Type: application/json" -d '{"name":"Produto X","price":100,"description":"Descrição"}'
+  ```
+- **Buscar produto por ID**
+  ```sh
+  curl http://localhost:8080/product/1
+  ```
+- **Listar todos os produtos**
+  ```sh
+  curl http://localhost:8080/product
+  ```
+- **Atualizar produto**
+  ```sh
+  curl -X PUT http://localhost:8080/product/1 -H "Content-Type: application/json" -d '{"name":"Produto Y","price":150,"description":"Nova descrição"}'
+  ```
+- **Remover produto**
+  ```sh
+  curl -X DELETE http://localhost:8080/product/1
+  ```
 
----
+### Comentários
 
-### 📌 Endpoints obrigatórios
+- **Enviar comentário (com análise automática)**
+  ```sh
+  curl -X POST http://localhost:8080/review -H "Content-Type: application/json" -d '{"accountID":1,"productID":1,"comment":"Ótimo produto, recomendo!"}'
+  ```
+- **Buscar comentário por ID**
+  ```sh
+  curl http://localhost:8080/review/1
+  ```
+- **Listar todos os comentários**
+  ```sh
+  curl http://localhost:8080/review
+  ```http://localhost:8080/review?productID=1
+- **Filtrar por produto**
+  ```sh
+  curl http://localhost:8080/review?productID=1
+  ```
+- **Filtrar por usuário**
+  ```sh
+  curl http://localhost:8080/review?accountID=1
+  ```
+- **Filtrar por sentimento**
+  ```sh
+  curl http://localhost:8080/review?classification=RUIM
+  ```
 
-#### 🧑 Usuários
-- `POST /usuarios` — Cadastrar novo usuário  
-- `GET /usuarios/{id}` — Buscar usuário por ID  
-- `GET /usuarios` — Listar todos os usuários  
-- `PUT /usuarios/{id}` — Atualizar dados do usuário  
-- `DELETE /usuarios/{id}` — Remover usuário
+### Relatórios
 
-#### 📦 Produtos
-- `POST /produtos` — Cadastrar novo produto  
-- `GET /produtos/{id}` — Buscar produto por ID  
-- `GET /produtos` — Listar todos os produtos  
-- `PUT /produtos/{id}` — Atualizar informações do produto  
-- `DELETE /produtos/{id}` — Remover produto
+- **Total de comentários por sentimento**
+  ```sh
+  curl http://localhost:8080/report/classification
+  ```
+- **Classificações por produto**
+  ```sh
+  curl http://localhost:8080/report/product
+  ```
+- **Ranking de usuários mais ativos**
+  ```sh
+  curl http://localhost:8080/report/account
+  ```
+- **Visão geral do sistema**
+  ```sh
+  curl http://localhost:8080/report/general
+  ```
 
-#### 💬 Comentários
-- `POST /comentarios` — Enviar comentário (com análise automática do sentimento)  
-- `GET /comentarios` — Listar todos os comentários  
-- `GET /comentarios/{id}` — Buscar comentário por ID  
-- `GET /comentarios?produtoId=1` — Filtrar por produto  
-- `GET /comentarios?usuarioId=1` — Filtrar por usuário  
-- `GET /comentarios?sentimento=positivo` — Filtrar por sentimento
+## 🧩 Aplicação dos Princípios SOLID
 
-#### 📊 Relatórios
-- `GET /relatorios/sentimentos` — Retornar total de comentários por sentimento  
-- `GET /relatorios/produtos` — Média de sentimento por produto  
-- `GET /relatorios/usuarios` — Ranking de usuários mais ativos
-
----
-
-### 📌 Regras de Negócio
-
-- **Classificação com pelo menos 5 tipos de sentimentos distintos**  
-  A lógica do sistema deve reconhecer e tratar diferentes nuances de sentimentos, como:
-  - Muito positivo
-  - Positivo
-  - Neutro
-  - Negativo
-  - Muito negativo
-
-- **Sistema de pontuação ou destaque baseado em comentários**  
-  Por exemplo:
-  - Usuários com maior número de comentários positivos podem ser destacados
-  - Produtos com maior número de sentimentos positivos podem ganhar selo de destaque
-
-- **Endpoint de relatório ou agregação**
-  - Um endpoint especial deve retornar estatísticas ou visão geral do sistema
-
----
-
-Esses requisitos representam o **mínimo esperado** para garantir o funcionamento correto e coerente do projeto. Funcionalidades adicionais, criatividade na lógica e documentação caprichada serão valorizadas.
-
----
-
-## 📌 Observações
-
-- A aplicação deve rodar localmente via `Spring Boot`
-- O projeto é individual
-- Criatividade e organização serão valorizadas
-- Atenção à clareza e manutenção do código
-
----
-
-## 🎥 Apresentação do Projeto
-
-Criar slides abordando os seguintes pontos:
-
-- Sua versão única da proposta do sistema
-- Fluxo geral da aplicação (com diagramas ou prints dos endpoints)
-- Como foi feita a integração com a IA
-- Como os princípios do SOLID foram aplicados
-- Principais dificuldades enfrentadas no desenvolvimento
-- Demonstração do sistema em execução (pode ser por curl/Postman/Insomnia/Bruno
-- Melhorias futuras planejadas
-
----
-
-## 📋 Requisitos do GitHub
-
-- Criar uma **branch individual** neste repositório público no GitHub
-- Manter um **histórico de commits claro**, com mensagens descritivas e progressivas
-- Incluir:
-  - Código fonte submetido via **Pull Request**
-  - `README.md` com:
-    - Descrição do projeto
-    - Como rodar o projeto
-    - Como usar os endpoints (ex: curl ou Postman)
-    - Aplicação dos princípios SOLID
-    - Desafios e aprendizados (curto parágrafo)
+- **Single Responsibility Principle (SRP):** Cada classe tem uma responsabilidade única, separando controllers, use cases e repositórios.
+- **Open/Closed Principle (OCP):**  As interfaces permitem extensão de funcionalidades sem modificar implementações existentes.
+- **Liskov Substitution Principle (LSP):** Não foi em sua essência esse princípio.
+- **Interface Segregation Principle (ISP):** Interfaces específicas para cada contexto (ex: `ProductRepository`, `ReviewRepository`).
+- **Dependency Inversion Principle (DIP):** Uso de injeção de dependências do Spring para desacoplar as camadas.
 
 ---
 
-## ✅ Critérios de Avaliação
-
-| Critério                                         | Pontos |
-|--------------------------------------------------|--------|
-| Funcionalidades completas                        | 40     |
-| Aplicação correta dos princípios SOLID           | 30     |
-| Organização e clareza do código                  | 15     |
-| Documentação (README, curl/Postman/Insomnia/Bruno e apresentação)    | 15     |
-| **Total**                                        | **100**|
-
----
-
-## 🚫 Sobre Comentários no Código
-
-**Não serão aceitos comentários no código-fonte.**
-
-O objetivo deste trabalho é avaliar sua capacidade de escrever **código limpo, autoexplicativo e bem estruturado**, utilizando boas práticas de nomenclatura, separação de responsabilidades e organização em camadas.
-
-> Se for necessário explicar uma regra de negócio, fluxo ou decisão de projeto, isso deve estar documentado no `README.md`, não dentro do código.
-
-Seu código será avaliado por:
-- **Nomes de variáveis, funções e classes claros e semânticos**
-- **Arquitetura bem definida e separação de responsabilidades**
-- **Fluxo de execução compreensível sem necessidade de comentários**
-
-Evite:
-- Comentários como `// salva no banco` ou `// faz a verificação`
-- Comentários redundantes explicando o óbvio
-
-Comunique-se **através do seu código**.
-
-
+## 💡 Desafios e Aprendizados
+Tive vários desafios nesse projeto; acredito que os principais foram a questão da conexão com a IA, organização do projeto - principalmente em relação as rotas de relatórios - e aplicação dos princípios SOLID. Mas, em resumo aprendi muitas coisas durante o desenvolvimento do projeto como: melhores formas de se estruturar um projeto e como utilizar um serviço de terceiro em uma aplicação Spring Boot.

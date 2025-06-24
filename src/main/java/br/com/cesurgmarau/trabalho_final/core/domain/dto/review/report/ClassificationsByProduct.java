@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record ClassificationsByProduct(
         String product,
-        @JsonProperty("muito_bom")
+        @JsonProperty("muitoBom")
         long muitoBom,
         long bom,
         long medio,
         long ruim,
-        @JsonProperty("muito_ruim")
+        @JsonProperty("muitoRuim")
         long muitoRuim,
+        long indefinido,
         long total
 ) {
 }

@@ -6,6 +6,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.dto.review.report.TotalRevi
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReviewUseCase {
     public Review create(Review review);
@@ -21,4 +22,6 @@ public interface ReviewUseCase {
     public List<Review> fetchByProductID(int productID);
     public List<Review> fetchByClassificationName(String classificationName);
     public List<Review> fetchByAccountID(int accountID);
+
+    public Map<String, Object> getSystemStatus();
 }

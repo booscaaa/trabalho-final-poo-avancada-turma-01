@@ -76,15 +76,6 @@ public class ReviewController {
 
     @GetMapping("/report/general")
     public Map<String, Object> getSystemStatus() {
-        Map<String, Object> status = new HashMap<>();
-
-        status.put("reviewsByClassification", reviewUseCase.getTotalReviewsByClassification());
-        status.put("reviewsByProduct", reviewUseCase.getClassificationsByProduct());
-        status.put("reviewsByAccount", reviewUseCase.getTotalReviewByAccount());
-
-        List<Review> allReviews = reviewUseCase.fetch();
-        status.put("totalReviews", allReviews.size());
-
-        return status;
+        return reviewUseCase.getSystemStatus();
     }
 }

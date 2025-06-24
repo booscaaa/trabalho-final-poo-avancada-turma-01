@@ -121,6 +121,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                     COUNT(*) FILTER (WHERE c.name = 'MÉDIO') AS "MÉDIO",
                     COUNT(*) FILTER (WHERE c.name = 'RUIM') AS "RUIM",
                     COUNT(*) FILTER (WHERE c.name = 'MUITO RUIM') AS "MUITO RUIM",
+                    COUNT(*) FILTER (WHERE c.name = 'INDEFINIDO') AS "INDEFINIDO",
                     COUNT(*) AS total
             FROM review r
             JOIN product p ON p.id = r.product_id

@@ -8,7 +8,9 @@ import br.com.cesurgmarau.trabalho_final.core.domain.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReviewUseCaseImpl implements ReviewUseCase {
@@ -115,6 +117,20 @@ public class ReviewUseCaseImpl implements ReviewUseCase {
     @Override
     public List<Review> fetchByAccountID(int accountID) {
         return reviewRepository.fetchByAccountID(accountID);
+    }
+
+    @Override
+    public Map<String, Object> getSystemStatus() {
+        Map<String, Object> status = new HashMap<>();
+
+        status.put("reviewsByClassification", reviewRepository.getTotalReviewsByClassification());
+        status.put("reviewsByProduct", reviewRepository.getClassificationsByProduct());
+        status.put("reviewsByAccount", reviewRepository.getTotalReviewByAccount());
+
+        List<Review> allReviews = reviewRepository.fetch();
+        status.put("totalReviews", allReviews.size());
+
+        return status;
     }
 
 
