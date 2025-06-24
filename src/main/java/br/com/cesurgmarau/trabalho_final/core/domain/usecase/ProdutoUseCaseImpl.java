@@ -4,6 +4,7 @@ import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.ProdutoUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Produto;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     private ProdutoRepository produtoRepository;
 
     @Override
+    @Transactional
     public Produto criarProduto(Produto produto) {
         return produtoRepository.salvar(produto);
     }

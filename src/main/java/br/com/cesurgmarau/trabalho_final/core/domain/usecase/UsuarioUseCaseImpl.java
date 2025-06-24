@@ -3,6 +3,7 @@ package br.com.cesurgmarau.trabalho_final.core.domain.usecase;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioRepository;
 import br.com.cesurgmarau.trabalho_final.core.domain.contract.UsuarioUseCase;
 import br.com.cesurgmarau.trabalho_final.core.domain.entity.Usuario;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
     private UsuarioRepository usuarioRepository;
 
     @Override
+    @Transactional
     public Usuario criarUsuario(Usuario usuario) {
         return usuarioRepository.salvar(usuario);
     }
